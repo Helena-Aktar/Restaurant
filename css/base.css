@@ -22,18 +22,18 @@ body {
 }
 
 #header_container {
-  background: #ecc9c9;
+  background: #e3f1e1;
   grid-column: 1 / -1;
 }
 #side_nav_container {
-  background: #cf7e7e;
+  background: #cfebf1;
   grid-column: 1 / 2;
 }
 #core_container {
-  background: #7ebfcf;
+  background: #ced0f0;
   grid-column: 2 / -1;
 }
 #footer_container {
-  background: #c6b3eb;
+  background: #f3e7cd;
   grid-column: 1 / -1;
 }
