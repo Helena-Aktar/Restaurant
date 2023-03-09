@@ -14,17 +14,81 @@
     <!-- ===== Stylesheet ====== -->
     <link rel="stylesheet" href="/css/bootstrap-copy.css" />
     <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/Admin/viewOrders.css">
   </head>
   <body>
     <div id="body_container">
       <div id="header_container" class="text-center">
         <div class="logo">Delici Restaurant</div>
       </div>
-      <div id="side_nav_container" class="text-center">side_nav_container</div>
-      <div id="core_container" class="">core</div>
+      <div id="side_nav_container" class="text-center">
+        <section id="side_nav">
+          <div class="text-start p-3">
+            <p><i class="fa fa-house"></i>Home</p>
+            <p><i class="fa fa-house"></i> Order History</p>
+            <p><i class="fa fa-house"></i></i>Messages</p>
+            <p><i class="fa fa-house"></i></i><i class="bi bi-graph-up-arrow"></i></i>Statistics</p>
+            <p><i class="fa fa-house"></i>Setting</p>
+          </div>
+        </section>
+      </div>
+      <div id="core_container" class="">
+        <section id="order_lists">
+          <div>
+            <h3>Order List</h3>
+            <div class="d-flex justify-content-around text-center">
+              <div class="g-col-6 g-col-md-4 p-3 bg-light rounded-3">
+                <div class="d-flex justify-content-between">
+                  <div class="text-start m-2">
+                    <h4>Order #TN-15</h4>
+                    <p>23 feb 2023, 08.12 PM</p>
+                  </div>
+                  <img class="profile_photo" src="/images/user_icon_1.png" alt="">
+                </div>
+                <div class="d-flex justify-content-around mb-4">
+                  <img class="foodItem_photo me-5" src="/images/dish_1.png" alt="">
+                  <div>
+                    <h4>Vegetable Mixups</h4>
+                    <p>Vegetable Fritters with Egg</p>
+                    <div class="d-flex justify-content-around">
+                      <h4>$5.30</h4>
+                      <h4>Qty: 1</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-around mb-4">
+                  <img class="foodItem_photo me-5" src="/images/dish_1.png" alt="">
+                  <div>
+                    <h4>Vegetable Mixups</h4>
+                    <p>Vegetable Fritters with Egg</p>
+                    <div class="d-flex justify-content-around">
+                      <h4>$5.30</h4>
+                      <h4>Qty:1</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="m-3" style=" height: 1.2px;background: #C1C3CD;"></div>
+                <div class="d-flex justify-content-between">
+                  <div class="text-start">
+                    <p style="font-size: larger;">2 Items</p>
+                    <h3>$10.30</h3>
+                  </div>
+                  <div class="text-center pt-3">
+                    <p class="btn btn-outline-danger"><i style="font-size: 40px;" class="fa-solid fa-xmark"></i></p>
+                    <p class="btn btn-outline-success"><i style="font-size: 40px;" class="fa-solid fa-check"></i></p>
+                  </div>
+                </div>
+              </div>
+              <div class="g-col-6 g-col-md-4 bg-primary">.g-col-6 .g-col-md-4</div>
+              <div class="g-col-6 g-col-md-4 bg-danger">.g-col-6 .g-col-md-4</div>
+            </div>
+          </div>
+        </section>
+      </div>
       <div id="footer_container" class="text-center">footer</div>
     </div>
     <!-- ========= Scripts =========== -->
     <script src="/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.js"></script>
+    <script src="/bootstrap-5.3.0-alpha1-dist/js/bootstrap.js"></script>
   </body>
 </html>

@@ -30,7 +30,7 @@ body {
   grid-column: 1 / 2;
 }
 #core_container {
-  background: #ced0f0;
+  background: gray;
   grid-column: 2 / -1;
 }
 #footer_container {
