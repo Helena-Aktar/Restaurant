@@ -8,3 +8,29 @@
     width: 150px;
     border-radius: 50%;
 }
+#overflow{
+    overflow: scroll;
+    height: 335px;
+    scrollbar-width: none; /* hides scrollbar on Firefox */
+    -ms-overflow-style: none; /*hides scrollbar on IE10+  */
+}
+/* hides scrollbar on Chrome, Safari, and Opera */
+#overflow::-webkit-scrollbar {
+    display: none;
+}
+      
+.Button {
+    color: black;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Green */
+.active {
+    border-color: #e77810;
+    color: white;
+    background-color: #e77810;
+    border: 2px solid #e77810;
+    border-radius: 5%;
+  }
