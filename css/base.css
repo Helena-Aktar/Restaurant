@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap");
+
+:root {
+}
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  border: none;
+}
+body {
+  font-family: "Poppins", sans-serif;
+}
+#body_container {
+  display: grid;
+  grid-template: 1fr auto 1fr / repeat(12, 1fr);
+}
+
+#header_container {
+  background: #ecc9c9;
+  grid-column: 1 / -1;
+}
+#side_nav_container {
+  background: #cf7e7e;
+  grid-column: 1 / 2;
+}
+#core_container {
+  background: #7ebfcf;
+  grid-column: 2 / -1;
+}
+#footer_container {
+  background: #c6b3eb;
+  grid-column: 1 / -1;
+}
