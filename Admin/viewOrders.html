@@ -18,8 +18,15 @@
   </head>
   <body>
     <div id="body_container">
-      <div id="header_container" class="text-center">
+      <div id="header_container" class="text-center d-flex">
         <div class="logo">Delici Restaurant</div>
+        <div class="input-group m-2">
+          <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+        </div>
+        <div>
+          <img style="height: 40xp; width: 40px;" class=" m-2 ms-4" src="/images/user_icon_1.png" alt="">
+        </div>
       </div>
       <div id="side_nav_container" class="text-center">
         <section id="side_nav">
@@ -31,114 +38,110 @@
             />
           </div>
           <div class="text-start p-3" style="font-size: 22px">
-            <p class="Button p-4 active">
+            <p id="home" onclick="active(1)" class="Button p-4 active">
               <i class="fa-solid fa-house me-4"></i>Home
             </p>
-            <p class="Button p-4">
+            <p id="Order_History" onclick="active(2)" class="Button p-4">
               <i class="fa-solid fa-clock-rotate-left me-4"></i>Order History
             </p>
-            <p class="Button p-4">
+            <p id="Messages" onclick="active(3)" class="Button p-4">
               <i class="fa-solid fa-message me-4"></i>Messages
             </p>
-            <p class="Button p-4">
+            <p id="Statistics" onclick="active(4)" class="Button p-4">
               <i class="fa-solid fa-chart-column me-4"></i>Statistics
             </p>
-            <p class="Button p-4">
+            <p id="Setting" onclick="active(5)" class="Button p-4">
               <i class="fa-solid fa-gears me-4"></i>Setting
             </p>
           </div>
         </section>
       </div>
-      <div id="core_container" class="">
+      <div id="core_container_home" class="">
         <section id="order_lists">
           <div>
             <h1 class="ms-5 mt-4 rounded-3 ps-4 mb-2">Order List</h1>
-            <div
-              id="first_row_cards"
-              class="d-flex justify-content-around text-center mb-4"
-            >
-              <div class="g-col-6 g-col-md-3 p-3 bg-white rounded-3">
-                <div class="d-flex justify-content-between">
-                  <div class="text-start m-2">
-                    <h4>Order #TN-15</h4>
-                    <p>23 feb 2023, 08.12 PM</p>
-                  </div>
-                  <img
-                    class="profile_photo"
-                    src="/images/user_icon_1.png"
-                    alt=""
-                  />
-                </div>
-                <div id="overflow" class="">
-                  <div class="d-flex justify-content-around mb-4">
+            <div id="first_row_Cards_In_home" class="d-flex justify-content-around text-center mb-4">
+              <div id="order_list_one" class="g-col-6 g-col-md-3 p-3 bg-white rounded-3">
+                <div id="order_list">
+                  <div class="d-flex justify-content-between">
+                    <div class="text-start m-2">
+                      <h4>Order #TN-15</h4>
+                      <p>23 feb 2023, 08.12 PM</p>
+                    </div>
                     <img
-                      class="foodItem_photo me-5"
-                      src="/images/dish_1.png"
+                      class="profile_photo"
+                      src="/images/user_icon_1.png"
                       alt=""
                     />
-                    <div>
-                      <h4>Vegetable Mixups</h4>
-                      <p>Vegetable Fritters with Egg</p>
-                      <div class="d-flex justify-content-around">
-                        <h4>$5.30</h4>
-                        <h4>Qty: 1</h4>
+                  </div>
+                  <div id="overflow" class="">
+                    <div class="d-flex justify-content-around mb-4">
+                      <img
+                        class="foodItem_photo me-5"
+                        src="/images/dish_1.png"
+                        alt=""
+                      />
+                      <div>
+                        <h4>Vegetable Mixups</h4>
+                        <p>Vegetable Fritters with Egg</p>
+                        <div class="d-flex justify-content-around">
+                          <h4>$5.30</h4>
+                          <h4>Qty: 1</h4>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-around mb-4">
+                      <img
+                        class="foodItem_photo me-5"
+                        src="/images/dish_1.png"
+                        alt=""
+                      />
+                      <div>
+                        <h4>Vegetable Mixups</h4>
+                        <p>Vegetable Fritters with Egg</p>
+                        <div class="d-flex justify-content-around">
+                          <h4>$5.30</h4>
+                          <h4>Qty: 1</h4>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-around mb-4">
+                      <img
+                        class="foodItem_photo me-5"
+                        src="/images/dish_1.png"
+                        alt=""
+                      />
+                      <div>
+                        <h4>Vegetable Mixups</h4>
+                        <p>Vegetable Fritters with Egg</p>
+                        <div class="d-flex justify-content-around">
+                          <h4>$5.30</h4>
+                          <h4>Qty:1</h4>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="d-flex justify-content-around mb-4">
-                    <img
-                      class="foodItem_photo me-5"
-                      src="/images/dish_1.png"
-                      alt=""
-                    />
-                    <div>
-                      <h4>Vegetable Mixups</h4>
-                      <p>Vegetable Fritters with Egg</p>
-                      <div class="d-flex justify-content-around">
-                        <h4>$5.30</h4>
-                        <h4>Qty: 1</h4>
-                      </div>
+                  <div class="m-3" style="height: 1.2px; background: #c1c3cd"></div>
+                  <div class="d-flex justify-content-between">
+                    <div class="text-start">
+                      <p style="font-size: larger">2 Items</p>
+                      <h3>$10.30</h3>
                     </div>
-                  </div>
-                  <div class="d-flex justify-content-around mb-4">
-                    <img
-                      class="foodItem_photo me-5"
-                      src="/images/dish_1.png"
-                      alt=""
-                    />
-                    <div>
-                      <h4>Vegetable Mixups</h4>
-                      <p>Vegetable Fritters with Egg</p>
-                      <div class="d-flex justify-content-around">
-                        <h4>$5.30</h4>
-                        <h4>Qty:1</h4>
-                      </div>
+                    <div class="text-center pt-3">
+                      <p id="reject" onclick="orderselectionone(0)" class="btn btn-outline-danger">
+                        <i
+                          style="font-size: 40px; width: 42px"
+                          class="fa-solid fa-xmark"
+                        ></i>
+                      </p>
+                      <p id="conform" onclick="orderselectionone(1)" class="btn btn-outline-success">
+                        <i style="font-size: 40px" class="fa-solid fa-check"></i>
+                      </p>
                     </div>
-                  </div>
-                </div>
-                <div
-                  class="m-3"
-                  style="height: 1.2px; background: #c1c3cd"
-                ></div>
-                <div class="d-flex justify-content-between">
-                  <div class="text-start">
-                    <p style="font-size: larger">2 Items</p>
-                    <h3>$10.30</h3>
-                  </div>
-                  <div class="text-center pt-3">
-                    <p class="btn btn-outline-danger">
-                      <i
-                        style="font-size: 40px; width: 42px"
-                        class="fa-solid fa-xmark"
-                      ></i>
-                    </p>
-                    <p class="btn btn-outline-success">
-                      <i style="font-size: 40px" class="fa-solid fa-check"></i>
-                    </p>
                   </div>
                 </div>
               </div>
-              <div class="g-col-6 g-col-md-3 p-3 bg-white rounded-3">
+              <div id="order_list_two" class="g-col-6 g-col-md-3 p-3 bg-white rounded-3">
                 <div class="d-flex justify-content-between">
                   <div class="text-start m-2">
                     <h4>Order #TN-15</h4>
@@ -190,13 +193,13 @@
                     <h3>$10.30</h3>
                   </div>
                   <div class="text-center pt-3">
-                    <p class="btn btn-outline-danger">
+                    <p onclick="orderselectiontwo(0)" class="btn btn-outline-danger">
                       <i
                         style="font-size: 40px; width: 42px"
                         class="fa-solid fa-xmark"
                       ></i>
                     </p>
-                    <p class="btn btn-outline-success">
+                    <p onclick="orderselectiontwo(1)" class="btn btn-outline-success">
                       <i style="font-size: 40px" class="fa-solid fa-check"></i>
                     </p>
                   </div>
@@ -550,6 +553,66 @@
             </div>
           </div>
         </section>
+      </div>
+      <div id="core_container_Order-History" class="">
+        <section id="order_lists">
+          <div>
+            <h1 class="ms-5 mt-4 rounded-3 ps-4 mb-2">Order List</h1>
+            <div id="order_Cards_In_History" class="d-flex justify-content-around text-center mb-4">
+              <!-- <div class="g-col-6 g-col-md-3 p-3 bg-white rounded-3">
+                <div class="d-flex justify-content-between">
+                  <div class="text-start m-2">
+                    <h4>Order #TN-15</h4>
+                    <p>23 feb 2023, 08.12 PM</p>
+                  </div>
+                  <img class="profile_photo" src="/images/user_icon_1.png" alt="">
+                </div>
+                <div class="d-flex justify-content-around mb-4">
+                  <img class="foodItem_photo me-5" src="/images/dish_1.png" alt="">
+                  <div>
+                    <h4>Vegetable Mixups</h4>
+                    <p>Vegetable Fritters with Egg</p>
+                    <div class="d-flex justify-content-around">
+                      <h4>$5.30</h4>
+                      <h4>Qty: 1</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-around mb-4">
+                  <img class="foodItem_photo me-5" src="/images/dish_1.png" alt="">
+                  <div>
+                    <h4>Vegetable Mixups</h4>
+                    <p>Vegetable Fritters with Egg</p>
+                    <div class="d-flex justify-content-around">
+                      <h4>$5.30</h4>
+                      <h4>Qty:1</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="m-3" style=" height: 1.2px;background: #C1C3CD;"></div>
+                <div class="d-flex justify-content-between">
+                  <div class="text-start">
+                    <p style="font-size: larger;">2 Items</p>
+                    <h3>$10.30</h3>
+                  </div>
+                  <div class="text-center pt-3">
+                    <p class="btn btn-outline-danger"><i style="font-size: 40px;" class="fa-solid fa-xmark"></i></p>
+                    <p class="btn btn-outline-success"><i style="font-size: 40px;" class="fa-solid fa-check"></i></p>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </section>
+      </div>
+      <div id="core_container_Messages" class="">
+        Messages
+      </div>
+      <div id="core_container_Statistics" class="">
+        Statistics
+      </div>
+      <div id="core_container_Setting" class="">
+        Setting
       </div>
       <div id="footer_container" class="text-center">footer</div>
     </div>
