@@ -1,11 +1,11 @@
-var buttonActive = document.querySelector(".Button");
-console.log(buttonActive);
-buttonActive.addEventListener('click',function(){
-    if(buttonActive=="Button p-4")
-    {
-        buttonActive.classList.add('active');
-    }
-})
+// var buttonActive = document.querySelector(".Button");
+// console.log(buttonActive);
+// buttonActive.addEventListener('click',function(){
+//     if(buttonActive=="Button p-4")
+//     {
+//         buttonActive.classList.add('active');
+//     }
+// })
 
 
 function active(num)
@@ -81,5 +81,35 @@ function active(num)
         buttonMessages.classList.remove('active');
         buttonStatistics.classList.remove('active');
         buttonSetting.classList.add('active');
+    }
+}
+
+// conformOder
+function orderselectionone(num)
+{
+    const parentOrderList = document.getElementById("order_list_one");
+    // const order = document.getElementById("order_list");
+    const orderCardsInHistory = document.getElementById("order_Cards_In_History");
+    console.log("inside fun",parentOrderList);
+    // const firstOrder = document.getElementById("first_order");
+    if (num==1){
+        console.log(1,orderCardsInHistory);
+        var a = orderCardsInHistory.appendChild(parentOrderList);
+        // parentOrderList.style.display="none";
+        console.log(a);
+    }
+}
+function orderselectiontwo(num)
+{
+    const parentOrderList = document.getElementById("order_list_two");
+    // const order = document.getElementById("order_list");
+    const orderCardsInHistory = document.getElementById("order_Cards_In_History");
+    console.log("inside fun",parentOrderList);
+    // const firstOrder = document.getElementById("first_order");
+    if (num==1){
+        console.log(1,orderCardsInHistory);
+        var a = orderCardsInHistory.appendChild(parentOrderList);
+        // parentOrderList.style.display="none";
+        console.log(a);
     }
 }
