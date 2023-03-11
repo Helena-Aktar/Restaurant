@@ -1,3 +1,4 @@
+/* delimiters */
 .delimiter-horizontal {
   height: 1px;
   background: #c1c3cd;
@@ -17,7 +18,16 @@
   /* width: 100%; */
   margin-top: 10px;
 }
+/* end of delimiters  */
 
+
+/* ================= MENU ============ */
+
+.menu-tabs-header-items {
+  position: relative;
+  width: 50%;
+  left: 25%;
+}
 /* .menu-tabs .dish-block .dish-title::before {
   border-bottom: 1px solid black;
   border-top: 1px solid black;
@@ -51,6 +61,7 @@
   /* justify-content: center; */
   /* background: rebeccapurple; */
 }
+/* ================= DISH ============ */
 .dish-block {
   /* background: red; */
   width: 80%;

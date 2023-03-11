@@ -18,9 +18,14 @@
   <body>
     <div id="body_container">
       <!-- =========== HEADER ============= -->
-      <div id="header_container" class="text-center">
+      <div class="d-flex justify-content-center" id="header_container">
+        <div class="navbar__toggle ms-3 me-4 mt-4" id="sidebar-menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
         <!-- ========= LOGO ======== -->
-        <div class="logo d-flex justify-content-center">
+        <div class="logo d-flex">
           <div class="logo_img">
             <img src="/images/logo 1.jpg" class="rounded-3" alt="" />
           </div>
@@ -31,11 +36,29 @@
         </div>
       </div>
       <!-- =========== END OF HEADER ============= -->
-      <div id="side_nav_container" class="text-center">side_nav_container</div>
+
+      <!-- =========== SIDE NAV ============= -->
+      <div class="sidebar-outbox"></div>
+      <div id="side_nav_container" class="text-center">
+        <div class="sidebar__heading d-flex justify-content-between">
+          <h5>Hello, sing in</h5>
+          <span id="sidebar-cross-btn"
+            ><i class="fa-regular fa-circle-xmark"></i
+          ></span>
+        </div>
+        <div class="sidebar__menu-items">
+          <div class="menu-item">
+            <span><i class="fa-solid fa-gear"></i></span>
+            <h5>System Manager</h5>
+          </div>
+        </div>
+      </div>
+      <!-- =========== END OF Side NAV ============= -->
       <div id="core_container" class="">core</div>
       <div id="footer_container" class="text-center">footer</div>
     </div>
     <!-- ========= Scripts =========== -->
+    <script src="/js/base.js"></script>
     <script src="/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.js"></script>
   </body>
 </html>
