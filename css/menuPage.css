@@ -1,3 +1,7 @@
+#core_container {
+  background: #f1f2fc;
+  grid-column: 1 / -1;
+}
 /* delimiters */
 .delimiter-horizontal {
   height: 1px;
@@ -18,14 +22,69 @@
   /* width: 100%; */
   margin-top: 10px;
 }
-/* end of delimiters  */
+/* ========= toggole bar ========== */
+.navbar__toggle .bar {
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  display: block;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background: #101010;
+}
+.navbar__toggle {
+  position: absolute;
+  left: 0;
+  /* z-index: 10; */
+}
 
+/* =============== side nav bar ============= */
+
+.sidebar-outbox {
+  background: #ffffffdc;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: block;
+  z-index: 10;
+  display: none;
+}
+
+#side_nav_container {
+  position: absolute;
+  width: 250px;
+  height: 90%;
+  left: -250px;
+  overflow-y: auto;
+  transition: 0.6s ease;
+  transition-property: left;
+  background: #ffffff;
+  box-shadow: 10px 0 16px -15px;
+  z-index: 100;
+}
+#sidebar-cross-btn {
+  font-size: 22px;
+}
+#side_nav_container.active {
+  left: 0;
+  z-index: 10;
+}
+.sidebar__heading {
+  height: 50px;
+  color: #000000;
+  background: #e8f4f7;
+  padding: 15px;
+}
+.sidebar__menu-items {
+  /* z-index: 100; */
+}
 
 /* ================= MENU ============ */
 
 .menu-tabs-header-items {
   position: relative;
   width: 50%;
+
   left: 25%;
 }
 /* .menu-tabs .dish-block .dish-title::before {
