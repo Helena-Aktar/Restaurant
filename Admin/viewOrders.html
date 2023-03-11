@@ -38,25 +38,25 @@
             />
           </div>
           <div class="text-start p-3" style="font-size: 22px">
-            <p class="Button p-4 active">
+            <p id="home" onclick="active(1)" class="Button p-4 active">
               <i class="fa-solid fa-house me-4"></i>Home
             </p>
-            <p class="Button p-4">
+            <p id="Order_History" onclick="active(2)" class="Button p-4">
               <i class="fa-solid fa-clock-rotate-left me-4"></i>Order History
             </p>
-            <p class="Button p-4">
+            <p id="Messages" onclick="active(3)" class="Button p-4">
               <i class="fa-solid fa-message me-4"></i>Messages
             </p>
-            <p class="Button p-4">
+            <p id="Statistics" onclick="active(4)" class="Button p-4">
               <i class="fa-solid fa-chart-column me-4"></i>Statistics
             </p>
-            <p class="Button p-4">
+            <p id="Setting" onclick="active(5)" class="Button p-4">
               <i class="fa-solid fa-gears me-4"></i>Setting
             </p>
           </div>
         </section>
       </div>
-      <div id="core_container" class="">
+      <div id="core_container_home" class="">
         <section id="order_lists">
           <div>
             <h1 class="ms-5 mt-4 rounded-3 ps-4 mb-2">Order List</h1>
@@ -557,6 +557,18 @@
             </div>
           </div>
         </section>
+      </div>
+      <div id="core_container_Order-History" class="">
+        Order History
+      </div>
+      <div id="core_container_Messages" class="">
+        Messages
+      </div>
+      <div id="core_container_Statistics" class="">
+        Statistics
+      </div>
+      <div id="core_container_Setting" class="">
+        Setting
       </div>
       <div id="footer_container" class="text-center">footer</div>
     </div>
