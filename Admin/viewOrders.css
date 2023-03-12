@@ -2,6 +2,8 @@
 
 :root {
   --color-primary: #ff991c;
+  --card-color: #fff;
+  --message-box-color: #70aee7;
 }
 *,
 *::before,
@@ -41,7 +43,7 @@ body {
   display: none;
 }
 #core_container_Messages {
-  background: #bebec2;
+  background: #e3e3ec;
   grid-column: 3 / -1;
   display: none;
 }
@@ -94,4 +96,13 @@ body {
   background-color: #e77810;
   border: 2px solid #e77810;
   border-radius: 10px;
+}
+#user_message, #single_person_chat_box{
+  overflow: scroll;
+  height: 600px;
+}
+#message_box{
+  border-radius: 5px; 
+  background-color: var(--message-box-color); 
+  color: var(--card-color);
 }
