@@ -19,6 +19,14 @@ sidebarCrossButton.addEventListener("click", function () {
   sidebar.classList.toggle("active");
   sidebarOutbox.style.display = "none";
 });
+//closses modal
+const closeSideBarModal = (event) => {
+  if (event.target.classList.contains("sidebar-outbox")) {
+    sidebarOutbox.style.display = "none";
+    sidebar.classList.toggle("active");
+  }
+};
+sidebarOutbox.addEventListener("click", closeSideBarModal);
 // menu items header text
 const menuHeaderList = document.querySelectorAll(".menu-tabs-header-text");
 const weekdayLunch = document.querySelector("#weekday_lunch");
@@ -41,12 +49,12 @@ menuHeaderList.forEach((item) => {
     item.classList.add("active");
     console.log(item.id);
     if (item.id == "weekday_lunch") {
-      weekdayLunchDishes.style.display = "block";
+      weekdayLunchDishes.style.display = "flex";
       dinnerDishes.style.display = "none";
     } else if (item.id == "dinner") {
       console.log(item.id);
       weekdayLunchDishes.style.display = "none";
-      dinnerDishes.style.display = "block";
+      dinnerDishes.style.display = "flex";
     } else console.log("paynai");
   });
 });
@@ -61,7 +69,57 @@ function rotateIcons() {
     // menuHeaderIcons.style.transform = "rotate(45deg)";
     root.style.setProperty("--menu_header-icons-tranform-deg", i + "deg");
     i += 5;
-    console.log(i);
+    // console.log(i);
   }, 100);
 }
-// rotateIcons();
+rotateIcons();
+
+// show Dish details
+function showDishDetails() {
+  window.location.href = "/viewDetailsDishPage.html";
+}
+
+// serve count
+const serveCount = document.querySelector(".count-number");
+var servingCounter = 0;
+function serveCountMinus() {
+  if (servingCounter > 0) {
+    servingCounter--;
+  }
+
+  console.log(servingCounter);
+  serveCount.innerHTML = servingCounter;
+}
+function serveCountPlus() {
+  servingCounter++;
+  console.log(servingCounter);
+  serveCount.innerHTML = servingCounter;
+}
+
+// show add to cart count
+const addedToCart = document.querySelector(".added_items-count");
+var addedToCartCounter = 0;
+function addToCart() {
+  addedToCartCounter++;
+  addedToCart.innerHTML = addedToCartCounter;
+}
+
+// customized modal
+// order
+const customize = document.querySelector("#customize");
+const orderModal = document.querySelector(".customize-order");
+// order customization
+
+//opens modal
+
+const openOrderModal = () => {
+  orderModal.style.display = "grid";
+};
+customize.addEventListener("click", openOrderModal);
+//closses modal
+const closeOrderModal = (event) => {
+  if (event.target.classList.contains("customize-order")) {
+    orderModal.style.display = "none";
+  }
+};
+orderModal.addEventListener("click", closeOrderModal);
