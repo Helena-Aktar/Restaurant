@@ -183,6 +183,25 @@
 .dish-price {
   color: var(--color-primary);
 }
+.dish-img {
+  width: 101px;
+  height: 101px;
+  overflow: hidden;
+  /* margin: 0 auto; */
+  background: #c1c3cd;
+  border-radius: 15px;
+}
+.dish-img img {
+  width: 100px;
+  height: 100px;
+  transition: 0.4s all ease-in-out;
+}
+.dish-img:hover img {
+  transform: scale(1.2);
+}
+.dish-body p {
+  width: 350px;
+}
 
 .dish-tag {
   background: var(--color-primary);
@@ -254,7 +273,7 @@
   /* color: var(--color-success); */
 }
 
-/* =============== Theme Customization =================== */
+/* =============== Order Customization =================== */
 
 .customize-order {
   background: rgb(255, 255, 255, 0.5);
