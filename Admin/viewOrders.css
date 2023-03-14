@@ -42,6 +42,23 @@ body {
   grid-column: 3 / -1;
   display: none;
 }
+#core_container_Add-food-item {
+  background: #bebec2;
+  grid-column: 3 / -1;
+  display: none;
+}
+#form_card{
+  align-items: center;
+  text-align: center;
+  border: 2px solid rgb(64, 85, 97);
+  width: 80%;
+  height: 380px;
+  padding: 10px 25px 30px 25px;
+  border-radius: 3px;
+  margin: 10px auto 25px;
+  background-color: #c0d3e0;
+  
+}
 #core_container_Messages {
   background: #e3e3ec;
   grid-column: 3 / -1;

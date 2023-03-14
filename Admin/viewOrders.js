@@ -15,15 +15,19 @@ function active(num)
     const Messages =document.getElementById("core_container_Messages");
     const Statistics =document.getElementById("core_container_Statistics");
     const Setting =document.getElementById("core_container_Setting");
+    const AddFoodItem =document.getElementById("core_container_Add-food-item");
+
 
     const buttonHome =document.getElementById("home");
     const buttonOrderHistory =document.getElementById("Order_History");
+    const buttonAddFoodItem =document.getElementById("Add_food_item");
     const buttonMessages =document.getElementById("Messages");
     const buttonStatistics =document.getElementById("Statistics");
     const buttonSetting =document.getElementById("Setting");
     if(num==1){
         home.style.display="block";
         orderHistory.style.display="none";
+        AddFoodItem.style.display="none";
         Messages.style.display="none";
         Statistics.style.display="none";
         Setting.style.display="none";
@@ -32,11 +36,14 @@ function active(num)
         buttonMessages.classList.remove('active');
         buttonStatistics.classList.remove('active');
         buttonSetting.classList.remove('active');
+        buttonAddFoodItem.classList.remove('active');
+        
 
     }
     else if(num==2){ 
         home.style.display="none";
         orderHistory.style.display="block";
+        AddFoodItem.style.display="none";
         Messages.style.display="none";
         Statistics.style.display="none";
         Setting.style.display="none";
@@ -45,39 +52,60 @@ function active(num)
         buttonMessages.classList.remove('active');
         buttonStatistics.classList.remove('active');
         buttonSetting.classList.remove('active');
+        buttonAddFoodItem.classList.remove('active');
     }
     else if(num==3){ 
         home.style.display="none";
         orderHistory.style.display="none";
-        Messages.style.display="block";
+        AddFoodItem.style.display="block";
+        Messages.style.display="none";
         Statistics.style.display="none";
         Setting.style.display="none";
         buttonHome.classList.remove('active');
         buttonOrderHistory.classList.remove('active');
-        buttonMessages.classList.add('active');
+        buttonAddFoodItem.classList.add('active');
+        buttonMessages.classList.remove('active');
         buttonStatistics.classList.remove('active');
         buttonSetting.classList.remove('active');
     }
     else if(num==4){ 
         home.style.display="none";
         orderHistory.style.display="none";
-        Messages.style.display="none";
-        Statistics.style.display="block";
+        AddFoodItem.style.display="none";
+        Messages.style.display="block";
+        Statistics.style.display="none";
         Setting.style.display="none";
         buttonHome.classList.remove('active');
         buttonOrderHistory.classList.remove('active');
-        buttonMessages.classList.remove('active');
-        buttonStatistics.classList.add('active');
+        buttonAddFoodItem.classList.remove('active');
+        buttonMessages.classList.add('active');
+        buttonStatistics.classList.remove('active');
         buttonSetting.classList.remove('active');
     }
     else if(num==5){ 
         home.style.display="none";
         orderHistory.style.display="none";
+        AddFoodItem.style.display="none";
+        Messages.style.display="none";
+        Statistics.style.display="block";
+        Setting.style.display="none";
+        buttonHome.classList.remove('active');
+        buttonOrderHistory.classList.remove('active');
+        buttonAddFoodItem.classList.remove('active');
+        buttonMessages.classList.remove('active');
+        buttonStatistics.classList.add('active');
+        buttonSetting.classList.remove('active');
+    }
+    else if(num==6){ 
+        home.style.display="none";
+        orderHistory.style.display="none";
+        AddFoodItem.style.display="none";
         Messages.style.display="none";
         Statistics.style.display="none";
         Setting.style.display="block";
         buttonHome.classList.remove('active');
         buttonOrderHistory.classList.remove('active');
+        buttonAddFoodItem.classList.remove('active');
         buttonMessages.classList.remove('active');
         buttonStatistics.classList.remove('active');
         buttonSetting.classList.add('active');
