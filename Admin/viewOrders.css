@@ -114,12 +114,13 @@ body {
   border: 2px solid #e77810;
   border-radius: 10px;
 }
-#user_message, #single_person_chat_box{
+#user_message,
+#single_person_chat_box {
   overflow: scroll;
   height: 600px;
 }
-#message_box{
-  border-radius: 5px; 
-  background-color: var(--message-box-color); 
+#message_box {
+  border-radius: 5px;
+  background-color: var(--message-box-color);
   color: var(--card-color);
 }
