@@ -74,13 +74,16 @@
             <p id="Order_History" onclick="active(2)" class="Button p-4">
               <i class="fa-solid fa-clock-rotate-left me-4"></i>Order History
             </p>
-            <p id="Messages" onclick="active(3)" class="Button p-4">
+            <p id="Add_food_item" onclick="active(3)" class="Button p-4">
+              <i class="fa-sharp fa-solid fa-cart-plus me-4"></i>Add Food Item
+            </p>
+            <p id="Messages" onclick="active(4)" class="Button p-4">
               <i class="fa-regular fa-envelope me-4"></i>Messages
             </p>
-            <p id="Statistics" onclick="active(4)" class="Button p-4">
+            <p id="Statistics" onclick="active(5)" class="Button p-4">
               <i class="fa-solid fa-chart-column me-4"></i>Statistics
             </p>
-            <p id="Setting" onclick="active(5)" class="Button p-4">
+            <p id="Setting" onclick="active(6)" class="Button p-4">
               <i class="fa-solid fa-gear me-4"></i>Setting
             </p>
           </div>
@@ -616,6 +619,49 @@
           </div>
         </section>
       </div>
+      <!-- working -->
+      <div id="core_container_Add-food-item" class=" ">
+        <div class="align-items-center">
+          <div id="form_card" class="">
+            <h1>Add New Item</h1>
+            <div class="d-flex">
+              <label class=""> Menu option: </label>
+              <select class="form-control w-75" name="pMenu">
+                <option value="">tushar</option></select
+              ><br />
+            </div>
+            <div class="d-flex justify-content-center">
+              <input
+                class="form-control w-50 me-5"
+                type="text"
+                placeholder="Item Name"
+                required
+              />
+              <input
+                class="form-control w-25"
+                type="number"
+                placeholder="Item price"
+                required
+              /><br />
+            </div>
+            <div>
+              <input
+                class="form-control"
+                type="file"
+                placeholder="Item Name"
+                required
+              /><br />
+              <textarea
+                class="form-control"
+                type="text"
+                placeholder="Item Name"
+                required
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  -->
       <div id="core_container_Messages" class="">
         <div class="row ms-3 mt-3">
           <div
