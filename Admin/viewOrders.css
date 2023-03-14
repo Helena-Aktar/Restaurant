@@ -4,6 +4,7 @@
   --color-primary: #ff991c;
   --card-color: #fff;
   --message-box-color: #70aee7;
+  --bg-primary:#f3c389;
 }
 *,
 *::before,
@@ -50,13 +51,13 @@ body {
 #form_card{
   align-items: center;
   text-align: center;
-  border: 2px solid rgb(64, 85, 97);
-  width: 80%;
-  height: 380px;
+  border: 2px solid var(--color-primary);
+  width: 60%;
+  height: 85%;
   padding: 10px 25px 30px 25px;
-  border-radius: 3px;
+  border-radius: 10px;
   margin: 10px auto 25px;
-  background-color: #c0d3e0;
+  background-color: var(--bg-primary);
   
 }
 #core_container_Messages {
@@ -123,4 +124,16 @@ body {
   border-radius: 5px;
   background-color: var(--message-box-color);
   color: var(--card-color);
+}
+#btn-submit{
+  font-size: 18px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border: 1px solid var(--color-primary);
+  /* background-image: linear-gradient(to bottom, #FEE0BD, var(--color-primary)); */
+  background: rgb(255, 247, 232);
+  border-radius: 5px;
+}
+#btn-submit:hover {
+  background: var(--color-primary);
 }
