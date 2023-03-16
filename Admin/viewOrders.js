@@ -158,7 +158,7 @@ orderform.addEventListener('submit', e=>{
     // const orderformData =new FormData(orderform);
     // const orderdata = Object.fromEntries(orderformData);
     // console.log(orderdata);
-    fetch('http://193.168.2.102:99/AddDishItems', {
+    fetch('http://192.168.2.102:99/AddDishItems', {
         method: 'POST',
         headers:{
             'Content-Type': 'application/json'
@@ -172,3 +172,10 @@ orderform.addEventListener('submit', e=>{
     })
     .catch(err => console.log(err));
 })
+function hi(){
+  fetch('http://192.168.2.102:99/GetAllDishItems')
+    .then((response) => response.json())
+    .then((person1) => {
+      console.log(person1)
+    });
+}
