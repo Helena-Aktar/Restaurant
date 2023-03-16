@@ -621,25 +621,29 @@
       <!-- working -->
       <div id="core_container_Add-food-item" class=" ">
         <div class="align-items-center">
-          <div id="form_card" class="">
+          <form id="form_card" class="">
             <h1>Add New Item</h1>
             <div class="d-flex">
               <label class="mt-2"> Menu option: </label>
-              <select class="form-control w-100" name="pMenu">
-                <option value="">tushar</option>
-                <option value="">reya</option>
+              <select class="form-control w-100" id="parentMenuID" name="ParentMenuName">
+                <option value="1">tushar</option>
+                <option value="2">reya</option>
                 </select
               ><br />
             </div>
             <div class="d-flex justify-content-center mt-4 mb-4">
               <input
+                id="Name"
+                name="Name"
                 class="form-control w-75 me-4"
                 type="text"
                 placeholder="Item Name"
                 required
               />
               <input
+                id="Price"
                 class="form-control w-25"
+                name="Price"
                 type="number"
                 placeholder="Item price"
                 required
@@ -648,19 +652,23 @@
             <div>
               <input
                 class="form-control"
+                name="ImagePath"
+                id="ImagePath"
                 type="file"
                 placeholder="Item Image"
                 required
               /><br />
               <textarea
+                id="Description"
                 class="form-control mb-4"
                 type="text"
+                name="Description"
                 placeholder="Item description"
                 required
               ></textarea>
             </div>
             <button id="btn-submit"> Submit </button>
-          </div>
+          </form>
         </div>
       </div>
       <!--  -->
