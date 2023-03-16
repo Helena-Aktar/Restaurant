@@ -136,64 +136,45 @@ const orderform = document.getElementById("form_card");
 const buttonSubmit = document.getElementById("btn-submit");
 
 //console.log(orderform);
-orderform.addEventListener("submit", (e) => {
-  e.preventDefault();
-  // var a = document.getElementById("ImagePath").value;
-  // console.log(a);
-  // const imageInput = document.getElementById("ImagePath");
-  //   const file = imageInput.files[0];
-  //   const imageUrl = URL.createObjectURL(file);
-  // show.src = imageUrl;
-  // var a= imageInput.value;
-  // console.log(imageUrl); // Output the file path to the console
-  var obj = {
-    Name: document.getElementById("Name").value,
-    ParentMenuName: document.getElementById("parentMenuID").value,
-    Price: document.getElementById("Price").value,
-    Description: document.getElementById("Description").value,
-    // ImagePath: imageUrl,
-  };
-  // console.log(obj);
-  // const orderformData =new FormData(orderform);
-  // const orderdata = Object.fromEntries(orderformData);
-  // console.log(orderdata);
-  fetch("http://193.168.2.102:99/AddDishItems", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(obj),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      console.log("data");
+orderform.addEventListener('submit', e=>{
+    e.preventDefault();
+    // var a = document.getElementById("ImagePath").value;
+    // console.log(a);
+    const imageInput = document.getElementById("ImagePath");
+      const file = imageInput.files[0];
+      const imageUrl = URL.createObjectURL(file);
+      // show.src = imageUrl;
+      // var a= imageInput.value;
+      console.log(imageUrl); // Output the file path to the console
+    var obj = {
+      Name: document.getElementById("Name").value,
+      ParentMenuName: document.getElementById("parentMenuID").value,
+      Price: document.getElementById("Price").value,
+      Description: document.getElementById("Description").value,
+      ImagePath: imageUrl,
+  }
+  console.log(obj);
+    // const orderformData =new FormData(orderform);
+    // const orderdata = Object.fromEntries(orderformData);
+    // console.log(orderdata);
+    fetch('http://192.168.2.102:99/AddDishItems', {
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj)
     })
-    .catch((err) => console.log(err));
-});
-
-const dataArray = [];
-// API
-fetch("http://192.168.2.102:99/GetAllDishItems")
-  .then((response) => response.json())
-  .then((data) => {
-    // json File
-    // fetch("./data.json")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    // Initialize the array
-    console.log(data);
-    // Loop through the data and create objects
-    // data.forEach((item) => {
-    //   const obj = {};
-    //   obj.menuId = item.menu_id;
-    //   obj.menuName = item.menu_name;
-    //   obj.parentID = item.parent_id;
-    //   obj.pageName = item.page_name;
-
-    //   dataArray.push(obj);
-    // });
-    // // done();
-    // console.log(dataArray);
-    // displaydata();
-  });
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+        console.log("data");
+    })
+    .catch(err => console.log(err));
+})
+function hi(){
+  fetch('http://192.168.2.102:99/GetAllDishItems')
+    .then((response) => response.json())
+    .then((person1) => {
+      console.log(person1)
+    });
+}
