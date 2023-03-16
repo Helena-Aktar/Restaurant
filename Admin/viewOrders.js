@@ -130,3 +130,45 @@ function orderselectiontwo(num) {
     console.log(a);
   }
 }
+
+
+//add list
+const orderform = document.getElementById("form_card");
+const buttonSubmit = document.getElementById("btn-submit");
+
+//console.log(orderform);
+orderform.addEventListener('submit', e=>{
+    e.preventDefault();
+    // var a = document.getElementById("ImagePath").value;
+    // console.log(a);
+    const imageInput = document.getElementById("ImagePath");
+      const file = imageInput.files[0];
+      const imageUrl = URL.createObjectURL(file);
+      // show.src = imageUrl;
+      // var a= imageInput.value;
+      console.log(imageUrl); // Output the file path to the console
+    var obj = {
+      Name: document.getElementById("Name").value,
+      ParentMenuName: document.getElementById("parentMenuID").value,
+      Price: document.getElementById("Price").value,
+      Description: document.getElementById("Description").value,
+      ImagePath: imageUrl,
+  }
+  console.log(obj);
+    // const orderformData =new FormData(orderform);
+    // const orderdata = Object.fromEntries(orderformData);
+    // console.log(orderdata);
+    fetch('http://193.168.2.102:99/AddDishItems', {
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj)
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+        console.log("data");
+    })
+    .catch(err => console.log(err));
+})
