@@ -132,8 +132,6 @@ function orderselectiontwo(num) {
 }
 
 //add list
-// const orderform = document.getElementById("form_card");
-
 function addDishItems() {
   var Name = document.getElementById("Name").value;
   console.log(Name);
@@ -149,6 +147,7 @@ function addDishItems() {
   console.log("Image Name: " + file.name);
   console.log("Image Type: " + file.type);
   console.log("Splited Type: " + file.type.split("/")[1]);
+//   random name
   const randomString = Math.random().toString(36).substring(2);
   const timestamp = Date.now();
   const imageType = file.type.split("/")[1];
