@@ -22,13 +22,6 @@
       formData.append("Image", file);
       formData.append("ImageName", file.name);
       console.log(formData);
-
-      //   var obj = {
-      //     imgname: file.name,
-      //     img: file,
-      //   };
-      //   console.log(JSON.stringify(obj));
-
       fetch(" http://localhost:82/UploadImage", {
         method: "POST",
         body: formData,
