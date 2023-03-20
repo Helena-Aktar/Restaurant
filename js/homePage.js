@@ -142,8 +142,8 @@ const SidebarMenuArray = [];
 fetch("http://192.168.2.102:85/GetAllSidebarItems")
   .then((response) => response.json())
   .then((data) => {
-    console.log("All Data");
-    console.log(data);
+    // console.log("All Data");
+    // console.log(data);
     // creating object from fetched data
     data.forEach((item) => {
       const obj = {
@@ -157,23 +157,50 @@ fetch("http://192.168.2.102:85/GetAllSidebarItems")
     });
     console.log("Array");
     console.log(SidebarMenuArray);
+    displaySidebarMenuItems();
   });
+
+// display Sidebar
+
+function displaySidebarMenuItems() {
+  const menuItems = document.querySelector(".sidebar__menu-items");
+  let sidebarDelimiter = document.createElement("div");
+  sidebarDelimiter.classList = "sidebar_delimiter";
+  menuItems.appendChild(sidebarDelimiter);
+  for (let i = 0; i < SidebarMenuArray.length; i++) {
+    console.log("i: " + i);
+    console.log("menuId:" + SidebarMenuArray[i].MenuID);
+    console.log("Parent:" + SidebarMenuArray[i].ParentID);
+
+    if (SidebarMenuArray[i].MenuID == SidebarMenuArray[i].ParentID) {
+      console.log("loop");
+      let menuItem = document.createElement("div");
+      menuItem.classList = "sidebar_menu-item";
+      let menuHeader = document.createElement("div");
+      let menuHeaderTitle = document.createElement("h6");
+      menuHeader.classList = "menu_header";
+      menuHeader.innerText = SidebarMenuArray[i].MenuName;
+      menuHeader.appendChild(menuHeaderTitle);
+      menuItem.appendChild(menuHeader);
+      menuItems.appendChild(menuItem);
+      menuItems.appendChild(sidebarDelimiter);
+    }
+  }
+}
 const DishItemsArray = [];
 
 // Fetchhing dish items from API
 fetch("http://192.168.2.102:85/GetAllDishItems")
   .then((response) => response.json())
   .then((data) => {
-    console.log("All Data");
-    console.log(data);
+    // console.log("All Data");
+    // console.log(data);
     // creating object from fetched data
     data.forEach((item) => {
       const obj = { ...item }; // spread operator (...)
       // pushing objects to array
       DishItemsArray.push(obj);
     });
-    console.log("Array");
-    console.log(DishItemsArray);
+    // console.log("Array");
+    // console.log(DishItemsArray);
   });
-
-// display Sidebar
