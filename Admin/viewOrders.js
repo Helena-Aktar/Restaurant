@@ -138,51 +138,67 @@ const buttonSubmit = document.getElementById("btn-submit");
 //console.log(orderform);
 orderform.addEventListener("submit", (e) => {
   e.preventDefault();
-  // var a = document.getElementById("ImagePath").value;
-  // console.log(a);
-  const imageInput = document.getElementById("ImagePath");
-  const file = imageInput.files[0];
-  const imageUrl = URL.createObjectURL(file);
-  // show.src = imageUrl;
-  // var a= imageInput.value;
-  console.log(imageUrl); // Output the file path to the console
-  var obj = {
-    Name: document.getElementById("Name").value,
-    ParentMenuName: document.getElementById("parentMenuID").value,
-    Price: document.getElementById("Price").value,
-    Description: document.getElementById("Description").value,
-    ImagePath: file,
-  };
-  console.log(obj);
-  const orderformData = new FormData(orderform);
-  const orderdata = Object.fromEntries(orderformData);
-  console.log(orderdata);
-  fetch("http://192.168.2.102:99/AddDishItems", {
+  var Name = document.getElementById("Name").value;
+  console.log(Name);
+  var ParentMenuID = document.getElementById("parentMenuID").value;
+  console.log(ParentMenuID);
+  var Price = document.getElementById("Price").value;
+  console.log(Price);
+  var Description = document.getElementById("Description").value;
+  console.log(Description);
+  var fileInput = document.getElementById("ImageFile");
+  const file = fileInput.files[0];
+  console.log("Full Image: " + file);
+  console.log("Image Name: " + file.name);
+  console.log("Image Type: " + file.type);
+  console.log("Splited Type: " + file.type.split("/")[1]);
+  //   random name
+  const randomString = Math.random().toString(36).substring(2);
+  const timestamp = Date.now();
+  const imageType = file.type.split("/")[1];
+  const randomName = `${randomString}-${timestamp}.${imageType}`;
+  console.log(randomName);
+  const formData = new FormData();
+  formData.append("Name", Name);
+  formData.append("ParentMenuID", ParentMenuID);
+  formData.append("Price", Price);
+  formData.append("Description", Description);
+  formData.append("Image", file);
+  formData.append("ImageName", randomName);
+  console.log(formData);
+  fetch(" http://192.168.2.102:85/AddDishItems", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(obj),
+    body: formData,
   })
-    .then((res) => res.json())
+    // .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-      console.log("data");
+      console.log("data" + data);
     })
     .catch((err) => console.log(err));
+
+  // clear input fields
+  const inputs = document.querySelectorAll("input,textarea");
+  document.getElementById("parentMenuID");
+  inputs.forEach((input) => {
+    // console.log(input);
+    input.value = "";
+  });
 });
 function hi() {
-  fetch("http://192.168.2.102:99/GetAllDishItems")
+  fetch("http://192.168.2.102:85/GetAllDishItems")
     .then((response) => response.json())
-    .then((person1) => {
-      console.log(person1);
+    .then((data) => {
+      console.log(data);
     });
 }
 function SideBar() {
-  fetch("http://192.168.2.102:99/GetAllSidebarItems")
+  fetch("http://192.168.2.102:85/GetAllSidebarItems")
     .then((response) => response.json())
-    .then((person1) => {
-      console.log(person1);
+    .then((data) => {
+      console.log(data);
     });
 }
 SideBar();
+var op = document.querySelectorAll("option");
+var s = (op[1].selected = true);
+console.log(s);

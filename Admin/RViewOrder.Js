@@ -158,7 +158,6 @@ function addDishItems() {
   formData.append("ParentMenuID", ParentMenuID);
   formData.append("Price", Price);
   formData.append("Description", Description);
-
   formData.append("Image", file);
   formData.append("ImageName", randomName);
   console.log(formData);
