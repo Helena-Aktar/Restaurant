@@ -152,9 +152,10 @@
   /* font-size: 10px; */
 }
 
-.angle-down-icon {
+.chevron-down-icon {
   font-size: 14px;
-  height: 20px;
+  /* height: 20px; */
+  float: right;
 }
 .sidebar_menu-item:hover h6 {
   left: 0;
