@@ -141,7 +141,7 @@
   transform: rotate(45deg);
   margin-right: 15px;
   /* display: none; */
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 .menu_header {
   display: flex;
@@ -155,7 +155,6 @@
 .chevron-down-icon {
   font-size: 14px;
   /* height: 20px; */
-  float: right;
 }
 .sidebar_menu-item:hover h6 {
   left: 0;
@@ -173,7 +172,9 @@
 .sidebar_menu-item:nth-child(1) {
   /* background: #838390; */
 }
-
+.sub_sidebar_menu-item {
+  /* display: none; */
+}
 /* ================= MENU ============ */
 .menu_header {
   /* color: #ffffff;

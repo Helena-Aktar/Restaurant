@@ -176,25 +176,23 @@ function displaySidebarMenuItems() {
   const squareIconClassList = "sidebar_square-icon fa-regular fa-square-full";
   const chevrondownIconClassList = "fa-solid fa-chevron-down";
 
-  console.log(menuItems);
+  // console.log(menuItems);
   let sidebarDelimiter = document.createElement("div");
   sidebarDelimiter.classList = "sidebar_delimiter";
   menuItems.appendChild(sidebarDelimiter);
   for (let i = 0; i < SidebarMenuArray.length; i++) {
-    // console.log(SidebarMenuArray);
-    // console.log("i: " + i);
-    // console.log("menuId:" + SidebarMenuArray[i].MenuID);
-    // console.log("Parent:" + SidebarMenuArray[i].ParentID);
-    // if (SidebarMenuArray[i].MenuID == SidebarMenuArray[i].ParentID) {
-    // console.log("if conditon");
+    console.log("i: " + i);
+    console.log("menuId:" + SidebarMenuArray[i].MenuID);
+    console.log("Parent:" + SidebarMenuArray[i].ParentID);
     let menuItem = document.createElement("div");
     menuItem.classList = "sidebar_menu-item";
+    let parentMenuItem = document.createElement("div");
+    parentMenuItem.classList = "parent-sidebar_menu";
     let menuHeader = document.createElement("div");
     menuHeader.classList = "menu_header";
     let squareIcon = document.createElement("i");
     squareIcon.classList = squareIconClassList;
     let menuHeaderTitle = document.createElement("h6");
-
     let chevronDiv = document.createElement("div");
     chevronDiv.classList = "chevron-down-icon";
     let chevronIcon = document.createElement("i");
@@ -204,16 +202,40 @@ function displaySidebarMenuItems() {
     menuHeaderTitle.innerText = SidebarMenuArray[i].MenuName;
     menuHeader.appendChild(squareIcon);
     menuHeader.appendChild(menuHeaderTitle);
-    menuItem.appendChild(menuHeader);
     chevronDiv.appendChild(chevronIcon);
-    menuItem.appendChild(chevronDiv);
-    menuItems.appendChild(menuItem);
+    parentMenuItem.appendChild(menuHeader);
+    parentMenuItem.appendChild(chevronDiv);
+    menuItem.appendChild(parentMenuItem);
+    // console.log(menuItem);
     menuItems.appendChild(sidebarDelimiter);
     // console.log(menuItems);
-    // }
-    if (SidebarMenuArray[i].MenuID == SidebarMenuArray[i].ParentID) {
-      // menuItem.style.display="none";
+    // child loop
+    for (var j = i + 1; j < SidebarMenuArray.length; j++) {
+      let childMenuItem = document.createElement("div");
+      childMenuItem.classList = "child-sidebar_menu";
+      if (SidebarMenuArray[i].MenuID == SidebarMenuArray[j].ParentID) {
+        let menuHeader = document.createElement("div");
+        menuHeader.classList = "menu_header";
+        let squareIcon = document.createElement("i");
+        squareIcon.classList = squareIconClassList;
+        let menuHeaderTitle = document.createElement("h6");
+        let chevronDiv = document.createElement("div");
+        chevronDiv.classList = "chevron-down-icon";
+        let chevronIcon = document.createElement("i");
+        chevronIcon.classList = chevrondownIconClassList;
+        let sidebarDelimiter = document.createElement("div");
+        sidebarDelimiter.classList = "sidebar_delimiter";
+        menuHeaderTitle.innerText = SidebarMenuArray[j].MenuName;
+        menuHeader.appendChild(squareIcon);
+        menuHeader.appendChild(menuHeaderTitle);
+        childMenuItem.appendChild(menuHeader);
+        chevronDiv.appendChild(chevronIcon);
+        childMenuItem.appendChild(chevronDiv);
+      }
+      // menuItems.appendChild(sidebarDelimiter);
+      parentMenuItem.appendChild(childMenuItem);
     }
+    menuItems.appendChild(menuItem);
   }
 }
 const DishItemsArray = [];
