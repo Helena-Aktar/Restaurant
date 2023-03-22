@@ -406,8 +406,9 @@
   background: #c1c3cd;
 }
 .sp_dish-block {
-  width: 340px;
-  text-align: center;
+  width: 300px;
+  /* background: #ffff; */
+  margin: 5px;
 }
 .sp_dish-img {
   width: 301px;
