@@ -30,39 +30,42 @@ const closeSideBarModal = (event) => {
 };
 sidebarOutbox.addEventListener("click", closeSideBarModal);
 
-// menu items header text
-const menuHeaderList = document.querySelectorAll(".menu-tabs-header-text");
-const weekdayLunch = document.querySelector("#weekday_lunch");
-const weekdayLunchDishes = document.querySelector("#weekday_lunch-dishes");
-const dinner = document.querySelector("#dinner");
-const dinnerDishes = document.querySelector("#dinner-dishes");
-console.log(1, weekdayLunch);
+function menuHeaderActive() {
+  // menu items header text
+  const menuHeaderList = document.querySelectorAll(".menu-tabs-header-text");
+  const weekdayLunch = document.querySelector("#lunch");
+  const weekdayLunchDishes = document.querySelector("#weekday_lunch-dishes");
+  const dinner = document.querySelector("#dinner");
+  const dinnerDishes = document.querySelector("#dinner-dishes");
+  console.log(1, weekdayLunch);
 
-// remove active class from menu items
-const removeActiveMenuItem = () => {
+  // remove active class from menu items
+  const removeActiveMenuItem = () => {
+    menuHeaderList.forEach((item) => {
+      item.classList.remove("active");
+    });
+  };
+
+  // MENU HEADER ADD ACTIVE ITEMS
   menuHeaderList.forEach((item) => {
-    item.classList.remove("active");
-  });
-};
+    console.log(item);
 
-// MENU HEADER ADD ACTIVE ITEMS
-menuHeaderList.forEach((item) => {
-  console.log(item);
-
-  item.addEventListener("click", () => {
-    removeActiveMenuItem();
-    item.classList.add("active");
-    console.log(item.id);
-    if (item.id == "weekday_lunch") {
-      weekdayLunchDishes.style.display = "flex";
-      dinnerDishes.style.display = "none";
-    } else if (item.id == "dinner") {
+    item.addEventListener("click", () => {
+      removeActiveMenuItem();
+      item.classList.add("active");
       console.log(item.id);
-      weekdayLunchDishes.style.display = "none";
-      dinnerDishes.style.display = "flex";
-    } else console.log("paynai");
+      if (item.id == "lunch") {
+        weekdayLunchDishes.style.display = "flex";
+        dinnerDishes.style.display = "none";
+      } else if (item.id == "dinner") {
+        console.log(item.id);
+        weekdayLunchDishes.style.display = "none";
+        dinnerDishes.style.display = "flex";
+        console.log(dinnerDishes.style.display);
+      } else console.log("paynai");
+    });
   });
-});
+}
 
 // // menu header icons rotaion
 const menuHeaderIcons = document.querySelectorAll(".menu-tabs-header-icon");
@@ -130,11 +133,16 @@ const closeOrderModal = (event) => {
 orderModal.addEventListener("click", closeOrderModal);
 
 const SidebarMenuArray = [];
-// Fetchhing Sidebar items from API
 
-fetch("http://192.168.2.102:85/GetAllSidebarItems")
+// Fetchhing Sidebar items from json
+
+fetch("/sidebarData.json")
   .then((response) => response.json())
   .then((data) => {
+    // Fetchhing Sidebar items from API
+    // fetch("http://192.168.2.102:85/GetAllSidebarItems")
+    //   .then((response) => response.json())
+    //   .then((data) => {
     // console.log("All Data");
     // console.log(data);
     // creating object from fetched data
@@ -281,7 +289,13 @@ function test() {
 const DishItemsArray = [];
 
 // Fetchhing dish items from API
-fetch("http://192.168.2.102:85/GetAllDishItems")
+// fetch("http://192.168.2.102:85/GetAllDishItems")
+//   .then((response) => response.json())
+//   .then((data) => {
+
+// Fetchhing dish items items from json
+
+fetch("/dishItemsData.json")
   .then((response) => response.json())
   .then((data) => {
     // console.log("All Data");
@@ -294,15 +308,44 @@ fetch("http://192.168.2.102:85/GetAllDishItems")
     });
     // console.log("Array");
     console.log(DishItemsArray);
-    // for (var i = 0; i < 5; i++) {
-    const text = document.querySelectorAll(".menu-tabs-header-text");
-    const hello = document.getElementById("hello");
-    // const h5 = text.querySelectorAll("h5");
-    text.forEach((item) => {
-      const h5 = item.querySelectorAll("h5");
-      console.log(h5);
-      hello.innerHTML = DishItemsArray[0].name;
-      console.log((h5.innerHTML = DishItemsArray[0].name));
-    });
-    // }
+
+    displayMenuHeaderTitles();
+    menuHeaderActive();
+    displayDishItems();
   });
+
+// displayMenuHeaderTitle
+function displayMenuHeaderTitles() {
+  const menuHeaderItems = document.querySelector(".menu-tabs-header-items");
+  menuHeaderItems.innerHTML = "";
+  // icons
+  const squareIconClassList = "menu-tabs-header-icon fa-regular fa-square-full";
+  var cnt = 0;
+  for (let i = 0; i < DishItemsArray.length; i++) {
+    if (DishItemsArray[i].id == DishItemsArray[i].parentMenuID) {
+      cnt++;
+      let menuHeaderTextDiv = document.createElement("div");
+      menuHeaderTextDiv.classList = "menu-tabs-header-text";
+      if (i == 0) {
+        menuHeaderTextDiv.classList = "menu-tabs-header-text active";
+      }
+      let idLower = `${DishItemsArray[i].name}`.toLowerCase();
+      menuHeaderTextDiv.setAttribute("id", idLower);
+      let title = document.createElement("h5");
+      title.innerText = DishItemsArray[i].name;
+      menuHeaderTextDiv.appendChild(title);
+      let squareIconDiv = document.createElement("div");
+      squareIconDiv.classList = "menu_header-Square_icon";
+      let squareIcon = document.createElement("i");
+      squareIcon.classList = squareIconClassList;
+      squareIconDiv.appendChild(squareIcon);
+      menuHeaderItems.appendChild(menuHeaderTextDiv);
+      if (cnt < DishItemsArray.length - 2) {
+        menuHeaderItems.appendChild(squareIconDiv);
+      }
+    }
+  }
+}
+
+// display Dish Items
+function displayDishItems() {}
