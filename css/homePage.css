@@ -68,6 +68,10 @@
   top: -7px;
   right: -5px;
 }
+.sidebar_footer {
+  /* position: relative;
+  bottom: 0; */
+}
 /* =============== side nav bar ============= */
 
 .sidebar-outbox {
@@ -84,7 +88,7 @@
   position: absolute;
   width: 250px;
   height: 90%;
-  /* left: -255px; */
+  left: -255px;
   overflow-y: auto;
   transition: 0.6s ease;
   transition-property: left;
@@ -108,8 +112,6 @@
 }
 #sidebar-cross-btn i {
   font-size: 26px;
-
-  /* padding-bottom: 15px; */
 }
 .sidebar_heading-logo {
   padding: 5px;
@@ -117,64 +119,89 @@
 .sidebar_heading-logo img {
   width: 100%;
 }
-.sidebar_delimiter {
+.sidebar_delimiter,
+.parent_sidebar_delimiter {
   height: 1px;
   background: #c1c3cd;
-  /* margin: 10px 20px; */
+}
+.child_sidebar_delimiter {
+  height: 1px;
+  background: #e4e4e9;
 }
 .sidebar__menu-items {
-  /* z-index: 100; */
   margin: 10px 20px;
   padding: 5px;
-  /* background: lemonchiffon; */
+}
+.parent:hover {
+  /* background: #3857ca; */
 }
 .sidebar_menu-item {
+  /* background: red; */
+}
+.parent,
+.child {
   display: flex;
   justify-content: space-between;
-  /* background: #fff3e7; */
   margin: 7px 0;
-  /* padding: 5px; */
 }
+.childs {
+  /* background: #f0f1f9; */
+  margin: 2px;
+  display: none;
+}
+.childs.active {
+  display: block;
+  /* background-color: rgb(255, 252, 249); */
+  padding: 10px;
+}
+.childs h6 {
+  font-size: 14px;
+  color: #787777;
+}
+.parent.active {
+  color: var(--color-primary);
+}
+
 .sidebar_square-icon {
   font-size: 11px;
   color: var(--color-primary);
   transform: rotate(45deg);
   margin-right: 15px;
-  /* display: none; */
-  /* visibility: hidden; */
+  visibility: hidden;
 }
 .menu_header {
   display: flex;
 }
-.sidebar_menu-item h6 {
+.parent h6,
+.child h6 {
   position: relative;
   left: -25px;
-  /* font-size: 10px; */
 }
 
 .chevron-down-icon {
   font-size: 14px;
-  /* height: 20px; */
+  height: 20px;
 }
-.sidebar_menu-item:hover h6 {
+.parent:hover h6,
+.child:hover h6 {
   left: 0;
   transition: all 0.3s ease;
 }
-.sidebar_menu-item:hover .sidebar_square-icon {
+.parent:hover .sidebar_square-icon,
+.child:hover .sidebar_square-icon {
   visibility: visible;
   transition: all 0.3s ease;
 }
 
-/* .sidebar_menu-item:hover .angle-down-icon{
-    transform: rotate(180deg);
+/* .sidebar_menu-item:hover .chevron-down-icon {
+  transform: rotate(180deg);
 } */
 
-.sidebar_menu-item:nth-child(1) {
-  /* background: #838390; */
+.child {
+  /* background: #fdf1e7; */
+  margin: 7px 0;
 }
-.sub_sidebar_menu-item {
-  /* display: none; */
-}
+
 /* ================= MENU ============ */
 .menu_header {
   /* color: #ffffff;

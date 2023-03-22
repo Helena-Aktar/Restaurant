@@ -55,8 +55,8 @@
             <img src="/images/logo 3.jpg" alt="" />
           </div>
         </div>
-        <div id="reya"></div>
-        <div id="uts" class="sidebar__menu-items">
+        <!-- sidebar menu items  -->
+        <div class="sidebar__menu-items">
           <!--  end of static -->
           <!-- <div class="sidebar_delimiter"></div> -->
           <!-- menu item 1 -->
@@ -83,20 +83,38 @@
           <!--  end of static -->
           <!-- <div class="sidebar_delimiter"></div> -->
         </div>
+        <!-- sidebar footer -->
+        <div class="sidebar_footer text-center">
+          <h1>Visit Us</h1>
+          <p class="text-muted">
+            Restaurant St, Delicious City, London 9578, UK
+          </p>
+          <p>Open: 9.30 am - 2.30pm</p>
+          <i
+            class="fa-regular fa-square-full"
+            style="
+              color: var(--color-primary);
+              transform: rotate(45deg);
+              font-size: 14px;
+            "
+          ></i>
+          <h6 class="mt-2">CALL FOR DETAILS</h6>
+          <h5 style="color: var(--color-primary)">+88-12345-678910</h5>
+        </div>
       </div>
       <!-- =========== END OF Side NAV ============= -->
 
       <!-- ================ CORE =================== -->
       <div id="core_container" class="mt-3">
-        <div class="menu_header text-center fs-2">Delicious Menu</div>
-        <div class="menu-tabs bg-">
+        <div class="text-center fs-2">Delicious Menu</div>
+        <div class="menu-tabs">
           <div class="p-1">
             <div class="delimiter-horizontal"></div>
             <!-- menu headers -->
             <div
               class="menu-tabs-header-items m-3 d-flex justify-content-between"
             >
-              <div class="menu-tabs-header-text"><h5>BREAKFAST</h5></div>
+              <div class="menu-tabs-header-text"><h5 id="hello">oij;jp</h5></div>
               <div style="height: 10px">
                 <i class="menu-tabs-header-icon fa-regular fa-square-full"></i>
               </div>
@@ -257,12 +275,7 @@
                     <button class="order_now dish-btn">ORDER NOW</button>
                   </div>
                 </div>
-              </div>
-              <!-- End of Menu Left -->
-              <div class="delimiter-vertical"></div>
-              <!-- menu right -->
-              <div class="menu-right">
-                <!-- dish block 4 -->
+                 <!-- dish block 4 -->
                 <div class="dish_card">
                   <div class="d-flex">
                     <div class="dish-block d-flex" onclick="showDishDetails()">
@@ -393,6 +406,12 @@
                   </div>
                 </div>
               </div>
+              <!-- </div> -->
+              <!-- End of Menu Left -->
+              <div class="delimiter-vertical"></div>
+              <!-- menu right -->
+              <div class="menu-right">
+               
               <!-- End of Menu Right -->
             </div>
           </div>
@@ -690,5 +709,6 @@
     <!-- ========= Scripts =========== -->
     <script src="/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.js"></script>
     <script src="/js/homePage.js"></script>
+    <!-- <script src="/js/debug.js"></script> -->
   </body>
 </html>

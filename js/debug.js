@@ -12,7 +12,7 @@ sidebarMenuButton.addEventListener("click", function () {
   sidebar.classList.toggle("active");
   sidebarOutbox.style.display = "block";
 
-  console.log(sidebarMenuItems.className);
+  // console.log(sidebarMenuItems.className);
 });
 // cross button on click
 sidebarCrossButton.addEventListener("click", function () {
@@ -39,7 +39,7 @@ const dinnerDishes = document.querySelector("#dinner-dishes");
 console.log(1, weekdayLunch);
 
 // remove active class from menu items
-const removeActiveItem = () => {
+const removeActiveMenuItem = () => {
   menuHeaderList.forEach((item) => {
     item.classList.remove("active");
   });
@@ -50,7 +50,7 @@ menuHeaderList.forEach((item) => {
   console.log(item);
 
   item.addEventListener("click", () => {
-    removeActiveItem();
+    removeActiveMenuItem();
     item.classList.add("active");
     console.log(item.id);
     if (item.id == "weekday_lunch") {
@@ -165,6 +165,7 @@ fetch("http://192.168.2.102:85/GetAllSidebarItems")
 
     displaySidebarMenuItems();
     // data1();
+    test();
   })
   .catch((error) => {
     console.error("Error fetching sidebar items:", error);
@@ -181,63 +182,115 @@ function displaySidebarMenuItems() {
   sidebarDelimiter.classList = "sidebar_delimiter";
   menuItems.appendChild(sidebarDelimiter);
   for (let i = 0; i < SidebarMenuArray.length; i++) {
-    console.log("i: " + i);
-    console.log("menuId:" + SidebarMenuArray[i].MenuID);
-    console.log("Parent:" + SidebarMenuArray[i].ParentID);
+    // console.log(SidebarMenuArray);
+    // console.log("i: " + i);
+    // console.log("menuId:" + SidebarMenuArray[i].MenuID);
+    // console.log("Parent:" + SidebarMenuArray[i].ParentID);
     let menuItem = document.createElement("div");
     menuItem.classList = "sidebar_menu-item";
-    let parentMenuItem = document.createElement("div");
-    parentMenuItem.classList = "parent-sidebar_menu";
-    let menuHeader = document.createElement("div");
-    menuHeader.classList = "menu_header";
-    let squareIcon = document.createElement("i");
-    squareIcon.classList = squareIconClassList;
-    let menuHeaderTitle = document.createElement("h6");
-    let chevronDiv = document.createElement("div");
-    chevronDiv.classList = "chevron-down-icon";
-    let chevronIcon = document.createElement("i");
-    chevronIcon.classList = chevrondownIconClassList;
-    let sidebarDelimiter = document.createElement("div");
-    sidebarDelimiter.classList = "sidebar_delimiter";
-    menuHeaderTitle.innerText = SidebarMenuArray[i].MenuName;
-    menuHeader.appendChild(squareIcon);
-    menuHeader.appendChild(menuHeaderTitle);
-    chevronDiv.appendChild(chevronIcon);
-    parentMenuItem.appendChild(menuHeader);
-    parentMenuItem.appendChild(chevronDiv);
-    menuItem.appendChild(parentMenuItem);
-    // console.log(menuItem);
-    menuItems.appendChild(sidebarDelimiter);
-    // console.log(menuItems);
-    // child loop
-    for (var j = i + 1; j < SidebarMenuArray.length; j++) {
-      let childMenuItem = document.createElement("div");
-      childMenuItem.classList = "child-sidebar_menu";
-      if (SidebarMenuArray[i].MenuID == SidebarMenuArray[j].ParentID) {
-        let menuHeader = document.createElement("div");
-        menuHeader.classList = "menu_header";
-        let squareIcon = document.createElement("i");
-        squareIcon.classList = squareIconClassList;
-        let menuHeaderTitle = document.createElement("h6");
-        let chevronDiv = document.createElement("div");
-        chevronDiv.classList = "chevron-down-icon";
-        let chevronIcon = document.createElement("i");
-        chevronIcon.classList = chevrondownIconClassList;
-        let sidebarDelimiter = document.createElement("div");
-        sidebarDelimiter.classList = "sidebar_delimiter";
-        menuHeaderTitle.innerText = SidebarMenuArray[j].MenuName;
-        menuHeader.appendChild(squareIcon);
-        menuHeader.appendChild(menuHeaderTitle);
-        childMenuItem.appendChild(menuHeader);
-        chevronDiv.appendChild(chevronIcon);
-        childMenuItem.appendChild(chevronDiv);
+    if (SidebarMenuArray[i].MenuID == SidebarMenuArray[i].ParentID) {
+      // console.log("if conditon");
+      let ParentMenuItem = document.createElement("div");
+      ParentMenuItem.classList = "parent";
+      let menuHeader = document.createElement("div");
+      menuHeader.classList = "menu_header";
+      let squareIcon = document.createElement("i");
+      squareIcon.classList = squareIconClassList;
+      let menuHeaderTitle = document.createElement("h6");
+      let chevronDiv = document.createElement("div");
+      chevronDiv.classList = "chevron-down-icon";
+      let chevronIcon = document.createElement("i");
+      chevronIcon.classList = chevrondownIconClassList;
+      let parentSidebarDelimiter = document.createElement("div");
+      parentSidebarDelimiter.classList = "parent_sidebar_delimiter";
+      menuHeaderTitle.innerText = SidebarMenuArray[i].MenuName;
+      menuHeader.appendChild(squareIcon);
+      menuHeader.appendChild(menuHeaderTitle);
+      ParentMenuItem.appendChild(menuHeader);
+      chevronDiv.appendChild(chevronIcon);
+      ParentMenuItem.appendChild(chevronDiv);
+      menuItem.appendChild(ParentMenuItem);
+      menuItem.appendChild(parentSidebarDelimiter);
+      let childsMenuItem = document.createElement("div");
+      childsMenuItem.classList = "childs";
+      for (var j = i + 1; j < SidebarMenuArray.length; j++) {
+        if (SidebarMenuArray[i].MenuID == SidebarMenuArray[j].ParentID) {
+          let childMenuItem = document.createElement("div");
+          childMenuItem.classList = "child";
+          let menuHeader = document.createElement("div");
+          menuHeader.classList = "menu_header";
+          let squareIcon = document.createElement("i");
+          squareIcon.classList = squareIconClassList;
+          let menuHeaderTitle = document.createElement("h6");
+          let chevronDiv = document.createElement("div");
+          chevronDiv.classList = "chevron-down-icon";
+          let chevronIcon = document.createElement("i");
+          chevronIcon.classList = chevrondownIconClassList;
+          let childSidebarDelimiter = document.createElement("div");
+          childSidebarDelimiter.classList = "child_sidebar_delimiter";
+          menuHeaderTitle.innerText = SidebarMenuArray[j].MenuName;
+          menuHeader.appendChild(squareIcon);
+          menuHeader.appendChild(menuHeaderTitle);
+          childMenuItem.appendChild(menuHeader);
+          chevronDiv.appendChild(chevronIcon);
+          childMenuItem.appendChild(chevronDiv);
+          childsMenuItem.appendChild(childMenuItem);
+          // console.log(childsMenuItem);
+          menuItem.appendChild(childsMenuItem);
+          childsMenuItem.appendChild(childSidebarDelimiter);
+        }
       }
-      // menuItems.appendChild(sidebarDelimiter);
-      parentMenuItem.appendChild(childMenuItem);
+      menuItems.appendChild(menuItem);
     }
-    menuItems.appendChild(menuItem);
   }
 }
+// test();
+//sidebar onclick
+function test() {
+  const removeParentActiveSidebarItem = () => {
+    parentSidebarMenuList.forEach((item) => {
+      item.classList.remove("active");
+    });
+  };
+
+  const removeChildsActiveSidebarItem = () => {
+    childsSidebarMenuList.forEach((item) => {
+      item.classList.remove("active");
+    });
+  };
+
+  const allSidebarMenuList = document.querySelectorAll(".sidebar_menu-item");
+  const parentSidebarMenuList = document.querySelectorAll(".parent");
+  const childsSidebarMenuList = document.querySelectorAll(".childs");
+
+  allSidebarMenuList.forEach(function (sidebarMenuItem) {
+    // console.log(sidebarMenuItem.classList);
+    parentSidebarMenuList.forEach(function (parentMenuItem) {
+      sidebarMenuItem.addEventListener("click", function () {
+        // console.log(parentMenuItem);
+        removeParentActiveSidebarItem();
+
+        parentMenuItem.classList.toggle("active");
+        console.log(parentMenuItem.classList);
+        const nxt = parentMenuItem.nextElementSibling;
+        const nxtt = nxt.nextElementSibling;
+        console.log(nxtt);
+        // if (parentMenuItem.classList.contains("active")) {
+        //   console.log("got parent");
+        //   const childs = sidebarMenuItem.querySelector(".childs");
+        //   console.log(childs);
+        //   removeChildsActiveSidebarItem();
+        //   if (childs) {
+        //     // removeChildsActiveSidebarItem();
+        //     childs.classList.toggle("active");
+        //     console.log(childs.classList);
+        //   }
+        // }
+      });
+    });
+  });
+}
+
 const DishItemsArray = [];
 
 // Fetchhing dish items from API

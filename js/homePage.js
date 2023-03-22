@@ -12,7 +12,7 @@ sidebarMenuButton.addEventListener("click", function () {
   sidebar.classList.toggle("active");
   sidebarOutbox.style.display = "block";
 
-  console.log(sidebarMenuItems.className);
+  // console.log(sidebarMenuItems.className);
 });
 // cross button on click
 sidebarCrossButton.addEventListener("click", function () {
@@ -39,7 +39,7 @@ const dinnerDishes = document.querySelector("#dinner-dishes");
 console.log(1, weekdayLunch);
 
 // remove active class from menu items
-const removeActiveItem = () => {
+const removeActiveMenuItem = () => {
   menuHeaderList.forEach((item) => {
     item.classList.remove("active");
   });
@@ -50,7 +50,7 @@ menuHeaderList.forEach((item) => {
   console.log(item);
 
   item.addEventListener("click", () => {
-    removeActiveItem();
+    removeActiveMenuItem();
     item.classList.add("active");
     console.log(item.id);
     if (item.id == "weekday_lunch") {
@@ -165,6 +165,7 @@ fetch("http://192.168.2.102:85/GetAllSidebarItems")
 
     displaySidebarMenuItems();
     // data1();
+    test();
   })
   .catch((error) => {
     console.error("Error fetching sidebar items:", error);
@@ -176,7 +177,7 @@ function displaySidebarMenuItems() {
   const squareIconClassList = "sidebar_square-icon fa-regular fa-square-full";
   const chevrondownIconClassList = "fa-solid fa-chevron-down";
 
-  console.log(menuItems);
+  // console.log(menuItems);
   let sidebarDelimiter = document.createElement("div");
   sidebarDelimiter.classList = "sidebar_delimiter";
   menuItems.appendChild(sidebarDelimiter);
@@ -185,37 +186,98 @@ function displaySidebarMenuItems() {
     // console.log("i: " + i);
     // console.log("menuId:" + SidebarMenuArray[i].MenuID);
     // console.log("Parent:" + SidebarMenuArray[i].ParentID);
-    // if (SidebarMenuArray[i].MenuID == SidebarMenuArray[i].ParentID) {
-    // console.log("if conditon");
     let menuItem = document.createElement("div");
     menuItem.classList = "sidebar_menu-item";
-    let menuHeader = document.createElement("div");
-    menuHeader.classList = "menu_header";
-    let squareIcon = document.createElement("i");
-    squareIcon.classList = squareIconClassList;
-    let menuHeaderTitle = document.createElement("h6");
-
-    let chevronDiv = document.createElement("div");
-    chevronDiv.classList = "chevron-down-icon";
-    let chevronIcon = document.createElement("i");
-    chevronIcon.classList = chevrondownIconClassList;
-    let sidebarDelimiter = document.createElement("div");
-    sidebarDelimiter.classList = "sidebar_delimiter";
-    menuHeaderTitle.innerText = SidebarMenuArray[i].MenuName;
-    menuHeader.appendChild(squareIcon);
-    menuHeader.appendChild(menuHeaderTitle);
-    menuItem.appendChild(menuHeader);
-    chevronDiv.appendChild(chevronIcon);
-    menuItem.appendChild(chevronDiv);
-    menuItems.appendChild(menuItem);
-    menuItems.appendChild(sidebarDelimiter);
-    // console.log(menuItems);
-    // }
     if (SidebarMenuArray[i].MenuID == SidebarMenuArray[i].ParentID) {
-      // menuItem.style.display="none";
+      // console.log("if conditon");
+      let ParentMenuItem = document.createElement("div");
+      ParentMenuItem.classList = "parent";
+      let menuHeader = document.createElement("div");
+      menuHeader.classList = "menu_header";
+      let squareIcon = document.createElement("i");
+      squareIcon.classList = squareIconClassList;
+      let menuHeaderTitle = document.createElement("h6");
+      let chevronDiv = document.createElement("div");
+      chevronDiv.classList = "chevron-down-icon";
+      let chevronIcon = document.createElement("i");
+      chevronIcon.classList = chevrondownIconClassList;
+      let parentSidebarDelimiter = document.createElement("div");
+      parentSidebarDelimiter.classList = "parent_sidebar_delimiter";
+      menuHeaderTitle.innerText = SidebarMenuArray[i].MenuName;
+      menuHeader.appendChild(squareIcon);
+      menuHeader.appendChild(menuHeaderTitle);
+      ParentMenuItem.appendChild(menuHeader);
+      chevronDiv.appendChild(chevronIcon);
+      ParentMenuItem.appendChild(chevronDiv);
+      menuItem.appendChild(ParentMenuItem);
+      menuItem.appendChild(parentSidebarDelimiter);
+      let childsMenuItem = document.createElement("div");
+      childsMenuItem.classList = "childs";
+      for (var j = i + 1; j < SidebarMenuArray.length; j++) {
+        if (SidebarMenuArray[i].MenuID == SidebarMenuArray[j].ParentID) {
+          let childMenuItem = document.createElement("div");
+          childMenuItem.classList = "child";
+          let menuHeader = document.createElement("div");
+          menuHeader.classList = "menu_header";
+          let squareIcon = document.createElement("i");
+          squareIcon.classList = squareIconClassList;
+          let menuHeaderTitle = document.createElement("h6");
+          // let chevronDiv = document.createElement("div");
+          // chevronDiv.classList = "chevron-down-icon";
+          // let chevronIcon = document.createElement("i");
+          chevronIcon.classList = chevrondownIconClassList;
+          let childSidebarDelimiter = document.createElement("div");
+          childSidebarDelimiter.classList = "child_sidebar_delimiter";
+          menuHeaderTitle.innerText = SidebarMenuArray[j].MenuName;
+          menuHeader.appendChild(squareIcon);
+          menuHeader.appendChild(menuHeaderTitle);
+          childMenuItem.appendChild(menuHeader);
+          // chevronDiv.appendChild(chevronIcon);
+          // childMenuItem.appendChild(chevronDiv);
+          childsMenuItem.appendChild(childMenuItem);
+          // console.log(childsMenuItem);
+          menuItem.appendChild(childsMenuItem);
+          childsMenuItem.appendChild(childSidebarDelimiter);
+        }
+      }
+      menuItems.appendChild(menuItem);
     }
   }
 }
+// test();
+//sidebar onclick
+function test() {
+  const removeParentActiveSidebarItem = () => {
+    parentSidebarMenuList.forEach((item) => {
+      item.classList.remove("active");
+    });
+  };
+
+  const removeChildsActiveSidebarItem = () => {
+    childsSidebarMenuList.forEach((item) => {
+      item.classList.remove("active");
+    });
+  };
+
+  const parentSidebarMenuList = document.querySelectorAll(".parent");
+  const childsSidebarMenuList = document.querySelectorAll(".childs");
+
+  parentSidebarMenuList.forEach(function (parentMenuItem) {
+    parentMenuItem.addEventListener("click", function () {
+      // console.log(parentMenuItem);
+      parentMenuItem.classList.toggle("active");
+      // console.log(parentMenuItem.classList);
+      const delimiter = parentMenuItem.nextElementSibling;
+      const childs = delimiter.nextElementSibling;
+      // console.log(childs);
+      if (childs) {
+        // removeChildsActiveSidebarItem();
+        childs.classList.toggle("active");
+      }
+    });
+  });
+}
+
 const DishItemsArray = [];
 
 // Fetchhing dish items from API
@@ -231,5 +293,16 @@ fetch("http://192.168.2.102:85/GetAllDishItems")
       DishItemsArray.push(obj);
     });
     // console.log("Array");
-    // console.log(DishItemsArray);
+    console.log(DishItemsArray);
+    // for (var i = 0; i < 5; i++) {
+    const text = document.querySelectorAll(".menu-tabs-header-text");
+    const hello = document.getElementById("hello");
+    // const h5 = text.querySelectorAll("h5");
+    text.forEach((item) => {
+      const h5 = item.querySelectorAll("h5");
+      console.log(h5);
+      hello.innerHTML = DishItemsArray[0].name;
+      console.log((h5.innerHTML = DishItemsArray[0].name));
+    });
+    // }
   });
