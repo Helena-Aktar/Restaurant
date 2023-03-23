@@ -352,3 +352,9 @@ function displayDishItems() {
   const dishItemsContainer = document.querySelector(".special_dishes");
   // dishItemsContainer.innerHTML = "";
 }
+
+
+// get the table number from the url
+const urlParams = new URLSearchParams(window.location.search);
+const number = parseInt(urlParams.get("tableNumber"));
+console.log(number); // Output: 123
