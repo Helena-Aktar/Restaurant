@@ -177,3 +177,9 @@ fetch("http://192.168.2.102:85/GetAllDishItems")
   });
 
 // display Sidebar
+
+
+// get the table number from the url
+const urlParams = new URLSearchParams(window.location.search);
+const number = parseInt(urlParams.get("tableNumber"));
+console.log(number); // Output: 123
