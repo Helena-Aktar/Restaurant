@@ -34,7 +34,7 @@ function menuHeaderActive() {
   // menu items header text
   const menuHeaderList = document.querySelectorAll(".menu-tabs-header-text");
   const weekdayLunch = document.querySelector("#lunch");
-  const weekdayLunchDishes = document.querySelector("#weekday_lunch-dishes");
+  const weekdayLunchDishes = document.querySelector("#lunch-dishes");
   const dinner = document.querySelector("#dinner");
   const dinnerDishes = document.querySelector("#dinner-dishes");
   console.log(1, weekdayLunch);
@@ -114,7 +114,7 @@ function addToCart() {
 
 // customized modal
 // order
-const customize = document.querySelector("#customize");
+const customize = document.querySelector("#customizee");
 const orderModal = document.querySelector(".customize-order");
 // order customization
 

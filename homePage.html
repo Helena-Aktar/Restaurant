@@ -140,7 +140,7 @@
           <div class="delimiter-horizontal"></div>
           <!-- </div> -->
           <!--  weekday lunch dishes -->
-          <div class="" id="weekday_lunch-dishes">
+          <div class="" id="lunch-dishes">
             <div class="menu-body">
               <!-- menu left -->
               <div class="menu-left">
@@ -698,8 +698,8 @@
           <div class="delimiter-horizontal"></div>
           <div class="text-center fs-2 p-3">Best Special Menu</div>
           <div class="delimiter-horizontal"></div>
-          <div class="d-flex justify-content-center">
-          <div class="special_dishes">
+          <div class="d-flex justify-content-center flex-wrap">
+            <div class="special_dishes d-flex flex-wrap">
             <!-- dish 1 -->
            
             <div class="sp_dish-block">
@@ -709,32 +709,26 @@
                   alt=""
                 />
               </div>
-              <div class="sp_dish-title d-flex justify-content-between">
-                <h5>Greek Salad</h5>
-                <span>$39.00</span>
-              </div>
-              <div class="sp_dish-details">
-                <p>
-                  Avocados with crab meat, red onion, crab salad red bell
-                  pepper...
-                </p>
-              </div>
+              <div class="sp_dish-body">
+                <div class="sp_dish-title">
+                  <h5>Greek Salad</h5>
+                  <span class="price">$39.00</span>
+                </div>
+              
+                  <p class="sp_dish-details text-center">
+                    Avocados with crab meat, red onion, crab salad red bell
+                    pepper
+                  </p>
+                
+            
               <!-- buttons -->
               <div class="dish-buttons d-flex justify-content-around">
-                <button class="order_now dish-btn" id="customize">
+                <button class="order_now dish-btn" id="customizee">
                   Custiomize
                 </button>
-                <!-- <div class="serve_count d-flex justify-content-between">
-                  <span class="count-minus" onclick="serveCountMinus()">
-                    <i class="fa-solid fa-minus"></i>
-                  </span>
-                  <span class="count-number">0</span>
-                  <span class="count-plus" onclick="serveCountPlus()">
-                    <i class="fa-solid fa-plus"></i>
-                  </span>
-                </div> -->
                 <button class="order_now dish-btn">ORDER NOW</button>
               </div>
+            </div>
             </div>
             <!-- end of dish 1 -->
           </div>
