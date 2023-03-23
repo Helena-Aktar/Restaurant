@@ -275,6 +275,10 @@ function load()
           // console.log("hello")
           if(orderData[i].item_id==itemData[j].id)
           {
+            var imgpath = itemData[j].imagePath;
+            let pathArray = imgpath.split("\\");
+            let newPath = pathArray.slice(1).join("\\");
+            console.log(imgpath);
             var p = orderData[i].order_total_cost/orderData[i].quantity;
             var tb=document.getElementById("parentOrder");
             var x= document.createElement("div");
@@ -293,9 +297,9 @@ function load()
                 />
               </div>
                 <div class="d-flex justify-content-around mb-4">
-                  <img
+                  <img id=img5
                     class="foodItem_photo me-5"
-                    src="/images/dish_1.png"
+                    src="/${newPath}"
                     alt=""
                   />
                   <div>
@@ -343,8 +347,11 @@ function load()
           </div>
           `;
             // tb.innerText=orderData[i].tablenumber;
+            var img =document.querySelector(".foodItem_photo");
+            // console.log(img);
+            // img.setAttribute("src", newPath);
             tb.appendChild(x);
-            console.log(tb);
+            // console.log(img);
             j=j+8;
           }
         }
