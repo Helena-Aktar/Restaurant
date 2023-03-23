@@ -212,6 +212,8 @@ body {
 }
 
 .menu-tabs-header-items {
+  display: flex;
+  justify-content: space-between;
   position: relative;
   width: 50%;
   left: 25%;
@@ -413,6 +415,7 @@ body {
 }
 .special_dishes {
   width: 75%;
+
   /* background: #c1c3cd; */
 }
 .sp_dish-block {
@@ -460,4 +463,51 @@ body {
 }
 .price {
   color: var(--color-primary);
+}
+.chefs_selection-dish-block {
+  display: flex;
+  justify-content: space-around;
+  width: 75%;
+}
+
+/* ======================== media queries  for small laptops and big tablets =======================  */
+
+@media screen and (max-width: 1200px) {
+  #core_container {
+    /* width: 95%; */
+  }
+}
+/* ================= Media Queries for small Tablets and Mobile Phones ============= */
+
+@media screen and (max-width: 992px) {
+  body {
+    /* background: red; */
+  }
+  #core_container {
+    width: 100%;
+  }
+  .menu-tabs-header-items {
+    display: grid;
+    text-align: center;
+  }
+  .menu-tabs-header-icon {
+    display: none;
+  }
+  .special_dishes {
+    width: 100%;
+  }
+  .sp_dish-block {
+    /* width: 200px; */
+
+    margin: 5px;
+  }
+  .chefs_selection-dish-block {
+    display: grid;
+    width: 250px;
+    text-align: center;
+  }
+  .chefs_sel-img img {
+    width: 200px !important;
+    height: 200px;
+  }
 }
