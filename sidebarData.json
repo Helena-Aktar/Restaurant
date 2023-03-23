@@ -46,5 +46,23 @@
     "sidebar_item_name": "ABOUT US",
     "sidebar_item_parent_id": 8,
     "sidebar_item_destination": ""
+  },
+  {
+    "sidebar_item_id": 9,
+    "sidebar_item_name": "OUR CHEFS",
+    "sidebar_item_parent_id": 9,
+    "sidebar_item_destination": ""
+  },
+  {
+    "sidebar_item_id": 10,
+    "sidebar_item_name": "PAGES",
+    "sidebar_item_parent_id": 10,
+    "sidebar_item_destination": ""
+  },
+  {
+    "sidebar_item_id": 11,
+    "sidebar_item_name": "CONTACT",
+    "sidebar_item_parent_id": 11,
+    "sidebar_item_destination": ""
   }
 ]

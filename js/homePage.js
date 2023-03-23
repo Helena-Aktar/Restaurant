@@ -385,6 +385,7 @@ function displayDishItems() {
 
       spDishimg.setAttribute("src", newPath);
       // console.log(spDishimg);
+      // console.log(spDishimg);
       spDishimgDiv.appendChild(spDishimg);
       spDishBlock.appendChild(spDishimgDiv);
       let spDishBodyDiv = document.createElement("div");
