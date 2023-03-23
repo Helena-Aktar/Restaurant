@@ -97,12 +97,11 @@
               id="first_row_Cards_In_home"
               class="d-flex justify-content-around text-center mb-4"
             > -->
-            <div class="d-flex flex-wrap justify-content-start">
-              <div id="order_list_one" class="p-3 m-3 bg-white rounded-3">
-                <div id="order_list" class="">
+            <div id="parentOrder" class="d-flex flex-wrap justify-content-start">
+              <!-- <div id="order_list_one" class="p-3 m-3 bg-white rounded-3">
                   <div class="d-flex justify-content-between">
                     <div class="text-start m-2">
-                      <h5>Order #TN-5</h5>
+                      <h5>Order #TN-<label id="tn">0</label></h5>
                       <p>23 feb 2023, 08.12 PM</p>
                     </div>
                     <img
@@ -190,9 +189,8 @@
                       </p>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div id="order_list_two" class="p-3 m-3 bg-white rounded-3">
+              </div> -->
+              <!-- <div id="order_list_two" class="p-3 m-3 bg-white rounded-3">
                 <div class="d-flex justify-content-between">
                   <div class="text-start m-2">
                     <h5>Order #TN-15</h5>
@@ -261,8 +259,8 @@
                     </p>
                   </div>
                 </div>
-              </div>
-              <div id="order_list_three" class="p-3 bg-white rounded-3 m-3">
+              </div> -->
+              <!-- <div id="order_list_three" class="p-3 bg-white rounded-3 m-3">
                 <div class="d-flex justify-content-between">
                   <div class="text-start m-2">
                     <h5>Order #TN-15</h5>
@@ -323,244 +321,201 @@
                     <p class="btn btn-outline-success">
                       <i style="font-size: 40px" class="fa-solid fa-check"></i>
                     </p>
-                  </div>
-                </div>
-              </div>
-              <div id="order_list_four" class="p-3 bg-white rounded-3 m-3">
-                <div class="d-flex justify-content-between">
-                  <div class="text-start m-2">
-                    <h5>Order #TN-15</h5>
-                    <p>23 feb 2023, 08.12 PM</p>
-                  </div>
-                  <img
-                    class="profile_photo"
-                    src="/images/user_icon_1.png"
-                    alt=""
-                  />
-                </div>
-                <div class="d-flex justify-content-around mb-4">
-                  <img
-                    class="foodItem_photo me-5"
-                    src="/images/dish_1.png"
-                    alt=""
-                  />
-                  <div>
-                    <h5>Vegetable Mixups</h5>
-                    <p>Vegetable Fritters with Egg</p>
-                    <div class="d-flex justify-content-around">
-                      <h5>$5.30</h5>
-                      <h5>Qty: 1</h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-around mb-4">
-                  <img
-                    class="foodItem_photo me-5"
-                    src="/images/dish_1.png"
-                    alt=""
-                  />
-                  <div>
-                    <h5>Vegetable Mixups</h5>
-                    <p>Vegetable Fritters with Egg</p>
-                    <div class="d-flex justify-content-around">
-                      <h5>$5.30</h5>
-                      <h5>Qty:1</h5>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="m-3"
-                  style="height: 1.2px; background: #c1c3cd"
-                ></div>
-                <div class="d-flex justify-content-between">
-                  <div class="text-start">
-                    <p style="font-size: larger">2 Items</p>
-                    <h3>$10.30</h3>
-                  </div>
-                  <div class="text-center pt-3">
-                    <p class="btn btn-outline-danger">
-                      <i
-                        style="font-size: 40px; width: 42px"
-                        class="fa-solid fa-xmark"
-                      ></i>
-                    </p>
-                    <p class="btn btn-outline-success">
-                      <i style="font-size: 40px" class="fa-solid fa-check"></i>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div id="order_list_five" class="p-3 bg-white rounded-3 m-3">
-                <div class="d-flex justify-content-between">
-                  <div class="text-start m-2">
-                    <h5>Order #TN-15</h5>
-                    <p>23 feb 2023, 08.12 PM</p>
-                  </div>
-                  <img
-                    class="profile_photo"
-                    src="/images/user_icon_1.png"
-                    alt=""
-                  />
-                </div>
-                <div class="d-flex justify-content-around mb-4">
-                  <img
-                    class="foodItem_photo me-5"
-                    src="/images/dish_1.png"
-                    alt=""
-                  />
-                  <div>
-                    <h5>Vegetable Mixups</h5>
-                    <p>Vegetable Fritters with Egg</p>
-                    <div class="d-flex justify-content-around">
-                      <h5>$5.30</h5>
-                      <h5>Qty: 1</h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-around mb-4">
-                  <img
-                    class="foodItem_photo me-5"
-                    src="/images/dish_1.png"
-                    alt=""
-                  />
-                  <div>
-                    <h5>Vegetable Mixups</h5>
-                    <p>Vegetable Fritters with Egg</p>
-                    <div class="d-flex justify-content-around">
-                      <h5>$5.30</h5>
-                      <h5>Qty:1</h5>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="m-3"
-                  style="height: 1.2px; background: #c1c3cd"
-                ></div>
-                <div class="d-flex justify-content-between">
-                  <div class="text-start">
-                    <p style="font-size: larger">2 Items</p>
-                    <h3>$10.30</h3>
-                  </div>
-                  <div class="text-center pt-3">
-                    <p class="btn btn-outline-danger">
-                      <i
-                        style="font-size: 40px; width: 42px"
-                        class="fa-solid fa-xmark"
-                      ></i>
-                    </p>
-                    <p class="btn btn-outline-success">
-                      <i style="font-size: 40px" class="fa-solid fa-check"></i>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div id="order_list_six" class="m-3 p-3 bg-white rounded-3">
-                <div class="d-flex justify-content-between">
-                  <div class="text-start m-2">
-                    <h5>Order #TN-15</h5>
-                    <p>23 feb 2023, 08.12 PM</p>
-                  </div>
-                  <img
-                    class="profile_photo"
-                    src="/images/user_icon_1.png"
-                    alt=""
-                  />
-                </div>
-                <div class="d-flex justify-content-around mb-4">
-                  <img
-                    class="foodItem_photo me-5"
-                    src="/images/dish_1.png"
-                    alt=""
-                  />
-                  <div>
-                    <h5>Vegetable Mixups</h5>
-                    <p>Vegetable Fritters with Egg</p>
-                    <div class="d-flex justify-content-around">
-                      <h5>$5.30</h5>
-                      <h5>Qty: 1</h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-around mb-4">
-                  <img
-                    class="foodItem_photo me-5"
-                    src="/images/dish_1.png"
-                    alt=""
-                  />
-                  <div>
-                    <h5>Vegetable Mixups</h5>
-                    <p>Vegetable Fritters with Egg</p>
-                    <div class="d-flex justify-content-around">
-                      <h5>$5.30</h5>
-                      <h5>Qty:1</h5>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="m-3"
-                  style="height: 1.2px; background: #c1c3cd"
-                ></div>
-                <div class="d-flex justify-content-between">
-                  <div class="text-start">
-                    <p style="font-size: larger">2 Items</p>
-                    <h3>$10.30</h3>
-                  </div>
-                  <div class="text-center pt-3">
-                    <p class="btn btn-outline-danger">
-                      <i
-                        style="font-size: 40px; width: 42px"
-                        class="fa-solid fa-xmark"
-                      ></i>
-                    </p>
-                    <p class="btn btn-outline-success">
-                      <i style="font-size: 40px" class="fa-solid fa-check"></i>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <!-- <div class=" p-3 bg-white rounded-3">
-                <div class="d-flex justify-content-between">
-                  <div class="text-start m-2">
-                    <h5>Order #TN-15</h5>
-                    <p>23 feb 2023, 08.12 PM</p>
-                  </div>
-                  <img class="profile_photo" src="/images/user_icon_1.png" alt="">
-                </div>
-                <div class="d-flex justify-content-around mb-4">
-                  <img class="foodItem_photo me-5" src="/images/dish_1.png" alt="">
-                  <div>
-                    <h5>Vegetable Mixups</h5>
-                    <p>Vegetable Fritters with Egg</p>
-                    <div class="d-flex justify-content-around">
-                      <h5>$5.30</h5>
-                      <h5>Qty: 1</h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-around mb-4">
-                  <img class="foodItem_photo me-5" src="/images/dish_1.png" alt="">
-                  <div>
-                    <h5>Vegetable Mixups</h5>
-                    <p>Vegetable Fritters with Egg</p>
-                    <div class="d-flex justify-content-around">
-                      <h5>$5.30</h5>
-                      <h5>Qty:1</h5>
-                    </div>
-                  </div>
-                </div>
-                <div class="m-3" style=" height: 1.2px;background: #C1C3CD;"></div>
-                <div class="d-flex justify-content-between">
-                  <div class="text-start">
-                    <p style="font-size: larger;">2 Items</p>
-                    <h3>$10.30</h3>
-                  </div>
-                  <div class="text-center pt-3">
-                    <p class="btn btn-outline-danger"><i style="font-size: 40px;" class="fa-solid fa-xmark"></i></p>
-                    <p class="btn btn-outline-success"><i style="font-size: 40px;" class="fa-solid fa-check"></i></p>
                   </div>
                 </div>
               </div> -->
-              <!-- </div> -->
+              <!-- <div id="order_list_four" class="p-3 bg-white rounded-3 m-3">
+                <div class="d-flex justify-content-between">
+                  <div class="text-start m-2">
+                    <h5>Order #TN-15</h5>
+                    <p>23 feb 2023, 08.12 PM</p>
+                  </div>
+                  <img
+                    class="profile_photo"
+                    src="/images/user_icon_1.png"
+                    alt=""
+                  />
+                </div>
+                <div class="d-flex justify-content-around mb-4">
+                  <img
+                    class="foodItem_photo me-5"
+                    src="/images/dish_1.png"
+                    alt=""
+                  />
+                  <div>
+                    <h5>Vegetable Mixups</h5>
+                    <p>Vegetable Fritters with Egg</p>
+                    <div class="d-flex justify-content-around">
+                      <h5>$5.30</h5>
+                      <h5>Qty: 1</h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-around mb-4">
+                  <img
+                    class="foodItem_photo me-5"
+                    src="/images/dish_1.png"
+                    alt=""
+                  />
+                  <div>
+                    <h5>Vegetable Mixups</h5>
+                    <p>Vegetable Fritters with Egg</p>
+                    <div class="d-flex justify-content-around">
+                      <h5>$5.30</h5>
+                      <h5>Qty:1</h5>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="m-3"
+                  style="height: 1.2px; background: #c1c3cd"
+                ></div>
+                <div class="d-flex justify-content-between">
+                  <div class="text-start">
+                    <p style="font-size: larger">2 Items</p>
+                    <h3>$10.30</h3>
+                  </div>
+                  <div class="text-center pt-3">
+                    <p class="btn btn-outline-danger">
+                      <i
+                        style="font-size: 40px; width: 42px"
+                        class="fa-solid fa-xmark"
+                      ></i>
+                    </p>
+                    <p class="btn btn-outline-success">
+                      <i style="font-size: 40px" class="fa-solid fa-check"></i>
+                    </p>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div id="order_list_five" class="p-3 bg-white rounded-3 m-3">
+                <div class="d-flex justify-content-between">
+                  <div class="text-start m-2">
+                    <h5>Order #TN-15</h5>
+                    <p>23 feb 2023, 08.12 PM</p>
+                  </div>
+                  <img
+                    class="profile_photo"
+                    src="/images/user_icon_1.png"
+                    alt=""
+                  />
+                </div>
+                <div class="d-flex justify-content-around mb-4">
+                  <img
+                    class="foodItem_photo me-5"
+                    src="/images/dish_1.png"
+                    alt=""
+                  />
+                  <div>
+                    <h5>Vegetable Mixups</h5>
+                    <p>Vegetable Fritters with Egg</p>
+                    <div class="d-flex justify-content-around">
+                      <h5>$5.30</h5>
+                      <h5>Qty: 1</h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-around mb-4">
+                  <img
+                    class="foodItem_photo me-5"
+                    src="/images/dish_1.png"
+                    alt=""
+                  />
+                  <div>
+                    <h5>Vegetable Mixups</h5>
+                    <p>Vegetable Fritters with Egg</p>
+                    <div class="d-flex justify-content-around">
+                      <h5>$5.30</h5>
+                      <h5>Qty:1</h5>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="m-3"
+                  style="height: 1.2px; background: #c1c3cd"
+                ></div>
+                <div class="d-flex justify-content-between">
+                  <div class="text-start">
+                    <p style="font-size: larger">2 Items</p>
+                    <h3>$10.30</h3>
+                  </div>
+                  <div class="text-center pt-3">
+                    <p class="btn btn-outline-danger">
+                      <i
+                        style="font-size: 40px; width: 42px"
+                        class="fa-solid fa-xmark"
+                      ></i>
+                    </p>
+                    <p class="btn btn-outline-success">
+                      <i style="font-size: 40px" class="fa-solid fa-check"></i>
+                    </p>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div id="order_list_six" class="m-3 p-3 bg-white rounded-3">
+                <div class="d-flex justify-content-between">
+                  <div class="text-start m-2">
+                    <h5>Order #TN-15</h5>
+                    <p>23 feb 2023, 08.12 PM</p>
+                  </div>
+                  <img
+                    class="profile_photo"
+                    src="/images/user_icon_1.png"
+                    alt=""
+                  />
+                </div>
+                <div class="d-flex justify-content-around mb-4">
+                  <img
+                    class="foodItem_photo me-5"
+                    src="/images/dish_1.png"
+                    alt=""
+                  />
+                  <div>
+                    <h5>Vegetable Mixups</h5>
+                    <p>Vegetable Fritters with Egg</p>
+                    <div class="d-flex justify-content-around">
+                      <h5>$5.30</h5>
+                      <h5>Qty: 1</h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-around mb-4">
+                  <img
+                    class="foodItem_photo me-5"
+                    src="/images/dish_1.png"
+                    alt=""
+                  />
+                  <div>
+                    <h5>Vegetable Mixups</h5>
+                    <p>Vegetable Fritters with Egg</p>
+                    <div class="d-flex justify-content-around">
+                      <h5>$5.30</h5>
+                      <h5>Qty:1</h5>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="m-3"
+                  style="height: 1.2px; background: #c1c3cd"
+                ></div>
+                <div class="d-flex justify-content-between">
+                  <div class="text-start">
+                    <p style="font-size: larger">2 Items</p>
+                    <h3>$10.30</h3>
+                  </div>
+                  <div class="text-center pt-3">
+                    <p class="btn btn-outline-danger">
+                      <i
+                        style="font-size: 40px; width: 42px"
+                        class="fa-solid fa-xmark"
+                      ></i>
+                    </p>
+                    <p class="btn btn-outline-success">
+                      <i style="font-size: 40px" class="fa-solid fa-check"></i>
+                    </p>
+                  </div>
+                </div>
+              </div> -->
             </div>
           </div>
         </section>

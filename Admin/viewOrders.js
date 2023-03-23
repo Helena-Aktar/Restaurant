@@ -196,7 +196,7 @@ function sellectoption() {
   fetch("http://192.168.2.102:85/GetAllDishItems")
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       data.forEach((item) => {
         const obj = { ...item }; // spread operator (...)
         // pushing objects to array
@@ -205,7 +205,7 @@ function sellectoption() {
       const optionsparent = document.getElementById("parentMenuID");
       for (i = 0; i < DishItemsArrayT.length; i++) {
         if (DishItemsArrayT[i].id == DishItemsArrayT[i].parentMenuID) {
-          console.log("hh");
+          // console.log("hh");
           const newOption = document.createElement("option");
           newOption.value = DishItemsArrayT[i].id;
           newOption.text = DishItemsArrayT[i].name;
@@ -221,3 +221,134 @@ sellectoption();
 // var op = document.querySelectorAll("option");
 // var s = (op[1].selected = true);
 // console.log(s);
+
+//get order informations url => http://192.168.2.103:50/api/order/getallorderlist
+const orderData=[];
+const itemData=[];
+
+function onload()
+{
+    const alllist=[];
+    // const orderData=[];
+    // const itemData=[];
+    fetch("http://192.168.2.103:50/api/order/getallorderlist")
+      .then((response) => response.json())
+      .then((orderdata) => {
+          orderDatalength=orderData.length;
+          orderdata.forEach((item) => {
+            const obj = { ...item }; // spread operator (...)
+            // pushing objects to array
+            orderData.push(obj);
+            // alllist.push(obj);
+            // console.log(orderData.length);
+          });
+        // console.log(alllist);
+        // load();
+      });
+    // console.log(orderdata);
+    fetch("http://192.168.2.102:85/GetAllDishItems")
+      .then((response) => response.json())
+      .then((itemdata) => {
+        // console.log(itemdata);
+          itemdata.forEach((item) => {
+            const obj = { ...item }; // spread operator (...)
+            // pushing objects to array
+            itemData.push(obj);
+            // alllist.push(obj);
+          });
+          load();
+        // console.log(alllist);
+      });
+}
+onload();
+function load()
+{
+  // const a = orderData.length;
+      console.log(orderData);
+      console.log(itemData);
+  //     console.log(a);
+      for(var i=0;i<orderData.length;i++)
+      {
+        // console.log("hi");
+        for(var j=0;j<itemData.length;j++)
+        {
+          // console.log("hello")
+          if(orderData[i].item_id==itemData[j].id)
+          {
+            var p = orderData[i].order_total_cost/orderData[i].quantity;
+            var tb=document.getElementById("parentOrder");
+            var x= document.createElement("div");
+            x.innerHTML=`
+            <div id="order_list_one" class="p-3 m-3 bg-white rounded-3">
+            <!-- <div id="order_list" class=""> -->
+              <div class="d-flex justify-content-between">
+                <div class="text-start m-2">
+                  <h5>Order #TN-<label>${orderData[i].table_number}</label></h5>
+                  <p>${orderData[i].order_datetime}</p>
+                </div>
+                <img
+                  class="profile_photo"
+                  src="/images/user_icon_1.png"
+                  alt=""
+                />
+              </div>
+                <div class="d-flex justify-content-around mb-4">
+                  <img
+                    class="foodItem_photo me-5"
+                    src="/images/dish_1.png"
+                    alt=""
+                  />
+                  <div>
+                    <h5>${itemData[j].name}</h5>
+                    <p id="dis">${itemData[j].description}</p>
+                    <div class="d-flex justify-content-around">
+                      <h5>$${p}</h5>
+                      <h5>Qty:${orderData[i].quantity}</h5>
+                    </div>
+                  </div>
+                </div>
+              <div
+                class="m-3"
+                style="height: 1.2px; background: #c1c3cd"
+              ></div>
+              <div class="d-flex justify-content-between">
+                <div class="text-start">
+                  <p style="font-size: larger">1 Items</p>
+                  <h3>$${orderData[i].order_total_cost}</h3>
+                </div>
+                <div class="text-center pt-3">
+                  <p
+                    id="reject"
+                    onclick="orderselectionone(0)"
+                    class="btn btn-outline-danger"
+                  >
+                    <i
+                      style="font-size: 40px; width: 42px"
+                      class="fa-solid fa-xmark"
+                    ></i>
+                  </p>
+                  <p
+                    id="conform"
+                    onclick="orderselectionone(1)"
+                    class="btn btn-outline-success"
+                  >
+                    <i
+                      style="font-size: 40px"
+                      class="fa-solid fa-check"
+                    ></i>
+                  </p>
+                </div>
+              </div>
+            <!-- </div> -->
+          </div>
+          `;
+            // tb.innerText=orderData[i].tablenumber;
+            tb.appendChild(x);
+            console.log(tb);
+            j=j+8;
+          }
+        }
+      }
+
+}
+
