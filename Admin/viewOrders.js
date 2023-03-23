@@ -191,14 +191,34 @@ function hi() {
       console.log(data);
     });
 }
-function SideBar() {
-  fetch("http://192.168.2.102:85/GetAllSidebarItems")
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-    });
-}
-SideBar();
-var op = document.querySelectorAll("option");
-var s = (op[1].selected = true);
-console.log(s);
+// const DishItemsArray = [];
+// function sellectoption() {
+//   fetch("http://192.168.2.102:85/GetAllDishItems")
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log(data);
+//       data.forEach((item) => {
+//         const obj = { ...item }; // spread operator (...)
+//         // pushing objects to array
+//         DishItemsArray.push(obj);
+//       });
+//       const optionsparent = document.getElementById("parentMenuID");
+//       for(i=0;i<DishItemsArray.length;i++){
+//         if(DishItemsArray[i].id==DishItemsArray[i].parentMenuID)
+//         {
+//           console.log("hh");
+//           const newOption = document.createElement("option");
+//           newOption.value = DishItemsArray[i].id;
+//           newOption.text = DishItemsArray[i].name;
+//           optionsparent.add(newOption);
+//         }
+
+//         // Add the new option to the select elemen
+//         //optionsparent.appendChild(a);
+//       }
+//     });
+// }
+// sellectoption();
+// var op = document.querySelectorAll("option");
+// var s = (op[1].selected = true);
+// console.log(s);
