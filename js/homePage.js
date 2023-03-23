@@ -88,20 +88,32 @@ function showDishDetails() {
 }
 
 // serve count
-const serveCount = document.querySelector(".count-number");
+
 var servingCounter = 0;
-function serveCountMinus() {
+function serveCountMinus(arg) {
+  console.log("hello minus");
+  console.log(arg);
+  let id = "count" + arg;
+  const serveCountSpan = document.getElementById(`${id}`);
+  console.log(serveCountSpan);
   if (servingCounter > 0) {
     servingCounter--;
   }
 
   console.log(servingCounter);
-  serveCount.innerHTML = servingCounter;
+  serveCountSpan.innerHTML = servingCounter;
 }
-function serveCountPlus() {
+function serveCountPlus(arg) {
+  console.log("hello plus");
+  console.log(arg);
+  let id = "count" + arg;
+  const serveCountSpan = document.getElementById(`${id}`);
+  console.log(serveCountSpan);
+
   servingCounter++;
+
   console.log(servingCounter);
-  serveCount.innerHTML = servingCounter;
+  serveCountSpan.innerHTML = servingCounter;
 }
 
 // show add to cart count
@@ -397,6 +409,38 @@ function displayDishItems() {
       customizebtn.classList = "dish-btn";
       customizebtn.innerHTML = "Customize";
       spDishBtnDiv.appendChild(customizebtn);
+      let serveCountDiv = document.createElement("div");
+      serveCountDiv.classList = "serve_count d-flex justify-content-between";
+      // serveCountDiv.setAttribute("id", "scdiv" + `${DishItemsArray[i].id}`);
+      let countMinus = document.createElement("span");
+      countMinus.classList = "count-minus";
+      countMinus.setAttribute(
+        "onclick",
+        `serveCountMinus(${DishItemsArray[i].id})`
+      );
+      // countMinus.setAttribute("id", "countMinus" + `${DishItemsArray[i].id}`);
+      let minusIcon = document.createElement("i");
+      minusIcon.classList = "fa-solid fa-minus";
+      countMinus.appendChild(minusIcon);
+      serveCountDiv.appendChild(countMinus);
+      let counterSpan = document.createElement("span");
+      counterSpan.setAttribute("id", "count" + `${DishItemsArray[i].id}`);
+      counterSpan.innerText = 0;
+      serveCountDiv.appendChild(counterSpan);
+      let countPlus = document.createElement("span");
+      countPlus.classList = "count-plus";
+      countPlus.setAttribute(
+        "onclick",
+        `serveCountPlus(${DishItemsArray[i].id})`
+      );
+
+      // countPlus.setAttribute("id", "countPlus" + `${DishItemsArray[i].id}`);
+
+      let plusIcon = document.createElement("i");
+      plusIcon.classList = "fa-solid fa-plus";
+      countPlus.appendChild(plusIcon);
+      serveCountDiv.appendChild(countPlus);
+      spDishBtnDiv.appendChild(serveCountDiv);
       let orderNowbtn = document.createElement("button");
       orderNowbtn.classList = "dish-btn";
       orderNowbtn.innerHTML = "Order Now";
@@ -421,8 +465,8 @@ function orderNow() {
   console.log(DishItemsArray);
   let id = event.target.id;
   let itemID = id.split("orderNow")[1];
-  // console.log(itemID);
-  let quantity = 1;
+  console.log(itemID);
+  let quantity = servingCounter;
   // console.log(quantity);
   let cost;
   let status = true;
@@ -435,7 +479,8 @@ function orderNow() {
   // console.log(tableNumber); // Output: 123
   DishItemsArray.forEach((item) => {
     if (item.id == itemID) {
-      cost = item.price;
+      let price = item.price;
+      cost = price * quantity;
     }
     // console.log(item);
   });
