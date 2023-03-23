@@ -114,7 +114,7 @@ function addToCart() {
 
 // customized modal
 // order
-const customize = document.querySelector("#customizee");
+const customize = document.querySelector("#customize");
 const orderModal = document.querySelector(".customize-order");
 // order customization
 
@@ -136,13 +136,13 @@ const SidebarMenuArray = [];
 
 // Fetchhing Sidebar items from json
 
-fetch("/sidebarData.json")
+// fetch("/sidebarData.json")
+//   .then((response) => response.json())
+//   .then((data) => {
+// Fetchhing Sidebar items from API
+fetch("http://192.168.2.102:85/GetAllSidebarItems")
   .then((response) => response.json())
   .then((data) => {
-    // Fetchhing Sidebar items from API
-    // fetch("http://192.168.2.102:85/GetAllSidebarItems")
-    //   .then((response) => response.json())
-    //   .then((data) => {
     // console.log("All Data");
     // console.log(data);
     // creating object from fetched data
@@ -287,15 +287,13 @@ function test() {
 }
 
 const DishItemsArray = [];
-
-// Fetchhing dish items from API
-// fetch("http://192.168.2.102:85/GetAllDishItems")
+// Fetchhing dish items items from json
+// fetch("/dishItemsData.json")
 //   .then((response) => response.json())
 //   .then((data) => {
 
-// Fetchhing dish items items from json
-
-fetch("/dishItemsData.json")
+// Fetchhing dish items from API
+fetch("http://192.168.2.102:85/GetAllDishItems")
   .then((response) => response.json())
   .then((data) => {
     // console.log("All Data");
@@ -306,7 +304,7 @@ fetch("/dishItemsData.json")
       // pushing objects to array
       DishItemsArray.push(obj);
     });
-    // console.log("Array");
+    console.log("Array");
     console.log(DishItemsArray);
 
     displayMenuHeaderTitles();
@@ -350,5 +348,60 @@ function displayMenuHeaderTitles() {
 // display Dish Items
 function displayDishItems() {
   const dishItemsContainer = document.querySelector(".special_dishes");
+  console.log(DishItemsArray);
   // dishItemsContainer.innerHTML = "";
+  for (let i = 0; i < DishItemsArray.length; i++) {
+    if (DishItemsArray[i].id != DishItemsArray[i].parentMenuID) {
+      // console.log(DishItemsArray[i]);
+      let spDishBlock = document.createElement("div");
+      spDishBlock.classList = "sp_dish-block";
+      spDishBlock.setAttribute("id", `${DishItemsArray[i].id}`);
+      console.log(spDishBlock, "dishblock");
+      let spDishimgDiv = document.createElement("div");
+      spDishimgDiv.classList = "sp_dish-img";
+      let spDishimg = document.createElement("img");
+
+      let imgSRC = DishItemsArray[i].imagePath;
+      console.log(imgSRC);
+      let index = imgSRC.indexOf("\\");
+      let newPath = imgSRC.substring(index + 1);
+      console.log("new path" + newPath);
+      spDishimg.setAttribute("src", newPath);
+      console.log(spDishimg);
+      spDishimgDiv.appendChild(spDishimg);
+      spDishBlock.appendChild(spDishimgDiv);
+      let spDishBodyDiv = document.createElement("div");
+      spDishBodyDiv.classList = "sp_dish-body";
+      let spDishTitle = document.createElement("div");
+      spDishTitle.classList = "sp_dish-title";
+      let dishTitelh5 = document.createElement("h5");
+      dishTitelh5.innerText = DishItemsArray[i].name;
+      spDishTitle.appendChild(dishTitelh5);
+      let spDishPrice = document.createElement("span");
+      spDishPrice.classList = "price";
+      spDishPrice.innerText = "$" + DishItemsArray[i].price;
+      spDishTitle.appendChild(spDishPrice);
+      spDishBodyDiv.appendChild(spDishTitle);
+      let spDishDetails = document.createElement("p");
+      spDishDetails.classList = "sp_dish-details text-center";
+      spDishDetails.innerText = DishItemsArray[i].description;
+      spDishBodyDiv.appendChild(spDishDetails);
+      let spDishBtnDiv = document.createElement("div");
+      spDishBtnDiv.classList = "dish-buttons d-flex justify-content-around";
+      let customizebtn = document.createElement("button");
+      customizebtn.classList = "dish-btn";
+      customizebtn.innerHTML = "Customize";
+      spDishBtnDiv.appendChild(customizebtn);
+      let orderNowbtn = document.createElement("button");
+      orderNowbtn.classList = "dish-btn";
+      orderNowbtn.innerHTML = "Order Now";
+      spDishBtnDiv.appendChild(orderNowbtn);
+      // output
+
+      spDishBlock.appendChild(spDishBodyDiv);
+      spDishBlock.appendChild(spDishBtnDiv);
+      dishItemsContainer.appendChild(spDishBlock);
+      console.log(dishItemsContainer);
+    }
+  }
 }
