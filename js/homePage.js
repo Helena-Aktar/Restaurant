@@ -173,7 +173,7 @@ fetch("http://192.168.2.102:85/GetAllSidebarItems")
 
     displaySidebarMenuItems();
     // data1();
-    test();
+    sidebarOnClick();
   })
   .catch((error) => {
     console.error("Error fetching sidebar items:", error);
@@ -254,7 +254,7 @@ function displaySidebarMenuItems() {
 }
 // test();
 //sidebar onclick
-function test() {
+function sidebarOnClick() {
   const removeParentActiveSidebarItem = () => {
     parentSidebarMenuList.forEach((item) => {
       item.classList.remove("active");
@@ -310,6 +310,7 @@ fetch("http://192.168.2.102:85/GetAllDishItems")
     displayMenuHeaderTitles();
     menuHeaderActive();
     displayDishItems();
+    // addOrder();
   });
 
 // displayMenuHeaderTitle
@@ -356,18 +357,22 @@ function displayDishItems() {
       let spDishBlock = document.createElement("div");
       spDishBlock.classList = "sp_dish-block";
       spDishBlock.setAttribute("id", `${DishItemsArray[i].id}`);
-      console.log(spDishBlock, "dishblock");
+      // console.log(spDishBlock, "dishblock");
       let spDishimgDiv = document.createElement("div");
       spDishimgDiv.classList = "sp_dish-img";
       let spDishimg = document.createElement("img");
 
       let imgSRC = DishItemsArray[i].imagePath;
-      console.log(imgSRC);
-      let index = imgSRC.indexOf("\\");
-      let newPath = imgSRC.substring(index + 1);
-      console.log("new path" + newPath);
+      // console.log(imgSRC);
+      // let index = imgSRC.indexOf("\\");
+      // let newPath = imgSRC.substring(index + 1);
+
+      let pathArray = imgSRC.split("\\"); // Split the file path into an array based on the backslash character
+      let newPath = pathArray.slice(1).join("\\"); // Join the array elements starting from the second element using the backslash character
+      // console.log("new path" + newPath);
+
       spDishimg.setAttribute("src", newPath);
-      console.log(spDishimg);
+      // console.log(spDishimg);
       spDishimgDiv.appendChild(spDishimg);
       spDishBlock.appendChild(spDishimgDiv);
       let spDishBodyDiv = document.createElement("div");
@@ -396,12 +401,87 @@ function displayDishItems() {
       orderNowbtn.classList = "dish-btn";
       orderNowbtn.innerHTML = "Order Now";
       spDishBtnDiv.appendChild(orderNowbtn);
+      orderNowbtn.setAttribute("id", "orderNow" + `${DishItemsArray[i].id}`);
+      orderNowbtn.setAttribute("onclick", "orderNow()");
+      console.log(orderNowbtn);
       // output
 
       spDishBlock.appendChild(spDishBodyDiv);
       spDishBlock.appendChild(spDishBtnDiv);
       dishItemsContainer.appendChild(spDishBlock);
-      console.log(dishItemsContainer);
+      // console.log(dishItemsContainer);
     }
   }
+}
+
+// add order
+
+function orderNow() {
+  console.log("helloorder");
+  console.log(DishItemsArray);
+  let id = event.target.id;
+  let itemID = id.split("orderNow")[1];
+  // console.log(itemID);
+  let quantity = 1;
+  // console.log(quantity);
+  let cost;
+  let status = true;
+  let instruction = "Less Spice";
+  let orderCustomization = "Add Bell Paper";
+  // let cost = DishItemsArray[itemID].price;
+  DishItemsArray.forEach((item) => {
+    if (item.id == itemID) {
+      cost = item.price;
+    }
+    // console.log(item);
+  });
+  console.log("order");
+  console.log(itemID);
+  console.log(status);
+  console.log(quantity);
+  console.log(cost);
+  console.log(instruction);
+  console.log(orderCustomization);
+
+  const formData = new FormData();
+  formData.append("item_id", itemID);
+  formData.append("order_status", status);
+  formData.append("quantity ", quantity);
+  formData.append("order_total_cost", cost);
+  formData.append("customization_instructions  ", instruction);
+  formData.append("customization   ", orderCustomization);
+  console.log(formData);
+
+  fetch("https://192.168.2.103/:7161/addorder", {
+    method: "POST",
+    body: formData,
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("data" + data);
+    })
+    .catch((err) => console.log(err));
+}
+const OrdersArray = [];
+// Fetchhing Ortders from API
+// fetch("http://192.168.2.103:50/api/order/getallorderlist")
+fetch("/order.json")
+  .then((response) => response.json())
+  .then((data) => {
+    // console.log("All Data");
+    // console.log(data);
+    // creating object from fetched data
+    data.forEach((item) => {
+      const obj = { ...item }; // spread operator (...)
+      // pushing objects to array
+      OrdersArray.push(obj);
+    });
+    // console.log("Orders Array");
+    // console.log(OrdersArray);
+    showOrders();
+  });
+
+function showOrders() {
+  console.log("Orders Array");
+  console.log(OrdersArray);
 }
