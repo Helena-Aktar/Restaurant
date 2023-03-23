@@ -88,20 +88,32 @@ function showDishDetails() {
 }
 
 // serve count
-const serveCount = document.querySelector(".count-number");
+
 var servingCounter = 0;
-function serveCountMinus() {
+function serveCountMinus(arg) {
+  console.log("hello minus");
+  console.log(arg);
+  let id = "count" + arg;
+  const serveCountSpan = document.getElementById(`${id}`);
+  console.log(serveCountSpan);
   if (servingCounter > 0) {
     servingCounter--;
   }
 
   console.log(servingCounter);
-  serveCount.innerHTML = servingCounter;
+  serveCountSpan.innerHTML = servingCounter;
 }
-function serveCountPlus() {
+function serveCountPlus(arg) {
+  console.log("hello plus");
+  console.log(arg);
+  let id = "count" + arg;
+  const serveCountSpan = document.getElementById(`${id}`);
+  console.log(serveCountSpan);
+
   servingCounter++;
+
   console.log(servingCounter);
-  serveCount.innerHTML = servingCounter;
+  serveCountSpan.innerHTML = servingCounter;
 }
 
 // show add to cart count
@@ -114,7 +126,7 @@ function addToCart() {
 
 // customized modal
 // order
-const customize = document.querySelector("#customizee");
+const customize = document.querySelector("#customize");
 const orderModal = document.querySelector(".customize-order");
 // order customization
 
@@ -136,13 +148,13 @@ const SidebarMenuArray = [];
 
 // Fetchhing Sidebar items from json
 
-fetch("/sidebarData.json")
+// fetch("/sidebarData.json")
+//   .then((response) => response.json())
+//   .then((data) => {
+// Fetchhing Sidebar items from API
+fetch("http://192.168.2.102:85/GetAllSidebarItems")
   .then((response) => response.json())
   .then((data) => {
-    // Fetchhing Sidebar items from API
-    // fetch("http://192.168.2.102:85/GetAllSidebarItems")
-    //   .then((response) => response.json())
-    //   .then((data) => {
     // console.log("All Data");
     // console.log(data);
     // creating object from fetched data
@@ -173,7 +185,7 @@ fetch("/sidebarData.json")
 
     displaySidebarMenuItems();
     // data1();
-    test();
+    sidebarOnClick();
   })
   .catch((error) => {
     console.error("Error fetching sidebar items:", error);
@@ -254,7 +266,7 @@ function displaySidebarMenuItems() {
 }
 // test();
 //sidebar onclick
-function test() {
+function sidebarOnClick() {
   const removeParentActiveSidebarItem = () => {
     parentSidebarMenuList.forEach((item) => {
       item.classList.remove("active");
@@ -287,15 +299,13 @@ function test() {
 }
 
 const DishItemsArray = [];
-
-// Fetchhing dish items from API
-// fetch("http://192.168.2.102:85/GetAllDishItems")
+// Fetchhing dish items items from json
+// fetch("/dishItemsData.json")
 //   .then((response) => response.json())
 //   .then((data) => {
 
-// Fetchhing dish items items from json
-
-fetch("/dishItemsData.json")
+// Fetchhing dish items from API
+fetch("http://192.168.2.102:85/GetAllDishItems")
   .then((response) => response.json())
   .then((data) => {
     // console.log("All Data");
@@ -306,12 +316,13 @@ fetch("/dishItemsData.json")
       // pushing objects to array
       DishItemsArray.push(obj);
     });
-    // console.log("Array");
+    console.log("Array");
     console.log(DishItemsArray);
 
     displayMenuHeaderTitles();
     menuHeaderActive();
     displayDishItems();
+    // addOrder();
   });
 
 // displayMenuHeaderTitle
@@ -350,11 +361,179 @@ function displayMenuHeaderTitles() {
 // display Dish Items
 function displayDishItems() {
   const dishItemsContainer = document.querySelector(".special_dishes");
+  console.log(DishItemsArray);
   // dishItemsContainer.innerHTML = "";
+  for (let i = 0; i < DishItemsArray.length; i++) {
+    if (DishItemsArray[i].id != DishItemsArray[i].parentMenuID) {
+      // console.log(DishItemsArray[i]);
+      let spDishBlock = document.createElement("div");
+      spDishBlock.classList = "sp_dish-block";
+      spDishBlock.setAttribute("id", `${DishItemsArray[i].id}`);
+      // console.log(spDishBlock, "dishblock");
+      let spDishimgDiv = document.createElement("div");
+      spDishimgDiv.classList = "sp_dish-img";
+      let spDishimg = document.createElement("img");
+
+      let imgSRC = DishItemsArray[i].imagePath;
+      // console.log(imgSRC);
+      // let index = imgSRC.indexOf("\\");
+      // let newPath = imgSRC.substring(index + 1);
+
+      let pathArray = imgSRC.split("\\"); // Split the file path into an array based on the backslash character
+      let newPath = pathArray.slice(1).join("\\"); // Join the array elements starting from the second element using the backslash character
+      // console.log("new path" + newPath);
+
+      spDishimg.setAttribute("src", newPath);
+      // console.log(spDishimg);
+      spDishimgDiv.appendChild(spDishimg);
+      spDishBlock.appendChild(spDishimgDiv);
+      let spDishBodyDiv = document.createElement("div");
+      spDishBodyDiv.classList = "sp_dish-body";
+      let spDishTitle = document.createElement("div");
+      spDishTitle.classList = "sp_dish-title";
+      let dishTitelh5 = document.createElement("h5");
+      dishTitelh5.innerText = DishItemsArray[i].name;
+      spDishTitle.appendChild(dishTitelh5);
+      let spDishPrice = document.createElement("span");
+      spDishPrice.classList = "price";
+      spDishPrice.innerText = "$" + DishItemsArray[i].price;
+      spDishTitle.appendChild(spDishPrice);
+      spDishBodyDiv.appendChild(spDishTitle);
+      let spDishDetails = document.createElement("p");
+      spDishDetails.classList = "sp_dish-details text-center";
+      spDishDetails.innerText = DishItemsArray[i].description;
+      spDishBodyDiv.appendChild(spDishDetails);
+      let spDishBtnDiv = document.createElement("div");
+      spDishBtnDiv.classList = "dish-buttons d-flex justify-content-around";
+      let customizebtn = document.createElement("button");
+      customizebtn.classList = "dish-btn";
+      customizebtn.innerHTML = "Customize";
+      spDishBtnDiv.appendChild(customizebtn);
+      let serveCountDiv = document.createElement("div");
+      serveCountDiv.classList = "serve_count d-flex justify-content-between";
+      // serveCountDiv.setAttribute("id", "scdiv" + `${DishItemsArray[i].id}`);
+      let countMinus = document.createElement("span");
+      countMinus.classList = "count-minus";
+      countMinus.setAttribute(
+        "onclick",
+        `serveCountMinus(${DishItemsArray[i].id})`
+      );
+      // countMinus.setAttribute("id", "countMinus" + `${DishItemsArray[i].id}`);
+      let minusIcon = document.createElement("i");
+      minusIcon.classList = "fa-solid fa-minus";
+      countMinus.appendChild(minusIcon);
+      serveCountDiv.appendChild(countMinus);
+      let counterSpan = document.createElement("span");
+      counterSpan.setAttribute("id", "count" + `${DishItemsArray[i].id}`);
+      counterSpan.innerText = 0;
+      serveCountDiv.appendChild(counterSpan);
+      let countPlus = document.createElement("span");
+      countPlus.classList = "count-plus";
+      countPlus.setAttribute(
+        "onclick",
+        `serveCountPlus(${DishItemsArray[i].id})`
+      );
+
+      // countPlus.setAttribute("id", "countPlus" + `${DishItemsArray[i].id}`);
+
+      let plusIcon = document.createElement("i");
+      plusIcon.classList = "fa-solid fa-plus";
+      countPlus.appendChild(plusIcon);
+      serveCountDiv.appendChild(countPlus);
+      spDishBtnDiv.appendChild(serveCountDiv);
+      let orderNowbtn = document.createElement("button");
+      orderNowbtn.classList = "dish-btn";
+      orderNowbtn.innerHTML = "Order Now";
+      spDishBtnDiv.appendChild(orderNowbtn);
+      orderNowbtn.setAttribute("id", "orderNow" + `${DishItemsArray[i].id}`);
+      orderNowbtn.setAttribute("onclick", "orderNow()");
+      console.log(orderNowbtn);
+      // output
+
+      spDishBlock.appendChild(spDishBodyDiv);
+      spDishBlock.appendChild(spDishBtnDiv);
+      dishItemsContainer.appendChild(spDishBlock);
+      // console.log(dishItemsContainer);
+    }
+  }
 }
 
+// add order
 
-// get the table number from the url
-const urlParams = new URLSearchParams(window.location.search);
-const number = parseInt(urlParams.get("tableNumber"));
-console.log(number); // Output: 123
+function orderNow() {
+  console.log("helloorder");
+  console.log(DishItemsArray);
+  let id = event.target.id;
+  let itemID = id.split("orderNow")[1];
+  console.log(itemID);
+  let quantity = servingCounter;
+  // console.log(quantity);
+  let cost;
+  let status = true;
+  let instruction = "Less Spice";
+  let orderCustomization = "Add Bell Paper";
+  // let cost = DishItemsArray[itemID].price;
+  // get the table number from the url
+  const urlParams = new URLSearchParams(window.location.search);
+  const tableNumber = parseInt(urlParams.get("tableNumber"));
+  // console.log(tableNumber); // Output: 123
+  DishItemsArray.forEach((item) => {
+    if (item.id == itemID) {
+      let price = item.price;
+      cost = price * quantity;
+    }
+    // console.log(item);
+  });
+  console.log("order");
+  console.log(itemID);
+  console.log(status);
+  console.log(quantity);
+  console.log(cost);
+  console.log(instruction);
+  console.log(orderCustomization);
+  console.log(tableNumber);
+
+  const formData = new FormData();
+  formData.append("item_id", itemID);
+  formData.append("order_status", status);
+  formData.append("quantity", quantity);
+  formData.append("order_total_cost", cost);
+  formData.append("customization_instructions", instruction);
+  formData.append("customization", orderCustomization);
+  formData.append("table_number", tableNumber);
+  console.log(formData);
+
+  fetch("http://192.168.2.103:50/api/order/addorder", {
+    method: "POST",
+    body: formData,
+  })
+    // .then((res) => res.json())
+    .then((data) => {
+      console.log("data" + data);
+      alert("Order added!");
+    })
+    .catch((err) => console.log(err));
+}
+const OrdersArray = [];
+// Fetchhing Ortders from API
+// fetch("http://192.168.2.103:50/api/order/getallorderlist")
+fetch("/order.json")
+  .then((response) => response.json())
+  .then((data) => {
+    // console.log("All Data");
+    // console.log(data);
+    // creating object from fetched data
+    data.forEach((item) => {
+      const obj = { ...item }; // spread operator (...)
+      // pushing objects to array
+      OrdersArray.push(obj);
+    });
+    // console.log("Orders Array");
+    // console.log(OrdersArray);
+    showOrders();
+  });
+
+function showOrders() {
+  console.log("Orders Array");
+  console.log(OrdersArray);
+}

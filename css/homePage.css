@@ -1,8 +1,12 @@
 :root {
   --menu_header-icons-tranform-deg: 45deg;
   --color-gray: #838390;
+  --color-light: #fef7ee;
   --color-danger: hsl(0, 93%, 61%);
   --color-success: hsl(142, 40%, 45%);
+}
+body {
+  background: #fefcfa;
 }
 * {
   /* border-radius: none; */
@@ -319,7 +323,7 @@
   /* background: #838390; */
 }
 .serve_count {
-  width: 90px;
+  width: 70px;
   margin: 0 10px;
   padding: 5px;
   /* background-image: linear-gradient(#f9f9f9, #e7e9ec); */
@@ -343,7 +347,7 @@
 }
 .dish-btn {
   /* color: #fff; */
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   padding: 5px;
   border: 1px solid var(--color-primary);
@@ -363,6 +367,12 @@
   height: fit-content;
   /* color: var(--color-success); */
 }
+/* .count-minus {
+  background: red;
+}
+.count-plus {
+  background: green;
+} */
 
 /* =============== Order Customization =================== */
 
@@ -406,23 +416,25 @@
   /* background: #c1c3cd; */
 }
 .sp_dish-block {
-  width: 250px;
-  /* background: #ffff; */
-  margin: 5px;
-  border: 1px solid var(--color-gray);
+  width: 300px;
+  background: var(--color-light);
+  margin: 10px;
+  border: 1px solid var(--color-primary);
   border-radius: 40px;
 }
 .sp_dish-img {
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
   overflow: hidden;
   /* margin: 0 auto; */
   /* background: #c1c3cd; */
   border-radius: 40px;
+  display: flex;
+  justify-content: center;
 }
 .sp_dish-img img {
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
   transition: 0.4s all ease-in-out;
 }
 .sp_dish-img:hover img {
