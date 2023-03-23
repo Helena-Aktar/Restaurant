@@ -147,7 +147,7 @@ function addDishItems() {
   console.log("Image Name: " + file.name);
   console.log("Image Type: " + file.type);
   console.log("Splited Type: " + file.type.split("/")[1]);
-//   random name
+  //   random name
   const randomString = Math.random().toString(36).substring(2);
   const timestamp = Date.now();
   const imageType = file.type.split("/")[1];
@@ -161,6 +161,7 @@ function addDishItems() {
   formData.append("Image", file);
   formData.append("ImageName", randomName);
   console.log(formData);
+
   fetch(" http://localhost:85/AddDishItems", {
     method: "POST",
     body: formData,
