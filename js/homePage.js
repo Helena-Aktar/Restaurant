@@ -458,13 +458,14 @@ function orderNow() {
   formData.append("table_number", tableNumber);
   console.log(formData);
 
-  fetch("https://192.168.2.103/:50/addorder", {
+  fetch("http://192.168.2.103:50/api/order/addorder", {
     method: "POST",
     body: formData,
   })
     // .then((res) => res.json())
     .then((data) => {
       console.log("data" + data);
+      alert("Order added!");
     })
     .catch((err) => console.log(err));
 }

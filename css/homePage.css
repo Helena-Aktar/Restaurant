@@ -5,7 +5,7 @@
   --color-danger: hsl(0, 93%, 61%);
   --color-success: hsl(142, 40%, 45%);
 }
-body{
+body {
   background: #fefcfa;
 }
 * {
@@ -323,7 +323,7 @@ body{
   /* background: #838390; */
 }
 .serve_count {
-  width: 90px;
+  width: 70px;
   margin: 0 10px;
   padding: 5px;
   /* background-image: linear-gradient(#f9f9f9, #e7e9ec); */
@@ -347,7 +347,7 @@ body{
 }
 .dish-btn {
   /* color: #fff; */
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   padding: 5px;
   border: 1px solid var(--color-primary);
@@ -410,15 +410,15 @@ body{
   /* background: #c1c3cd; */
 }
 .sp_dish-block {
-  width: 280px;
+  width: 300px;
   background: var(--color-light);
   margin: 10px;
   border: 1px solid var(--color-primary);
   border-radius: 40px;
 }
 .sp_dish-img {
-  width: 280px;
-  height: 280px;
+  width: 300px;
+  height: 300px;
   overflow: hidden;
   /* margin: 0 auto; */
   /* background: #c1c3cd; */
@@ -427,8 +427,8 @@ body{
   justify-content: center;
 }
 .sp_dish-img img {
-  width: 280px;
-  height: 280px;
+  width: 300px;
+  height: 300px;
   transition: 0.4s all ease-in-out;
 }
 .sp_dish-img:hover img {
