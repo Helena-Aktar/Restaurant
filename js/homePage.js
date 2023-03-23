@@ -429,6 +429,10 @@ function orderNow() {
   let instruction = "Less Spice";
   let orderCustomization = "Add Bell Paper";
   // let cost = DishItemsArray[itemID].price;
+  // get the table number from the url
+  const urlParams = new URLSearchParams(window.location.search);
+  const tableNumber = parseInt(urlParams.get("tableNumber"));
+  // console.log(tableNumber); // Output: 123
   DishItemsArray.forEach((item) => {
     if (item.id == itemID) {
       cost = item.price;
@@ -442,21 +446,23 @@ function orderNow() {
   console.log(cost);
   console.log(instruction);
   console.log(orderCustomization);
+  console.log(tableNumber);
 
   const formData = new FormData();
   formData.append("item_id", itemID);
   formData.append("order_status", status);
-  formData.append("quantity ", quantity);
+  formData.append("quantity", quantity);
   formData.append("order_total_cost", cost);
-  formData.append("customization_instructions  ", instruction);
-  formData.append("customization   ", orderCustomization);
+  formData.append("customization_instructions", instruction);
+  formData.append("customization", orderCustomization);
+  formData.append("table_number", tableNumber);
   console.log(formData);
 
-  fetch("https://192.168.2.103/:7161/addorder", {
+  fetch("https://192.168.2.103/:50/addorder", {
     method: "POST",
     body: formData,
   })
-    .then((res) => res.json())
+    // .then((res) => res.json())
     .then((data) => {
       console.log("data" + data);
     })
@@ -485,9 +491,3 @@ function showOrders() {
   console.log("Orders Array");
   console.log(OrdersArray);
 }
-
-
-// get the table number from the url
-const urlParams = new URLSearchParams(window.location.search);
-const number = parseInt(urlParams.get("tableNumber"));
-console.log(number); // Output: 123
