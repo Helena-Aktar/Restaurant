@@ -348,4 +348,7 @@ function displayMenuHeaderTitles() {
 }
 
 // display Dish Items
-function displayDishItems() {}
+function displayDishItems() {
+  const dishItemsContainer = document.querySelector(".special_dishes");
+  // dishItemsContainer.innerHTML = "";
+}

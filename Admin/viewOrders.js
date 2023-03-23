@@ -191,34 +191,33 @@ function hi() {
       console.log(data);
     });
 }
-// const DishItemsArray = [];
-// function sellectoption() {
-//   fetch("http://192.168.2.102:85/GetAllDishItems")
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.log(data);
-//       data.forEach((item) => {
-//         const obj = { ...item }; // spread operator (...)
-//         // pushing objects to array
-//         DishItemsArray.push(obj);
-//       });
-//       const optionsparent = document.getElementById("parentMenuID");
-//       for(i=0;i<DishItemsArray.length;i++){
-//         if(DishItemsArray[i].id==DishItemsArray[i].parentMenuID)
-//         {
-//           console.log("hh");
-//           const newOption = document.createElement("option");
-//           newOption.value = DishItemsArray[i].id;
-//           newOption.text = DishItemsArray[i].name;
-//           optionsparent.add(newOption);
-//         }
+const DishItemsArrayT = [];
+function sellectoption() {
+  fetch("http://192.168.2.102:85/GetAllDishItems")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      data.forEach((item) => {
+        const obj = { ...item }; // spread operator (...)
+        // pushing objects to array
+        DishItemsArrayT.push(obj);
+      });
+      const optionsparent = document.getElementById("parentMenuID");
+      for (i = 0; i < DishItemsArrayT.length; i++) {
+        if (DishItemsArrayT[i].id == DishItemsArrayT[i].parentMenuID) {
+          console.log("hh");
+          const newOption = document.createElement("option");
+          newOption.value = DishItemsArrayT[i].id;
+          newOption.text = DishItemsArrayT[i].name;
+          optionsparent.add(newOption);
+        }
 
-//         // Add the new option to the select elemen
-//         //optionsparent.appendChild(a);
-//       }
-//     });
-// }
-// sellectoption();
+        // Add the new option to the select elemen
+        //optionsparent.appendChild(a);
+      }
+    });
+}
+sellectoption();
 // var op = document.querySelectorAll("option");
 // var s = (op[1].selected = true);
 // console.log(s);
