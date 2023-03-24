@@ -3,12 +3,13 @@ const sidebar = document.querySelector("#side_nav_container");
 const sidebarMenuButton = document.querySelector("#sidebar-menu");
 const sidebarCrossButton = document.querySelector("#sidebar-cross-btn");
 const sidebarOutbox = document.querySelector(".sidebar-outbox");
+
 // console.log(sidebarCrossButton);
 const sidebarMenuItems = document.querySelector(".sidebar__menu-items");
 
 // menu button on click
 sidebarMenuButton.addEventListener("click", function () {
-  sidebarMenuItems.classList.toggle("active");
+  // sidebarMenuItems.classList.toggle("active");
   sidebar.classList.toggle("active");
   sidebarOutbox.style.display = "block";
 
@@ -29,6 +30,22 @@ const closeSideBarModal = (event) => {
   }
 };
 sidebarOutbox.addEventListener("click", closeSideBarModal);
+
+// show add to cart count
+const addedToCart = document.querySelector(".added_items-count");
+var addedToCartCounter = 0;
+function addToCart() {
+  addedToCartCounter++;
+  addedToCart.innerHTML = addedToCartCounter;
+}
+const cartOutbox = document.querySelector(".cart-outbox");
+const cartContainer= document.getElementById('cart_container');
+const cartBTN = document.querySelector("#main_cart");
+
+cartBTN.addEventListener("click", () => {
+  cartContainer.classList.toggle('active');
+  cartOutbox.style.display = "block";
+});
 
 function menuHeaderActive() {
   // menu items header text
@@ -116,14 +133,6 @@ function serveCountPlus(arg) {
   serveCountSpan.innerHTML = servingCounter;
 }
 
-// show add to cart count
-const addedToCart = document.querySelector(".added_items-count");
-var addedToCartCounter = 0;
-function addToCart() {
-  addedToCartCounter++;
-  addedToCart.innerHTML = addedToCartCounter;
-}
-
 // customized modal
 // order
 const customize = document.querySelector("#customize");
@@ -148,13 +157,13 @@ const SidebarMenuArray = [];
 
 // Fetchhing Sidebar items from json
 
-// fetch("/sidebarData.json")
-//   .then((response) => response.json())
-//   .then((data) => {
-// Fetchhing Sidebar items from API
-fetch("http://192.168.2.102:85/GetAllSidebarItems")
+fetch("/sidebarData.json")
   .then((response) => response.json())
   .then((data) => {
+    // Fetchhing Sidebar items from API
+    // fetch("http://192.168.2.102:85/GetAllSidebarItems")
+    //   .then((response) => response.json())
+    //   .then((data) => {
     // console.log("All Data");
     // console.log(data);
     // creating object from fetched data
@@ -300,14 +309,13 @@ function sidebarOnClick() {
 
 const DishItemsArray = [];
 // Fetchhing dish items items from json
-// fetch("/dishItemsData.json")
-//   .then((response) => response.json())
-//   .then((data) => {
-
-// Fetchhing dish items from API
-fetch("http://192.168.2.102:85/GetAllDishItems")
+fetch("/dishItemsData.json")
   .then((response) => response.json())
   .then((data) => {
+    // Fetchhing dish items from API
+    // fetch("http://192.168.2.102:85/GetAllDishItems")
+    //   .then((response) => response.json())
+    //   .then((data) => {
     // console.log("All Data");
     // console.log(data);
     // creating object from fetched data
@@ -324,37 +332,46 @@ fetch("http://192.168.2.102:85/GetAllDishItems")
     displayDishItems();
     // addOrder();
   });
-
+const parentArray = [];
 // displayMenuHeaderTitle
 function displayMenuHeaderTitles() {
   const menuHeaderItems = document.querySelector(".menu-tabs-header-items");
   menuHeaderItems.innerHTML = "";
   // icons
   const squareIconClassList = "menu-tabs-header-icon fa-regular fa-square-full";
-  var cnt = 0;
+  var parentCNT = 0,
+    iconCNT = 0;
   for (let i = 0; i < DishItemsArray.length; i++) {
     if (DishItemsArray[i].id == DishItemsArray[i].parentMenuID) {
-      cnt++;
-      let menuHeaderTextDiv = document.createElement("div");
-      menuHeaderTextDiv.classList = "menu-tabs-header-text";
-      if (i == 0) {
-        menuHeaderTextDiv.classList = "menu-tabs-header-text active";
-      }
-      let idLower = `${DishItemsArray[i].name}`.toLowerCase();
-      menuHeaderTextDiv.setAttribute("id", idLower);
-      let title = document.createElement("h5");
-      title.innerText = DishItemsArray[i].name;
-      menuHeaderTextDiv.appendChild(title);
+      parentArray.push(DishItemsArray[i]);
+      console.log(parentArray, "parent");
+    }
+  }
+  console.log(parentArray, "parent");
+  for (let i = 0; i < parentArray.length; i++) {
+    // if (DishItemsArray[i].id == DishItemsArray[i].parentMenuID) {
+    let menuHeaderTextDiv = document.createElement("div");
+    menuHeaderTextDiv.classList = "menu-tabs-header-text";
+    if (i == 0) {
+      menuHeaderTextDiv.classList = "menu-tabs-header-text active";
+    }
+    let idLower = `${parentArray[i].name}`.toLowerCase();
+    menuHeaderTextDiv.setAttribute("id", idLower);
+    let title = document.createElement("h5");
+    title.innerText = parentArray[i].name;
+    menuHeaderTextDiv.appendChild(title);
+
+    menuHeaderItems.appendChild(menuHeaderTextDiv);
+    if (iconCNT < parentArray.length - 1) {
+      iconCNT++;
       let squareIconDiv = document.createElement("div");
       squareIconDiv.classList = "menu_header-Square_icon";
       let squareIcon = document.createElement("i");
       squareIcon.classList = squareIconClassList;
       squareIconDiv.appendChild(squareIcon);
-      menuHeaderItems.appendChild(menuHeaderTextDiv);
-      if (cnt < DishItemsArray.length - 2) {
-        menuHeaderItems.appendChild(squareIconDiv);
-      }
+      menuHeaderItems.appendChild(squareIconDiv);
     }
+    // }
   }
 }
 
