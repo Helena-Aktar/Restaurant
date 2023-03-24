@@ -7,6 +7,7 @@
 }
 body {
   background: #fefcfa;
+  overflow-x: hidden;
 }
 * {
   /* border-radius: none; */
@@ -195,13 +196,25 @@ body {
   z-index: 10;
   display: none;
 }
+#cart_container::after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background: var(--color-light);
+  transform: rotate(45deg);
+  top: -14px;
+  right: 20px;
+  z-index: -10;
+}
 #cart_container {
   position: absolute;
-  width: 250px;
+  width: 280px;
   height: 90%;
   top: 80px;
-  right: -255px;
-  overflow-y: auto;
+  right: -285px;
+  /* left: -99999px; */
+  /* overflow-y: auto; */
   transition: 0.6s ease;
   transition-property: right;
   background: #ffffff;
@@ -210,8 +223,8 @@ body {
 }
 
 #cart_container.active {
-  right: 0;
   z-index: 10;
+  right: 0;
 }
 .add_to_cart-header_btn {
   position: absolute;
@@ -234,6 +247,10 @@ body {
   position: absolute;
   top: -7px;
   right: -5px;
+}
+
+.cart_dish-img img {
+  width: 70px;
 }
 /* ================= MENU ============ */
 .menu_header-Square_icon {
@@ -428,7 +445,7 @@ body {
 }
 .special_dishes {
   width: 75%;
-  padding: 10px;
+  padding: 30px;
 
   /* background: #c1c3cd; */
 }
@@ -488,9 +505,37 @@ body {
   margin-left: 50px;
   margin-top: 80px;
 }
+
+/* ===============confirm order =========== */
+.confirm-order-outerbox {
+  background: rgb(255, 255, 255, 0.5);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  text-align: center;
+  display: grid;
+  place-items: center;
+  font-size: 0.9rem;
+  /* popup hidden */
+  display: none;
+}
+.order-confirm {
+  background: white;
+  padding: 3rem;
+  border-radius: 8px;
+  width: 20%;
+  box-shadow: 0 0 1rem var(--color-primary);
+}
+
 /* ======================== media queries  for small laptops and big tablets =======================  */
 
 @media screen and (max-width: 1200px) {
+  body {
+    overflow-x: hidden;
+  }
   #core_container {
     /* width: 95%; */
   }
@@ -548,7 +593,7 @@ body {
     /* width: 250px; */
   }
   .dish-block {
-    width: 360px;
+    width: 350px;
   }
   .dish-body p {
     width: 250px;
@@ -556,5 +601,14 @@ body {
   .chefs_card-body {
     margin-left: 50px;
     margin-top: 10px;
+  }
+  #cart_container {
+    display: none;
+  }
+  #cart_container.active {
+    display: block;
+  }
+  .order-confirm {
+    width: 200px;
   }
 }

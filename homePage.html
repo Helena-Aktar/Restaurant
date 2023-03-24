@@ -42,83 +42,75 @@
         <!-- add to cart -->
         <!-- <div class="cart-outbox"></div> -->
         <div id="cart_container">
-          <!-- <div class="sidebar__heading">
-            <span id="sidebar-cross-btn"
-              ><i class="fa-regular fa-circle-xmark"></i
-            ></span>
-            <div class="sidebar_heading-logo">
-              <img src="/images/logo 3.jpg" alt="" />
-            </div>
-          </div> -->
+          
           <!-- sidebar menu items  -->
           <div class="cart-items">
-             <!-- end of static -->
-            <div class="sidebar_delimiter"></div>
-            <!-- menu item 1 -->
-            <div class="sidebar_menu-item">
-              <div class="cart_header">
-              
+
+              <div class="cart_header p-2 text-center" style="background: var(--color-light);">
                 <h3>ADDED ITEMS</h3>
               </div>
               
             </div>
             <div class="sidebar_delimiter"></div>
             <!-- dish block 1 -->
-      <div class="dish_card">
-        <div class="d-flex">
-          <div class="dish-block d-flex" onclick="showDishDetails()">
-            <div class="dish-img">
-              <img
-                src="/images/menu-image-5.82f62d04acb6111c989f.png"
-                alt=""
-              />
-            </div>
-            <div class="dish-body ms-3">
-              <div class="dish-title d-flex">
-                <h4>Greek Salad</h4>
-                <!-- <div class="delimiter-double" style="width: 52%"></div> -->
-                <span class="dish-price">$25.50</span>
-              </div>
-              <p class="text-muted">
-                Tomatoes, green bell pepper, sliced cucumber onion,
-                olives, and feta cheese.
-              </p>
-            </div>
-          </div>
-          <!-- add to cart -->
-          <div class="add_to_cart-menu_btn" onclick="addToCart()">
-            <i class="fa-solid fa-cart-shopping"></i>
-          </div>
-        </div>
-        <!-- buttons -->
-        <div class="dish-buttons d-flex justify-content-end">
-          <button class="order_now dish-btn">Custiomize</button>
-          <div class="serve_count d-flex justify-content-between">
-            <span class="count-minus" onclick="serveCountMinus()">
-              <i class="fa-solid fa-minus"></i>
-            </span>
-            <span class="count-number">0</span>
-            <span class="count-plus" onclick="serveCountPlus()">
-              <i class="fa-solid fa-plus"></i>
-            </span>
-          </div>
-          <button class="order_now dish-btn">ORDER NOW</button>
-        </div>
-      </div>
-            <!-- menu item 1 -->
-            <!-- <div class="sidebar_menu-item">
-              <div class="d-flex">
-                <i class="sidebar_square-icon fa-regular fa-square-full"></i>
-                <h6>Dynamic Start</h6>
-              </div>
-              <div class="chevron-down-icon">
-                <i class="fa-solid fa-chevron-down"></i>
-              </div>
-            </div> -->
-            <!--  end of static -->
-            <!-- <div class="sidebar_delimiter"></div> -->
-          </div>
-          
+              <div class="cart_dish_card m-2">
+                <div class="d-flex">
+                  <div class="cart_dish-img">
+                    <img
+                    src="/images/menu-image-8.248ea7ed7b0fe0e7b354.png"
+                    alt=""
+                    />
+                  </div>
+                  <div class="cart_dish-body ms-3 d-flex">
+                    <div class="cart_dish-title mt-2">
+                       <h6>Greek Salad</h6>
+                      <div class="dish-price">$25.50</div>
+                    </div> <div class="d-flex ms-3 mt-4"><i class="fa-regular fa-trash-can"></i></div>
+                  </div>
+                 </div>
+               </div>
+               <div class="sidebar_delimiter"></div>
+            <div class="sidebar_delimiter"></div>
+            <!-- dish block 1 -->
+              <div class="cart_dish_card m-2">
+                <div class="d-flex">
+                  <div class="cart_dish-img">
+                    <img
+                    src="/images/menu-image-9.2d536b53e3eaa8df3e3d.png"
+                    alt=""
+                    />
+                  </div>
+                  <div class="cart_dish-body ms-3 d-flex">
+                    <div class="cart_dish-title mt-2">
+                       <h6>Tokusen </h6>
+                      <div class="dish-price">$45.50</div>
+                    </div> <div class="d-flex ms-5 mt-4 "><i class="fa-regular fa-trash-can"></i></div>
+                  </div>
+                 </div>
+               </div>
+               <div class="sidebar_delimiter"></div>
+            <div class="sidebar_delimiter"></div>
+            <!-- dish block 1 -->
+              <div class="cart_dish_card m-2">
+                <div class="d-flex">
+                  <div class="cart_dish-img">
+                    <img
+                    src="/images/menu-image-6.1e64cf3019cac040ec9f.png"
+                    alt=""
+                    />
+                  </div>
+                  <div class="cart_dish-body ms-3 d-flex">
+                    <div class="cart_dish-title mt-2">
+                       <h6>Opu Fish</h6>
+                      <div class="dish-price">$15.00</div>
+                    </div> <div class="d-flex ms-5 mt-4"><i class="fa-regular fa-trash-can float-end"></i></div>
+                  </div>
+                 </div>
+               </div>
+               <div class="sidebar_delimiter"></div>
+               <h4 class="float-end me-3" style="color: var(--color-primary);">Subtotal: $96</h4>
+               <div></div>
+              <div class="m-1"> <button class="dish-btn">ORDER</button></div>
         </div>
       </div>
 
@@ -232,7 +224,7 @@
             <div class="sp_dish-block">
               <div class="sp_dish-img">
                 <img
-                  src="/images/menu-image-11.7be629d8a04827b964cc.jpg"
+                  src="/images/menu-image-18.d58abb49bf3d4d408d1b.jpg"
                   alt=""
                 />
               </div>
@@ -857,13 +849,76 @@
         </div>
       </div>
       <!-- Private event -->
-
+      <div class="d-flex justify-content-center">
+        <div class="chefs_selection-dish-block">
+      
+      <div class="chefs_card-body">
+        <div class="w-75">
+          <div><h5 class="ms-3" style="color: var(--color-primary
+          );">Banquet Hall</h5>
+          <!-- highlight -->
+          <div class="d-flex">
+            <div style="height: 10px">
+              <i class="fa-regular fa-square-full" style="color:var(--color-primary);transform: rotate(45deg);"></i>
+            </div>
+          <div class="" style="background: var(--color-primary); height: 1px; width: 150px; margin: 10px 5px;"> </div>
+          <div style="height: 10px">
+            <i class="fa-regular fa-square-full" style="color:var(--color-primary);transform: rotate(45deg);"></i>
+          </div></div></div>
+          <!-- banquet hall -->
+        
+        <h6 class="">Lorem Ipsum is simply dummy text of the printingand typesetting industry lorem Ipsum has been the industrys standard dummy text ever since.</h6>
+        </div>
+        <div class="d-flex" style="color: var(--color-primary);"><h6 class="mt-1 text-muted text-decoration-line-through">$40.00</h6> <h5 class="ms-3">$30.00</h5></div>
+      </div>
+      <div class="chefs_sel-img">
+        <img src="/images/featured-10.744c4a448820825467bd.jpg" alt="" style="border-radius: 35px; width: 500px; height: 400px;">
+      </div>
+      </div>
+    </div>
+    <!-- ihodsfj -->
+    <div class="d-flex justify-content-center">
+      <div class="chefs_selection-dish-block">
+        <div class="chefs_sel-img">
+          <img src="/images/featured-11.e1e9ceab513176a77bcc.jpg" alt="" style="border-radius: 35px; width: 500px; height: 400px;">
+        </div>
+    <div class="chefs_card-body">
+      <div class="w-75">
+        <div><h5 class="ms-3" style="color: var(--color-primary
+        );">Banquet Hall</h5>
+        <!-- highlight -->
+        <div class="d-flex">
+          <div style="height: 10px">
+            <i class="fa-regular fa-square-full" style="color:var(--color-primary);transform: rotate(45deg);"></i>
+          </div>
+        <div class="" style="background: var(--color-primary); height: 1px; width: 150px; margin: 10px 5px;"> </div>
+        <div style="height: 10px">
+          <i class="fa-regular fa-square-full" style="color:var(--color-primary);transform: rotate(45deg);"></i>
+        </div></div></div>
+        <!-- banquet hall -->
+      
+      <h6 class="">Lorem Ipsum is simply dummy text of the printingand typesetting industry lorem Ipsum has been the industrys standard dummy text ever since.</h6>
+      </div>
+      <div class="d-flex" style="color: var(--color-primary);"><h6 class="mt-1 text-muted text-decoration-line-through">$40.00</h6> <h5 class="ms-3">$30.00</h5></div>
+    </div>
+    
+    </div>
+  </div>
       <!-- ======================== Order Customization =================== -->
 
       <div class="customize-order">
         <div class="order-card">
           <h2>Customixe your Order</h2>
           <p>Manage your order as you wish.</p>
+        </div>
+      </div>
+
+      <!-- =========== order confirmation ========= -->
+      <div class="confirm-order-outerbox">
+        <div class="order-confirm">
+          <h4>Thanks for being with Us!</h4>
+          <p>Your order will be serve withing 30 minutes.</p>
+          <button class="btn btn-outline-success w-50" id="order_ok-btn">OK</button>
         </div>
       </div>
       <!-- ------------------ End of theme ---------- -->
