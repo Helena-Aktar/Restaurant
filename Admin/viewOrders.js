@@ -104,31 +104,30 @@ function active(num) {
 }
 
 // conformOder
-function orderselectionone(id,status) {
+function orderselectionone(id, status) {
   // var value ="false";
   //?value=true
-  console.log(id,status);
+  console.log(id, status);
   const obj = {
     order_status: status,
   };
-  
+
   console.log(obj);
-  fetch(`http://192.168.2.103:50/api/order/${id}`,
-  {
+  fetch(`http://192.168.2.103:50/api/order/${id}`, {
     method: "PUT",
-        headers:{
-            'content-Type': 'application/json',
-            // "Content-Type": "application/json",
-        },
-        body:JSON.stringify(obj),
+    headers: {
+      "content-Type": "application/json",
+      // "Content-Type": "application/json",
+    },
+    body: JSON.stringify(obj),
   })
-  .then((response) => response.json())
-  .then((data) => {
-    console.log("success",data);
-  })
-  .catch((err) => {
-    console.log("error:",err);
-  });
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("success", data);
+    })
+    .catch((err) => {
+      console.log("error:", err);
+    });
 }
 function orderselectiontwo(num) {
   const parentOrderList = document.getElementById("order_list_two");
@@ -239,40 +238,39 @@ sellectoption();
 const orderData = [];
 const itemData = [];
 
-function onload()
-{
-    const alllist=[];
-    // const orderData=[];
-    // const itemData=[];
-    fetch("http://192.168.2.103:50/api/order/getallorderlist")
-      .then((response) => response.json())
-      .then((orderdata) => {
-          orderDatalength=orderData.length;
-          orderdata.forEach((item) => {
-            const obj = { ...item }; // spread operator (...)
-            // pushing objects to array
-            orderData.push(obj);
-            // alllist.push(obj);
-            // console.log(orderData.length);
-          });
-        // console.log(alllist);
-        // load();
+function onload() {
+  const alllist = [];
+  // const orderData=[];
+  // const itemData=[];
+  fetch("http://192.168.2.103:50/api/order/getallorderlist")
+    .then((response) => response.json())
+    .then((orderdata) => {
+      orderDatalength = orderData.length;
+      orderdata.forEach((item) => {
+        const obj = { ...item }; // spread operator (...)
+        // pushing objects to array
+        orderData.push(obj);
+        // alllist.push(obj);
+        // console.log(orderData.length);
       });
-    // console.log(orderdata);
-    fetch("http://192.168.2.102:85/GetAllDishItems")
-      .then((response) => response.json())
-      .then((itemdata) => {
-        // console.log(itemdata);
-          itemdata.forEach((item) => {
-            const obj = { ...item }; // spread operator (...)
-            // pushing objects to array
-            itemData.push(obj);
-            // alllist.push(obj);
-          });
-          load();
-          history();
-        // console.log(alllist);
+      // console.log(alllist);
+      // load();
+    });
+  // console.log(orderdata);
+  fetch("http://192.168.2.102:85/GetAllDishItems")
+    .then((response) => response.json())
+    .then((itemdata) => {
+      // console.log(itemdata);
+      itemdata.forEach((item) => {
+        const obj = { ...item }; // spread operator (...)
+        // pushing objects to array
+        itemData.push(obj);
+        // alllist.push(obj);
       });
+      load();
+      history();
+      // console.log(alllist);
+    });
 }
 onload();
 function load() {
@@ -280,27 +278,23 @@ function load() {
   console.log(orderData);
   console.log(itemData);
   //     console.log(a);
-  var r="rejected";
+  var r = "rejected";
   console.log(r);
-      for(var i=0;i<orderData.length;i++)
-      {
-        // console.log("hi");
-        for(var j=0;j<itemData.length;j++)
-        {
-          if(orderData[i].order_status=="true")
-          {
-            if(orderData[i].item_id==itemData[j].id)
-            {
-              var imgpath = itemData[j].imagePath;
-              let pathArray = imgpath.split("\\");
-              let newPath = pathArray.slice(1).join("\\");
-              // console.log(imgpath);
-              var p = orderData[i].order_total_cost/orderData[i].quantity;
-              var tb=document.getElementById("parentOrder");
-              var x= document.createElement("div");
-              x.style.width="45%";
-              x.style.paddingRight="25px";
-              x.innerHTML=`
+  for (var i = orderData.length - 1; i > 0; i--) {
+    // console.log("hi");
+    for (var j = 0; j < itemData.length; j++) {
+      if (orderData[i].order_status == "true") {
+        if (orderData[i].item_id == itemData[j].id) {
+          var imgpath = itemData[j].imagePath;
+          let pathArray = imgpath.split("\\");
+          let newPath = pathArray.slice(1).join("\\");
+          // console.log(imgpath);
+          var p = orderData[i].order_total_cost / orderData[i].quantity;
+          var tb = document.getElementById("parentOrder");
+          var x = document.createElement("div");
+          x.style.width = "45%";
+          x.style.paddingRight = "25px";
+          x.innerHTML = `
               <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
               <!-- <div id="order_list" class=""> -->
                 <div class="d-flex justify-content-between">
@@ -364,48 +358,45 @@ function load() {
               <!-- </div> -->
             </div>
             `;
-              // tb.innerText=orderData[i].tablenumber;
-              var img =document.querySelector(".foodItem_photo");
-              // console.log(img);
-              // img.setAttribute("src", newPath);
-              tb.appendChild(x);
-              // console.log(img);
-              j=j+8;
-            }
-          }
-          // console.log("hello")
+          // tb.innerText=orderData[i].tablenumber;
+          var img = document.querySelector(".foodItem_photo");
+          // console.log(img);
+          // img.setAttribute("src", newPath);
+          tb.appendChild(x);
+          // console.log(img);
+          j = j + 8;
         }
       }
-
+      // console.log("hello")
+    }
+  }
 }
 // history();
-function history()
-{
+function history() {
   // const a = orderData.length;
-      console.log(orderData);
-      console.log(itemData);
+  console.log(orderData);
+  console.log(itemData);
   //     console.log(a);
-  var r="rejected";
+  var r = "rejected";
   console.log(r);
-      for(var i=0;i<orderData.length;i++)
-      {
-        // console.log("hi");
-        for(var j=0;j<itemData.length;j++)
-        {
-          if(orderData[i].order_status=="rejected" || orderData[i].order_status=="conformed")
-          {
-            if(orderData[i].item_id==itemData[j].id)
-          {
-            var imgpath = itemData[j].imagePath;
-            let pathArray = imgpath.split("\\");
-            let newPath = pathArray.slice(1).join("\\");
-            // console.log(imgpath);
-            var p = orderData[i].order_total_cost/orderData[i].quantity;
-            var tb=document.getElementById("order_Cards_In_History");
-            var x= document.createElement("div");
-            x.style.width="45%";
-            x.style.paddingRight="25px";
-            x.innerHTML=`
+  for (var i = orderData.length - 1; i > 0; i--) {
+    // console.log("hi");
+    for (var j = 0; j < itemData.length; j++) {
+      if (
+        orderData[i].order_status == "rejected" ||
+        orderData[i].order_status == "conformed"
+      ) {
+        if (orderData[i].item_id == itemData[j].id) {
+          var imgpath = itemData[j].imagePath;
+          let pathArray = imgpath.split("\\");
+          let newPath = pathArray.slice(1).join("\\");
+          // console.log(imgpath);
+          var p = orderData[i].order_total_cost / orderData[i].quantity;
+          var tb = document.getElementById("order_Cards_In_History");
+          var x = document.createElement("div");
+          x.style.width = "45%";
+          x.style.paddingRight = "25px";
+          x.innerHTML = `
             <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
             <!-- <div id="order_list" class=""> -->
               <div class="d-flex justify-content-between">
@@ -456,15 +447,16 @@ function history()
             <!-- </div> -->
           </div>
           `;
-            // tb.innerText=orderData[i].tablenumber;
-            var img =document.querySelector(".foodItem_photo");
-            // console.log(img);
-            // img.setAttribute("src", newPath);
-            tb.appendChild(x);
-            // console.log(img);
-            j=j+8;
-          }
-          }
-          // console.log("hello")
+          // tb.innerText=orderData[i].tablenumber;
+          var img = document.querySelector(".foodItem_photo");
+          // console.log(img);
+          // img.setAttribute("src", newPath);
+          tb.appendChild(x);
+          // console.log(img);
+          j = j + 8;
         }
       }
+      // console.log("hello")
+    }
+  }
+}
