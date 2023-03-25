@@ -48,6 +48,36 @@ function active(num) {
     buttonStatistics.classList.remove("active");
     buttonSetting.classList.remove("active");
     buttonAddFoodItem.classList.remove("active");
+    fetch("http://192.168.2.103:50/api/order/getallorderlist")
+      .then((response) => response.json())
+      .then((orderdata) => {
+          orderDatalength=orderData.length;
+          orderdata.forEach((item) => {
+            const obj = { ...item }; // spread operator (...)
+            // pushing objects to array
+            orderData.push(obj);
+            // alllist.push(obj);
+            // console.log(orderData.length);
+          });
+        // console.log(alllist);
+        // load();
+      });
+    // console.log(orderdata);
+    fetch("http://192.168.2.102:85/GetAllDishItems")
+      .then((response) => response.json())
+      .then((itemdata) => {
+        // console.log(itemdata);
+          itemdata.forEach((item) => {
+            const obj = { ...item }; // spread operator (...)
+            // pushing objects to array
+            itemData.push(obj);
+            // alllist.push(obj);
+          });
+          // load();
+          history();
+        // console.log(alllist);
+      });
+    
   } else if (num == 3) {
     home.style.display = "none";
     orderHistory.style.display = "none";
@@ -125,9 +155,11 @@ function orderselectionone(id,status) {
   .then((response) => response.json())
   .then((data) => {
     console.log("success",data);
+    window.location.href="http://127.0.0.1:5001/Admin/viewOrders.html";
   })
   .catch((err) => {
     console.log("error:",err);
+    window.location.href="http://127.0.0.1:5001/Admin/viewOrders.html";
   });
 }
 function orderselectiontwo(num) {
@@ -241,7 +273,7 @@ const itemData = [];
 
 function onload()
 {
-    const alllist=[];
+    // const alllist=[];
     // const orderData=[];
     // const itemData=[];
     fetch("http://192.168.2.103:50/api/order/getallorderlist")
@@ -468,3 +500,4 @@ function history()
           // console.log("hello")
         }
       }
+    }
