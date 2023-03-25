@@ -31,22 +31,6 @@ const closeSideBarModal = (event) => {
 };
 sidebarOutbox.addEventListener("click", closeSideBarModal);
 
-// show add to cart count
-const addedToCart = document.querySelector(".added_items-count");
-var addedToCartCounter = 0;
-function addToCart() {
-  addedToCartCounter++;
-  addedToCart.innerHTML = addedToCartCounter;
-}
-const cartOutbox = document.querySelector(".cart-outbox");
-const cartContainer = document.getElementById("cart_container");
-const cartBTN = document.querySelector("#main_cart");
-
-cartBTN.addEventListener("click", () => {
-  cartContainer.classList.toggle("active");
-  cartOutbox.style.display = "block";
-});
-
 function menuHeaderActive() {
   // menu items header text
   const menuHeaderList = document.querySelectorAll(".menu-tabs-header-text");
@@ -104,35 +88,6 @@ function showDishDetails() {
   window.location.href = "/viewDetailsDishPage.html";
 }
 
-// serve count
-
-var servingCounter = 0;
-function serveCountMinus(arg) {
-  console.log("hello minus");
-  console.log(arg);
-  let id = "count" + arg;
-  const serveCountSpan = document.getElementById(`${id}`);
-  console.log(serveCountSpan);
-  if (servingCounter > 0) {
-    servingCounter--;
-  }
-
-  console.log(servingCounter);
-  serveCountSpan.innerHTML = servingCounter;
-}
-function serveCountPlus(arg) {
-  console.log("hello plus");
-  console.log(arg);
-  let id = "count" + arg;
-  const serveCountSpan = document.getElementById(`${id}`);
-  console.log(serveCountSpan);
-
-  servingCounter++;
-
-  console.log(servingCounter);
-  serveCountSpan.innerHTML = servingCounter;
-}
-
 // customized modal
 // order
 const customize = document.querySelector("#customize");
@@ -152,18 +107,152 @@ const closeOrderModal = (event) => {
   }
 };
 orderModal.addEventListener("click", closeOrderModal);
+//sidebar onclick
+function sidebarOnClick() {
+  const removeParentActiveSidebarItem = () => {
+    parentSidebarMenuList.forEach((item) => {
+      item.classList.remove("active");
+    });
+  };
+
+  const removeChildsActiveSidebarItem = () => {
+    childsSidebarMenuList.forEach((item) => {
+      item.classList.remove("active");
+    });
+  };
+
+  const parentSidebarMenuList = document.querySelectorAll(".parent");
+  const childsSidebarMenuList = document.querySelectorAll(".childs");
+
+  parentSidebarMenuList.forEach(function (parentMenuItem) {
+    parentMenuItem.addEventListener("click", function () {
+      // console.log(parentMenuItem);
+      parentMenuItem.classList.toggle("active");
+      // console.log(parentMenuItem.classList);
+      const delimiter = parentMenuItem.nextElementSibling;
+      const childs = delimiter.nextElementSibling;
+      // console.log(childs);
+      if (childs) {
+        // removeChildsActiveSidebarItem();
+        childs.classList.toggle("active");
+      }
+    });
+  });
+}
+// ================================================ ********* =============================================
+
+// added Order array
+const AddedOrderItems = [];
+// show add to cart count
+const addedToCart = document.querySelector(".added_items-count");
+var addedToCartCounter = 0;
+function addToCart(id) {
+  let quantity = servingCounter;
+  servingCounter = 0;
+  const serveCountSpan = document.getElementById(`count${id}`);
+  console.log(servingCounter);
+  serveCountSpan.innerHTML = 0;
+  console.log(id, "item id");
+  addedToCartCounter++;
+  addedToCart.innerHTML = addedToCartCounter;
+  DishItemsArray.forEach((item) => {
+    if (item.id == id) {
+      let price = item.price;
+      cost = price * quantity;
+      const obj = {
+        ID: item.id,
+        quantity: servingCounter,
+        cost: item.price * quantity,
+      };
+      // pushing objects to array
+      AddedOrderItems.push(obj);
+    }
+
+    // console.log(item);
+  });
+  console.log("order");
+  console.log(id);
+  console.log(quantity);
+  console.log(cost);
+  console.log(AddedOrderItems, "added order items");
+}
+
+const cartOutbox = document.querySelector(".cart-outbox");
+const cartContainer = document.getElementById("cart_container");
+const cartBTN = document.querySelector("#main_cart");
+
+cartBTN.addEventListener("click", () => {
+  console.log(AddedOrderItems, " cart: added order items");
+  cartContainer.classList.toggle("active");
+  // cartOutbox.style.display = "block";
+});
+
+// serve count
+
+// var servingCounter=0;
+// function serveCountMinus(arg) {
+//   console.log("hello minus");
+//   console.log(arg);
+//   let id = "count" + arg;
+//   const serveCountSpan = document.getElementById(`${id}`);
+//   console.log(serveCountSpan);
+//   if (servingCounter > 0) {
+//     servingCounter--;
+//   }
+
+//   console.log(servingCounter);
+//   serveCountSpan.innerHTML = servingCounter;
+// }
+// function serveCountPlus(arg) {
+//   console.log("hello plus");
+//   console.log(arg);
+//   let id = "count" + arg;
+//   const serveCountSpan = document.getElementById(`${id}`);
+//   console.log(serveCountSpan);
+
+//   servingCounter++;
+
+//   console.log(servingCounter);
+//   serveCountSpan.innerHTML = servingCounter;
+// }
+
+// optimal counter
+var servingCounter = 0;
+function quantityCounter(id, icon) {
+  // var icon = "plus";
+
+  const serveCountSpan = document.getElementById(`count+${id}`);
+  console.log(serveCountSpan);
+  // let elementID = "count" + id;
+
+  if (icon == "minus") {
+    console.log("hello minus");
+
+    if (servingCounter > 0) {
+      servingCounter--;
+    }
+    console.log(servingCounter);
+    serveCountSpan.innerHTML = servingCounter;
+  }
+  if (icon == "plus") {
+    console.log("hello plus");
+    servingCounter++;
+    console.log(servingCounter);
+    serveCountSpan.innerHTML = servingCounter;
+  }
+}
 
 const SidebarMenuArray = [];
 
 // Fetchhing Sidebar items from json
 
-fetch("/sidebarData.json")
+// fetch("/sidebarData.json")
+//   .then((response) => response.json())
+//   .then((data) => {
+// Fetchhing Sidebar items from API
+fetch("http://192.168.2.102:85/GetAllSidebarItems")
   .then((response) => response.json())
   .then((data) => {
-    // Fetchhing Sidebar items from API
-    // fetch("http://192.168.2.102:85/GetAllSidebarItems")
-    //   .then((response) => response.json())
-    //   .then((data) => {
     // console.log("All Data");
     // console.log(data);
     // creating object from fetched data
@@ -274,48 +363,17 @@ function displaySidebarMenuItems() {
   }
 }
 // test();
-//sidebar onclick
-function sidebarOnClick() {
-  const removeParentActiveSidebarItem = () => {
-    parentSidebarMenuList.forEach((item) => {
-      item.classList.remove("active");
-    });
-  };
-
-  const removeChildsActiveSidebarItem = () => {
-    childsSidebarMenuList.forEach((item) => {
-      item.classList.remove("active");
-    });
-  };
-
-  const parentSidebarMenuList = document.querySelectorAll(".parent");
-  const childsSidebarMenuList = document.querySelectorAll(".childs");
-
-  parentSidebarMenuList.forEach(function (parentMenuItem) {
-    parentMenuItem.addEventListener("click", function () {
-      // console.log(parentMenuItem);
-      parentMenuItem.classList.toggle("active");
-      // console.log(parentMenuItem.classList);
-      const delimiter = parentMenuItem.nextElementSibling;
-      const childs = delimiter.nextElementSibling;
-      // console.log(childs);
-      if (childs) {
-        // removeChildsActiveSidebarItem();
-        childs.classList.toggle("active");
-      }
-    });
-  });
-}
 
 const DishItemsArray = [];
 // Fetchhing dish items items from json
-fetch("/dishItemsData.json")
+// fetch("/dishItemsData.json")
+//   .then((response) => response.json())
+//   .then((data) => {
+
+// Fetchhing dish items from API
+fetch("http://192.168.2.102:85/GetAllDishItems")
   .then((response) => response.json())
   .then((data) => {
-    // Fetchhing dish items from API
-    // fetch("http://192.168.2.102:85/GetAllDishItems")
-    //   .then((response) => response.json())
-    //   .then((data) => {
     // console.log("All Data");
     // console.log(data);
     // creating object from fetched data
@@ -330,6 +388,7 @@ fetch("/dishItemsData.json")
     displayMenuHeaderTitles();
     menuHeaderActive();
     displayDishItems();
+
     // addOrder();
   });
 const parentArray = [];
@@ -416,6 +475,16 @@ function displayDishItems() {
       spDishPrice.classList = "price";
       spDishPrice.innerText = "$" + DishItemsArray[i].price;
       spDishTitle.appendChild(spDishPrice);
+      let addTOCartDiv = document.createElement("div");
+      addTOCartDiv.classList = "add_to_cart-menu_btn";
+      addTOCartDiv.setAttribute(
+        "onclick",
+        `addToCart(${DishItemsArray[i].id})`
+      );
+      let navCartIcon = document.createElement("i");
+      navCartIcon.classList = "fa-solid fa-cart-shopping";
+      addTOCartDiv.appendChild(navCartIcon);
+      spDishTitle.appendChild(addTOCartDiv);
       spDishBodyDiv.appendChild(spDishTitle);
       let spDishDetails = document.createElement("p");
       spDishDetails.classList = "sp_dish-details text-center";
@@ -434,7 +503,7 @@ function displayDishItems() {
       countMinus.classList = "count-minus";
       countMinus.setAttribute(
         "onclick",
-        `serveCountMinus(${DishItemsArray[i].id})`
+        `quantityCounter(${DishItemsArray[i].id},"minus")`
       );
       // countMinus.setAttribute("id", "countMinus" + `${DishItemsArray[i].id}`);
       let minusIcon = document.createElement("i");
@@ -449,7 +518,7 @@ function displayDishItems() {
       countPlus.classList = "count-plus";
       countPlus.setAttribute(
         "onclick",
-        `serveCountPlus(${DishItemsArray[i].id})`
+        `quantityCounter(${DishItemsArray[i].id},"plus")`
       );
 
       // countPlus.setAttribute("id", "countPlus" + `${DishItemsArray[i].id}`);
@@ -504,18 +573,18 @@ function orderNow() {
   });
   console.log("order");
   console.log(itemID);
-  console.log(status);
   console.log(quantity);
   console.log(cost);
+  console.log(status);
   console.log(instruction);
   console.log(orderCustomization);
   console.log(tableNumber);
 
   const formData = new FormData();
   formData.append("item_id", itemID);
-  formData.append("order_status", status);
   formData.append("quantity", quantity);
   formData.append("order_total_cost", cost);
+  formData.append("order_status", status);
   formData.append("customization_instructions", instruction);
   formData.append("customization", orderCustomization);
   formData.append("table_number", tableNumber);
@@ -535,8 +604,8 @@ function orderNow() {
 }
 const OrdersArray = [];
 // Fetchhing Ortders from API
-// fetch("http://192.168.2.103:50/api/order/getallorderlist")
-fetch("/order.json")
+fetch("http://192.168.2.103:50/api/order/getallorderlist")
+  // fetch("/order.json")
   .then((response) => response.json())
   .then((data) => {
     // console.log("All Data");
