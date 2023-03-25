@@ -225,6 +225,7 @@ function addToCart(id) {
 
 function displayCartItems() {
   console.log(AddedOrderItems, "displayCartItems() ");
+  
 
   
 }
