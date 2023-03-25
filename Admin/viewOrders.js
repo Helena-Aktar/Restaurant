@@ -236,8 +236,8 @@ sellectoption();
 // console.log(s);
 
 //get order informations url => http://192.168.2.103:50/api/order/getallorderlist
-const orderData=[];
-const itemData=[];
+const orderData = [];
+const itemData = [];
 
 function onload()
 {
@@ -275,11 +275,10 @@ function onload()
       });
 }
 onload();
-function load()
-{
+function load() {
   // const a = orderData.length;
-      console.log(orderData);
-      console.log(itemData);
+  console.log(orderData);
+  console.log(itemData);
   //     console.log(a);
   var r="rejected";
   console.log(r);
@@ -469,6 +468,3 @@ function history()
           // console.log("hello")
         }
       }
-
-}
-
