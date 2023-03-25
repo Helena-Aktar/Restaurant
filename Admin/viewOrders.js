@@ -105,23 +105,29 @@ function active(num) {
 
 // conformOder
 function orderselectionone(id,status) {
+  // var value ="false";
+  //?value=true
   console.log(id,status);
-  const obj={
-    value : status
+  const obj = {
+    order_status: status,
   };
-  fetch(`https://localhost:7161/api/order/${id}`,{
+  
+  console.log(obj);
+  fetch(`http://192.168.2.103:50/api/order/${id}`,
+  {
     method: "PUT",
-        // headers:{
-        //     'content-Type': 'application/json'
-        // },
-        body: JSON.stringify(obj)
+        headers:{
+            'content-Type': 'application/json',
+            // "Content-Type": "application/json",
+        },
+        body:JSON.stringify(obj),
   })
   .then((response) => response.json())
   .then((data) => {
-    console.log(data);
+    console.log("success",data);
   })
   .catch((err) => {
-    console.log(err);
+    console.log("error:",err);
   });
 }
 function orderselectiontwo(num) {
