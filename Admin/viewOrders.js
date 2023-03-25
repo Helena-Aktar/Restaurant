@@ -104,18 +104,31 @@ function active(num) {
 }
 
 // conformOder
-function orderselectionone(num) {
-  const parentOrderList = document.getElementById("order_list_one");
-  // const order = document.getElementById("order_list");
-  const orderCardsInHistory = document.getElementById("order_Cards_In_History");
-  console.log("inside fun", parentOrderList);
-  // const firstOrder = document.getElementById("first_order");
-  if (num == 1) {
-    console.log(1, orderCardsInHistory);
-    var a = orderCardsInHistory.appendChild(parentOrderList);
-    // parentOrderList.style.display="none";
-    console.log(a);
-  }
+function orderselectionone(id,status) {
+  // var value ="false";
+  //?value=true
+  console.log(id,status);
+  const obj = {
+    order_status: status,
+  };
+  
+  console.log(obj);
+  fetch(`http://192.168.2.103:50/api/order/${id}`,
+  {
+    method: "PUT",
+        headers:{
+            'content-Type': 'application/json',
+            // "Content-Type": "application/json",
+        },
+        body:JSON.stringify(obj),
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    console.log("success",data);
+  })
+  .catch((err) => {
+    console.log("error:",err);
+  });
 }
 function orderselectiontwo(num) {
   const parentOrderList = document.getElementById("order_list_two");
@@ -257,6 +270,7 @@ function onload()
             // alllist.push(obj);
           });
           load();
+          history();
         // console.log(alllist);
       });
 }
@@ -267,23 +281,133 @@ function load()
       console.log(orderData);
       console.log(itemData);
   //     console.log(a);
+  var r="rejected";
+  console.log(r);
       for(var i=0;i<orderData.length;i++)
       {
         // console.log("hi");
         for(var j=0;j<itemData.length;j++)
         {
+          if(orderData[i].order_status=="true")
+          {
+            if(orderData[i].item_id==itemData[j].id)
+            {
+              var imgpath = itemData[j].imagePath;
+              let pathArray = imgpath.split("\\");
+              let newPath = pathArray.slice(1).join("\\");
+              // console.log(imgpath);
+              var p = orderData[i].order_total_cost/orderData[i].quantity;
+              var tb=document.getElementById("parentOrder");
+              var x= document.createElement("div");
+              x.style.width="45%";
+              x.style.paddingRight="25px";
+              x.innerHTML=`
+              <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
+              <!-- <div id="order_list" class=""> -->
+                <div class="d-flex justify-content-between">
+                  <div class="text-start m-2">
+                    <h5>Order #TN-<label>${orderData[i].table_number}</label></h5>
+                    <p>${orderData[i].order_datetime}</p>
+                  </div>
+                  <img
+                    class="profile_photo"
+                    src="/images/user_icon_1.png"
+                    alt=""
+                  />
+                </div>
+                  <div class="d-flex justify-content-around mb-4">
+                    <img id=img5
+                      class="foodItem_photo me-5"
+                      src="/${newPath}"
+                      alt=""
+                    />
+                    <div>
+                      <h5>${itemData[j].name}</h5>
+                      <p id="dis">${itemData[j].description}</p>
+                      <div class="d-flex justify-content-around">
+                        <h5>$${p}</h5>
+                        <h5>Qty:${orderData[i].quantity}</h5>
+                      </div>
+                    </div>
+                  </div>
+                <div
+                  class="m-3"
+                  style="height: 1.2px; background: #c1c3cd"
+                ></div>
+                <div class="d-flex justify-content-between">
+                  <div class="text-start">
+                    <p style="font-size: larger">1 Items</p>
+                    <h3>$${orderData[i].order_total_cost}</h3>
+                  </div>
+                  <div class="text-center pt-3">
+                    <p
+                      id="${orderData[i].order_id}"
+                      onclick="orderselectionone(${orderData[i].order_id},'rejected')"
+                      class="btn btn-outline-danger"
+                    >
+                      <i
+                        style="font-size: 40px; width: 42px"
+                        class="fa-solid fa-xmark"
+                      ></i>
+                    </p>
+                    <p
+                      id="conform"
+                      onclick="orderselectionone(${orderData[i].order_id},'conformed')"
+                      class="btn btn-outline-success"
+                    >
+                      <i
+                        style="font-size: 40px"
+                        class="fa-solid fa-check"
+                      ></i>
+                    </p>
+                  </div>
+                </div>
+              <!-- </div> -->
+            </div>
+            `;
+              // tb.innerText=orderData[i].tablenumber;
+              var img =document.querySelector(".foodItem_photo");
+              // console.log(img);
+              // img.setAttribute("src", newPath);
+              tb.appendChild(x);
+              // console.log(img);
+              j=j+8;
+            }
+          }
           // console.log("hello")
-          if(orderData[i].item_id==itemData[j].id)
+        }
+      }
+
+}
+// history();
+function history()
+{
+  // const a = orderData.length;
+      console.log(orderData);
+      console.log(itemData);
+  //     console.log(a);
+  var r="rejected";
+  console.log(r);
+      for(var i=0;i<orderData.length;i++)
+      {
+        // console.log("hi");
+        for(var j=0;j<itemData.length;j++)
+        {
+          if(orderData[i].order_status=="rejected" || orderData[i].order_status=="conformed")
+          {
+            if(orderData[i].item_id==itemData[j].id)
           {
             var imgpath = itemData[j].imagePath;
             let pathArray = imgpath.split("\\");
             let newPath = pathArray.slice(1).join("\\");
-            console.log(imgpath);
+            // console.log(imgpath);
             var p = orderData[i].order_total_cost/orderData[i].quantity;
-            var tb=document.getElementById("parentOrder");
+            var tb=document.getElementById("order_Cards_In_History");
             var x= document.createElement("div");
+            x.style.width="45%";
+            x.style.paddingRight="25px";
             x.innerHTML=`
-            <div id="order_list_one" class="p-3 m-3 bg-white rounded-3">
+            <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
             <!-- <div id="order_list" class=""> -->
               <div class="d-flex justify-content-between">
                 <div class="text-start m-2">
@@ -322,24 +446,11 @@ function load()
                 </div>
                 <div class="text-center pt-3">
                   <p
-                    id="reject"
-                    onclick="orderselectionone(0)"
-                    class="btn btn-outline-danger"
+                    class="btn btn-primary"
                   >
-                    <i
-                      style="font-size: 40px; width: 42px"
-                      class="fa-solid fa-xmark"
-                    ></i>
-                  </p>
-                  <p
-                    id="conform"
-                    onclick="orderselectionone(1)"
-                    class="btn btn-outline-success"
-                  >
-                    <i
-                      style="font-size: 40px"
-                      class="fa-solid fa-check"
-                    ></i>
+                    <label
+                      style="font-size: 20px; width: 120px"
+                    >${orderData[i].order_status}</label>
                   </p>
                 </div>
               </div>
@@ -354,6 +465,8 @@ function load()
             // console.log(img);
             j=j+8;
           }
+          }
+          // console.log("hello")
         }
       }
 
