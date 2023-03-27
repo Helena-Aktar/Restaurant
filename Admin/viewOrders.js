@@ -97,7 +97,7 @@ function active(num) {
                 completebuttonClicked = false;
                 rejectedbuttonClicked = false;
                   console.log("event all",allbuttonClicked);
-                  all.style.background="yellow";
+                  all.style.background="orange";
                   complete.style.background="green";
                   rejected.style.background="green";
                   history(allbuttonClicked,completebuttonClicked,rejectedbuttonClicked);
@@ -109,7 +109,7 @@ function active(num) {
                 rejectedbuttonClicked = false;
                   console.log("event complete",completebuttonClicked);
                   all.style.background="green";
-                  complete.style.background="yellow";
+                  complete.style.background="orange";
                   rejected.style.background="green";
                   history(allbuttonClicked,completebuttonClicked,rejectedbuttonClicked);
                 })
@@ -121,7 +121,7 @@ function active(num) {
                   console.log("event rejected",rejectedbuttonClicked);
                   all.style.background="green";
                   complete.style.background="green";
-                  rejected.style.background="yellow";
+                  rejected.style.background="orange";
                   history(allbuttonClicked,completebuttonClicked,rejectedbuttonClicked);
                 })
             if(allbuttonClicked==false && completebuttonClicked==false && rejectedbuttonClicked==false)
@@ -177,44 +177,74 @@ function active(num) {
     buttonSetting.classList.remove("active");
 
     const ctx = document.getElementById('myChart');
-          Chart.defaults.font.size=18;
-          new Chart(ctx, {
-            type: 'bar',
-            data: {
-              labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-              datasets: [{
-                label: '# sell Report',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255, 205, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(201, 203, 207, 0.2)'
-                ],
-                borderColor: [
-                  'rgb(255, 99, 132)',
-                  'rgb(255, 159, 64)',
-                  'rgb(255, 205, 86)',
-                  'rgb(75, 192, 192)',
-                  'rgb(54, 162, 235)',
-                  'rgb(153, 102, 255)',
-                  'rgb(201, 203, 207)'
-                ],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                y: {
-                  beginAtZero: true
-                }
-              }
-            }
-          });
-  } else if (num == 6) {
+    var Items=[];
+    var ItemsId=[];
+    var sell=[];
+    var x=0;
+    var totalCost = 0;
+    for(var i=0;i<itemData.length;i++)
+    {
+      if(itemData[i].id != itemData[i].parentMenuID)
+      {
+        Items[x]=itemData[i].name;
+        ItemsId[x]=itemData[i].id;
+        x++;
+      }
+    }
+    for(var i=0;i<ItemsId.length;i++)
+    {
+      for(var j=0;j<orderData.length;j++)
+      {
+        if(ItemsId[i] == orderData[j].item_id)
+        {
+          totalCost = totalCost + orderData[j].order_total_cost;
+        }
+      }
+      sell[i]=totalCost;
+      totalCost=0;
+    }
+    console.log("ItemsId",ItemsId);
+    console.log(Items);
+    console.log(sell);
+    Chart.defaults.font.size=18;
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: Items,
+        datasets: [{
+          label: '# sell Report',
+          data: sell,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(201, 203, 207, 0.2)'
+          ],
+          borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  } 
+  else if (num == 6) {
     home.style.display = "none";
     orderHistory.style.display = "none";
     AddFoodItem.style.display = "none";
