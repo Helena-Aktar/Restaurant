@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="/css/bootstrap-copy.css" />
     <!-- <link rel="stylesheet" href="/css/base.css" /> -->
     <link rel="stylesheet" href="/Admin/viewOrders.css" />
+    <!-- chart.js cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <div id="body_container" class="m-0 p-0">
@@ -523,6 +525,11 @@
       <div id="core_container_Order-History" class="">
         <section id="order_lists">
           <div>
+            <div class="bg-primary p-4">
+              <button id="all" class="btn">All</button>
+              <button id="complete" class="btn">Complete</button>
+              <button id="rejected" class="btn">rejected</button>
+            </div>
             <div
               id="order_Cards_In_History"
               class="d-flex flex-wrap justify-content-start"
@@ -996,7 +1003,12 @@
           </div>
         </div>
       </div>
-      <div id="core_container_Statistics" class="">Statistics</div>
+      <div id="core_container_Statistics" class="">
+        <div>
+          <canvas id="myChart" style="width: 100%;max-width: 600px;max-height: 400px; position: absolute;top: 5%;left: 40%;"></canvas>
+        </div>
+        
+      </div>
       <div id="core_container_Setting" class="">Setting</div>
       <div id="footer_container" class="text-center">footer</div>
     </div>
