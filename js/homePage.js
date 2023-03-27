@@ -89,6 +89,12 @@ function showDishDetails() {
 }
 
 // ================================================ ********* =============================================
+
+// get the table number from the url
+const urlParams = new URLSearchParams(window.location.search);
+const tableNumber = parseInt(urlParams.get("tableNumber"));
+console.log(tableNumber); // Output: 123
+
 // add order
 
 function orderNow() {
@@ -103,7 +109,7 @@ function orderNow() {
   const servedCountSpan = document.getElementById(`${serveElementID}`);
   console.log(servedCountSpan);
   if (servedCountSpan !== null) {
-    servedCountSpan.innerHTML = 0;
+    servedCountSpan.innerHTML = 1;
   }
   // console.log(quantity);
   let cost;
@@ -111,10 +117,6 @@ function orderNow() {
   let instruction = "Less Spice";
   let orderCustomization = "Add Bell Paper";
 
-  // get the table number from the url
-  const urlParams = new URLSearchParams(window.location.search);
-  const tableNumber = parseInt(urlParams.get("tableNumber"));
-  // console.log(tableNumber); // Output: 123
   DishItemsArray.forEach((item) => {
     if (item.id == itemID) {
       let price = item.price;
@@ -184,65 +186,183 @@ okBTN.addEventListener("click", () => {
   document.querySelector(".confirm-order-outerbox").style.display = "none";
 });
 // added Order array
-const AddedOrderItems = [];
+const AddedOrderArray = [];
 // show add to cart count
 const addedToCart = document.querySelector(".added_items-count");
 var addedToCartCounter = 0;
+
 function addToCart(id) {
   let quantity = servingCounter;
   const serveCountSpan = document.getElementById(`count${id}`);
   console.log(servingCounter);
-  servingCounter = 0;
-  serveCountSpan.innerHTML = 0;
+  servingCounter = 1;
+  serveCountSpan.innerHTML = 1;
   console.log(id, "item id");
-  addedToCartCounter++;
-  addedToCart.innerHTML = addedToCartCounter;
-  DishItemsArray.forEach((item) => {
-    if (item.id == id) {
-      let price = item.price;
-      cost = price * quantity;
-      const obj = {
-        Name: item.name,
-        ImageSRC: item.imagePath,
-        ID: item.id,
-        Quantity: quantity,
-        Cost: item.price * quantity,
-      };
-      // pushing objects to array
-      AddedOrderItems.push(obj);
-    }
 
-    // console.log(item);
-  });
+  // check if item with the same ID already exists in the AddedOrderArray
+  let existingItem = AddedOrderArray.find((item) => item.ID === id);
+  console.log(existingItem, "existing item");
+
+  if (existingItem) {
+    // increase count and cost of existing item
+    existingItem.Quantity += quantity;
+    existingItem.Cost += quantity * existingItem.price;
+  } else {
+    let price;
+    DishItemsArray.forEach((item) => {
+      if (item.id == id) {
+        price = item.price;
+        const obj = {
+          Name: item.name,
+          ImageSRC: item.imagePath,
+          ID: item.id,
+          Quantity: quantity,
+          Cost: price * quantity,
+          price: price,
+        };
+        AddedOrderArray.push(obj);
+      }
+    });
+  }
+
+  if (!existingItem) {
+    addedToCartCounter++;
+    addedToCart.innerHTML = addedToCartCounter;
+  }
   console.log("order");
   console.log(id);
   console.log(quantity);
-  console.log(cost);
-  console.log(AddedOrderItems, "added order items");
+  console.log(AddedOrderArray, "added order items");
+  displayCartItems();
 }
 
 // display added to cart items
-
+var totalCost;
 function displayCartItems() {
-  console.log(AddedOrderItems, "displayCartItems() ");
-  
+  console.log(AddedOrderArray, "displayCartItems() ");
+  const cartItems = document.querySelector(".cart_items");
+  cartItems.innerHTML = "";
+  if (!AddedOrderArray.length) {
+    // cartItems.innerHTML = `<h5 class="text-center mt-5" style="color:red">You have not added any dish to cart yet!</h5>`;
+    cartItems.innerHTML = ` <img class="empty_order_img" src="/images/emptyCart.4e943399.png" alt="">`;
+  }
+  for (var i = 0; i < AddedOrderArray.length; i++) {
+    let cartItem = document.createElement("div");
+    cartItem.classList = "cart_item";
+    let cartDishCard = document.createElement("div");
+    cartDishCard.classList = "cart_dish_card";
+    cartDishCard.setAttribute("id", AddedOrderArray[i].ID);
+    let cartHeader = document.createElement("div");
+    cartHeader.classList = "cart_header";
+    let cartDishImage = document.createElement("img");
+    cartDishImage.classList = "cart_dish-img";
+    let imgPath = AddedOrderArray[i].ImageSRC;
+    let pathArray = imgPath.split("\\"); // Split the file path into an array based on the backslash character
+    let newPath = pathArray.slice(1).join("\\"); // Join the array elements starting from the second element using the backslash character
+    console.log("new path" + newPath);
+    cartDishImage.setAttribute("src", newPath);
+    cartHeader.appendChild(cartDishImage);
+    cartDishCard.appendChild(cartHeader);
+    let cartDishBody = document.createElement("div");
+    cartDishBody.classList = "cart_dish-body";
+    let cartDishTitle = document.createElement("h6");
+    cartDishTitle.innerHTML = AddedOrderArray[i].Name;
+    cartDishBody.appendChild(cartDishTitle);
+    let itemQuantityDiv = document.createElement("div");
+    itemQuantityDiv.classList = "item_quantity";
+    itemQuantityDiv.innerHTML = "Q: ";
+    let quantitySpan = document.createElement("span");
+    quantitySpan.classList = "quantity";
+    quantitySpan.innerHTML = AddedOrderArray[i].Quantity;
+    itemQuantityDiv.appendChild(quantitySpan);
+    cartDishBody.appendChild(itemQuantityDiv);
+    let dishPriceDiv = document.createElement("div");
+    dishPriceDiv.classList = "dish-price";
+    dishPriceDiv.innerHTML = "$" + AddedOrderArray[i].Cost;
+    totalCost += AddedOrderArray[i].Cost;
+    cartDishBody.appendChild(dishPriceDiv);
+    cartDishCard.appendChild(cartDishBody);
+    let deleteIconDiv = document.createElement("div");
+    deleteIconDiv.classList = "delete_icon mt-3 me-3 fs-5";
+    let deleteIcon = document.createElement("i");
+    deleteIcon.classList = "fa-regular fa-trash-can float-end";
+    deleteIcon.setAttribute("onclick", `removeItem(${AddedOrderArray[i].ID})`);
+    deleteIconDiv.appendChild(deleteIcon);
+    cartDishCard.appendChild(deleteIconDiv);
+    cartItem.appendChild(cartDishCard);
+    let delimiter = document.createElement("div");
+    delimiter.classList = "sidebar_delimiter";
+    cartItem.appendChild(delimiter);
+    cartItems.appendChild(cartItem);
+  }
+  totalCost = 0;
+  if (AddedOrderArray.length) {
+    AddedOrderArray.forEach((element) => {
+      totalCost += element.Cost;
+    });
+    cartItems.innerHTML += `<div class="cart-footer">  <div class="text-end me-3 fs-5 fw-bold">Subtotal:<span class="ms-3" style="color: var(--color-primary);">$${totalCost}</span></div>
 
-  
+  <button class="dish-btn float-end w-50" onclick="OrderItems()">ORDER</button>
+
+</div>`;
+  }
 }
-displayCartItems();
+function OrderItems() {
+  console.log(AddedOrderArray, "hello order array");
+}
 
-const cartOutbox = document.querySelector(".cart-outbox");
+// remove itemsFrom cart
+
+function removeItem(id) {
+  for (let i = 0; i < AddedOrderArray.length; i++) {
+    console.log(AddedOrderArray[i].ID, "AddedOrderArray[i].id");
+    if (AddedOrderArray[i].ID === id) {
+      AddedOrderArray.splice(i, 1); // Remove 1 element starting at index i
+      break; // Stop looping after object is removed
+    }
+  }
+  console.log(AddedOrderArray);
+  displayCartItems();
+}
+// displayCartItems();
+
+// const cartOutbox = document.querySelector(".cart-outbox");
 const cartContainer = document.getElementById("cart_container");
-const cartBTN = document.querySelector("#main_cart");
+const cartBTN = document.querySelector("#nav_cart");
 
 cartBTN.addEventListener("click", () => {
+  orderContainer.classList.remove("active");
   cartContainer.classList.toggle("active");
-  console.log(AddedOrderItems, " cart: added order items");
+
+  // document.querySelector(".added_items-count").innerHTML = 0;
+  console.log(AddedOrderArray, " cart: added order items");
 
   displayCartItems();
   // cartOutbox.style.display = "block";
 });
 
+const showOrderBTN = document.querySelector("#show_order");
+const orderContainer = document.getElementById("orders_container");
+
+showOrderBTN.addEventListener("click", () => {
+  cartContainer.classList.remove("active");
+
+  orderContainer.classList.toggle("active");
+  // document.querySelector(".added_items-count").innerHTML = 0;
+  console.log(AddedOrderArray, " cart: added order items");
+  console.log(OrdersArray);
+  for (var i = 0; OrdersArray.length; i++) {
+    if (OrdersArray[i].table_number == tableNumber) {
+      console.log(tableNumber, "tableNumber",i);
+      console.log(OrdersArray[i].table_number, "table_number",i);
+      console.log(OrdersArray[i].order_status, "order_status",i);
+    }
+  }
+  console.log("hujsdf");
+  // OrdersArray
+  // displayCartItems();
+  // cartOutbox.style.display = "block";
+});
 // serve count
 
 // var servingCounter = 0;
@@ -273,7 +393,7 @@ cartBTN.addEventListener("click", () => {
 // }
 
 // optimal counter
-var servingCounter = 0;
+var servingCounter = 1;
 var prevID;
 
 function quantityCounter(id, icon) {
@@ -283,16 +403,16 @@ function quantityCounter(id, icon) {
   const prevServeCountSpan = document.getElementById(`${prevElementID}`);
   console.log(serveCountSpan);
   if (prevID !== id) {
-    servingCounter = 0;
+    servingCounter = 1;
     if (prevServeCountSpan !== null) {
-      prevServeCountSpan.innerHTML = 0;
+      prevServeCountSpan.innerHTML = 1;
     }
     prevID = id;
   }
 
   if (icon == "minus") {
     console.log("hello minus");
-    if (servingCounter > 0) {
+    if (servingCounter > 1) {
       servingCounter--;
     }
     console.log(servingCounter);
@@ -597,9 +717,9 @@ function displayDishItems() {
         "onclick",
         `addToCart(${DishItemsArray[i].id})`
       );
-      let navCartIcon = document.createElement("i");
-      navCartIcon.classList = "fa-solid fa-cart-shopping";
-      addTOCartDiv.appendChild(navCartIcon);
+      let dishCartIcon = document.createElement("i");
+      dishCartIcon.classList = "fa-solid fa-cart-shopping";
+      addTOCartDiv.appendChild(dishCartIcon);
       spDishTitle.appendChild(addTOCartDiv);
       spDishBodyDiv.appendChild(spDishTitle);
       let spDishDetails = document.createElement("p");
@@ -632,7 +752,7 @@ function displayDishItems() {
       serveCountDiv.appendChild(countMinus);
       let counterSpan = document.createElement("span");
       counterSpan.setAttribute("id", "count" + `${DishItemsArray[i].id}`);
-      counterSpan.innerText = 0;
+      counterSpan.innerText = 1;
       serveCountDiv.appendChild(counterSpan);
       let countPlus = document.createElement("span");
       countPlus.classList = "count-plus";
@@ -658,7 +778,7 @@ function displayDishItems() {
       spDishBtnDiv.appendChild(orderNowbtn);
       orderNowbtn.setAttribute("id", "orderNow" + `${DishItemsArray[i].id}`);
       orderNowbtn.setAttribute("onclick", "orderNow()");
-      console.log(orderNowbtn);
+      // console.log(orderNowbtn);
       // output
 
       spDishBlock.appendChild(spDishBodyDiv);
