@@ -218,13 +218,27 @@ body {
   right: 80px;
   z-index: -10;
 }
-#cart_container,
+#cart_container {
+  position: absolute;
+  width: 290px;
+  height: 90%;
+  top: 80px;
+  right: -295px;
+  /* left: -99999px; */
+  /* overflow-y: auto; */
+  transition: 0.6s ease;
+  transition-property: right;
+  background: #ffffff;
+  box-shadow: -10px 10px 16px -15px var(--color-primary);
+  z-index: 100;
+}
 #orders_container {
   position: absolute;
   width: 290px;
   height: 90%;
   top: 80px;
   right: -295px;
+  /* right: 0; */
   /* left: -99999px; */
   /* overflow-y: auto; */
   transition: 0.6s ease;

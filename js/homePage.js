@@ -307,8 +307,64 @@ function displayCartItems() {
 </div>`;
   }
 }
+const ItemsIDArray = [],
+  QuantityArray = [];
 function OrderItems() {
-  console.log(AddedOrderArray, "hello order array");
+  console.log("helloorder");
+  console.log(DishItemsArray);
+  let cost = 150;
+  let status = true;
+  let instruction = "Less Spice";
+  let orderCustomization = "Add Bell Paper";
+  // console.log(AddedOrderArray, "hello order array");
+  for (var i = 0; i < AddedOrderArray.length; i++) {
+    ItemsIDArray.push(AddedOrderArray[i].ID);
+    QuantityArray.push(AddedOrderArray[i].Quantity);
+  }
+  console.log(ItemsIDArray, "ItemsIDArray");
+  console.log(QuantityArray, "QuantityArray");
+
+  console.log("order");
+  console.log(ItemsIDArray);
+  console.log(QuantityArray);
+  console.log(cost);
+  console.log(status);
+  console.log(instruction);
+  console.log(orderCustomization);
+  console.log(tableNumber);
+  const obj = {
+    item_id: ItemsIDArray,
+    quantity: QuantityArray,
+    order_total_cost: cost,
+    order_status: "true",
+    customization_instructions: instruction,
+    customization: orderCustomization,
+    table_number: tableNumber,
+  };
+  console.log(obj);
+
+  // const formData = new FormData();
+  // formData.append("item_id", ItemsIDArray);
+  // formData.append("quantity", QuantityArray);
+  // formData.append("order_total_cost", cost);
+  // formData.append("order_status", status);
+  // formData.append("customization_instructions", instruction);
+  // formData.append("customization", orderCustomization);
+  // formData.append("table_number", tableNumber);
+  // console.log(formData);
+
+  fetch("http://192.168.2.103:50/api/order/addorder", {
+    method: "POST",
+    body: JSON.stringify(obj),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      // alert("Order added!");
+
+      document.querySelector(".confirm-order-outerbox").style.display = "grid";
+    })
+    .catch((err) => console.log(err));
 }
 
 // remove itemsFrom cart
@@ -351,11 +407,11 @@ showOrderBTN.addEventListener("click", () => {
   // document.querySelector(".added_items-count").innerHTML = 0;
   console.log(AddedOrderArray, " cart: added order items");
   console.log(OrdersArray);
-  for (var i = 0; OrdersArray.length; i++) {
+  for (var i = 0; i < OrdersArray.length; i++) {
     if (OrdersArray[i].table_number == tableNumber) {
-      console.log(tableNumber, "tableNumber",i);
-      console.log(OrdersArray[i].table_number, "table_number",i);
-      console.log(OrdersArray[i].order_status, "order_status",i);
+      console.log(tableNumber, "tableNumber", i);
+      console.log(OrdersArray[i].table_number, "table_number", i);
+      console.log(OrdersArray[i].order_status, "order_status", i);
     }
   }
   console.log("hujsdf");
@@ -363,34 +419,6 @@ showOrderBTN.addEventListener("click", () => {
   // displayCartItems();
   // cartOutbox.style.display = "block";
 });
-// serve count
-
-// var servingCounter = 0;
-// function serveCountMinus(arg) {
-//   console.log("hello minus");
-//   console.log(arg);
-//   let id = "count" + arg;
-//   const serveCountSpan = document.getElementById(`${id}`);
-//   console.log(serveCountSpan);
-//   if (servingCounter > 0) {
-//     servingCounter--;
-//   }
-
-//   console.log(servingCounter);
-//   serveCountSpan.innerHTML = servingCounter;
-// }
-// function serveCountPlus(arg) {
-//   console.log("hello plus");
-//   console.log(arg);
-//   let id = "count" + arg;
-//   const serveCountSpan = document.getElementById(`${id}`);
-//   console.log(serveCountSpan);
-
-//   servingCounter++;
-
-//   console.log(servingCounter);
-//   serveCountSpan.innerHTML = servingCounter;
-// }
 
 // optimal counter
 var servingCounter = 1;
