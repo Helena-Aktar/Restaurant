@@ -95,67 +95,6 @@ const urlParams = new URLSearchParams(window.location.search);
 const tableNumber = parseInt(urlParams.get("tableNumber"));
 console.log(tableNumber); // Output: 123
 
-// add order
-
-function orderNow() {
-  console.log("helloorder");
-  console.log(DishItemsArray);
-  let id = event.target.id;
-  let itemID = id.split("orderNow")[1];
-  console.log(itemID);
-  let quantity = servingCounter;
-  let serveElementID = "count" + itemID;
-  console.log(serveElementID);
-  const servedCountSpan = document.getElementById(`${serveElementID}`);
-  console.log(servedCountSpan);
-  if (servedCountSpan !== null) {
-    servedCountSpan.innerHTML = 1;
-  }
-  // console.log(quantity);
-  let cost;
-  let status = true;
-  let instruction = "Less Spice";
-  let orderCustomization = "Add Bell Paper";
-
-  DishItemsArray.forEach((item) => {
-    if (item.id == itemID) {
-      let price = item.price;
-      cost = price * quantity;
-    }
-    // console.log(item);
-  });
-  console.log("order");
-  console.log(itemID);
-  console.log(quantity);
-  console.log(cost);
-  console.log(status);
-  console.log(instruction);
-  console.log(orderCustomization);
-  console.log(tableNumber);
-
-  const formData = new FormData();
-  formData.append("item_id", itemID);
-  formData.append("quantity", quantity);
-  formData.append("order_total_cost", cost);
-  formData.append("order_status", status);
-  formData.append("customization_instructions", instruction);
-  formData.append("customization", orderCustomization);
-  formData.append("table_number", tableNumber);
-  console.log(formData);
-
-  fetch("http://192.168.2.103:50/api/order/addorder", {
-    method: "POST",
-    body: formData,
-  })
-    // .then((res) => res.json())
-    .then((data) => {
-      console.log("data" + data);
-      // alert("Order added!");
-
-      document.querySelector(".confirm-order-outerbox").style.display = "grid";
-    })
-    .catch((err) => console.log(err));
-}
 const OrdersArray = [];
 // Fetchhing Ortders from API
 fetch("http://192.168.2.103:50/api/order/getallorderlist")
@@ -307,26 +246,84 @@ function displayCartItems() {
 </div>`;
   }
 }
-const ItemsIDArray = [],
-  QuantityArray = [];
+// add single order
+
+function orderNow() {
+  console.log("helloorder");
+  console.log(DishItemsArray);
+  let id = event.target.id;
+  let itemID = id.split("orderNow")[1];
+  console.log(itemID);
+  let quantity = servingCounter;
+  let serveElementID = "count" + itemID;
+  console.log(serveElementID);
+  const servedCountSpan = document.getElementById(`${serveElementID}`);
+  console.log(servedCountSpan);
+  if (servedCountSpan !== null) {
+    servedCountSpan.innerHTML = 1;
+  }
+  // console.log(quantity);
+  let cost;
+  let status = true;
+  let instruction = "Less Spice";
+  let orderCustomization = "Add Bell Paper";
+
+  DishItemsArray.forEach((item) => {
+    if (item.id == itemID) {
+      let price = item.price;
+      cost = price * quantity;
+    }
+    // console.log(item);
+  });
+  console.log("order");
+  console.log(itemID);
+  console.log(quantity);
+  console.log(cost);
+  console.log(status);
+  console.log(instruction);
+  console.log(orderCustomization);
+  console.log(tableNumber);
+
+  const formData = new FormData();
+  formData.append("item_id", itemID);
+  formData.append("quantity", quantity);
+  formData.append("order_total_cost", cost);
+  formData.append("order_status", status);
+  formData.append("customization_instructions", instruction);
+  formData.append("customization", orderCustomization);
+  formData.append("table_number", tableNumber);
+  console.log(formData);
+
+  fetch("http://192.168.2.103:50/api/order/addorder", {
+    method: "POST",
+    body: formData,
+  })
+    // .then((res) => res.json())
+    .then((data) => {
+      console.log("data" + data);
+      // alert("Order added!");
+
+      document.querySelector(".confirm-order-outerbox").style.display = "grid";
+    })
+    .catch((err) => console.log(err));
+}
+// multiple orders
 function OrderItems() {
   console.log("helloorder");
   console.log(DishItemsArray);
-  let cost = 150;
+  let cost = `${totalCost}`;
   let status = true;
   let instruction = "Less Spice";
   let orderCustomization = "Add Bell Paper";
   // console.log(AddedOrderArray, "hello order array");
-  for (var i = 0; i < AddedOrderArray.length; i++) {
-    ItemsIDArray.push(AddedOrderArray[i].ID);
-    QuantityArray.push(AddedOrderArray[i].Quantity);
-  }
-  console.log(ItemsIDArray, "ItemsIDArray");
-  console.log(QuantityArray, "QuantityArray");
+  // for (var i = 0; i < AddedOrderArray.length; i++) {
+  //   ItemsIDArray.push(AddedOrderArray[i].ID);
+  //   QuantityArray.push(AddedOrderArray[i].Quantity);
+  // }
+  // console.log(ItemsIDArray, "ItemsIDArray");
+  // console.log(QuantityArray, "QuantityArray");
 
   console.log("order");
-  console.log(ItemsIDArray);
-  console.log(QuantityArray);
   console.log(cost);
   console.log(status);
   console.log(instruction);
@@ -344,15 +341,16 @@ function OrderItems() {
   // console.log(obj);
 
   const formData = new FormData();
-  for (let i = 0; i < ItemsIDArray.length; i++) {
-    formData.append("item_id", ItemsIDArray[i]);
-    }
-  for (let i = 0; i < QuantityArray.length; i++) {
-      formData.append("quantity", QuantityArray[i]);
+  // for (let i = 0; i < ItemsIDArray.length; i++) {
+  //   formData.append("item_id", ItemsIDArray[i]);
+  //   }
+  // for (let i = 0; i < QuantityArray.length; i++) {
+  //     formData.append("quantity", QuantityArray[i]);
+  // }
+  for (var i = 0; i < AddedOrderArray.length; i++) {
+    formData.append("item_id", AddedOrderArray[i].ID);
+    formData.append("quantity", AddedOrderArray[i].Quantity);
   }
-
-  // formData.append("item_id", ItemsIDArray);
-  // formData.append("quantity", QuantityArray);
   formData.append("order_total_cost", cost);
   formData.append("order_status", status);
   formData.append("customization_instructions", instruction);
@@ -364,12 +362,16 @@ function OrderItems() {
     method: "POST",
     body: formData,
   })
-    .then((res) => res.json())
+    // .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      // alert("Order added!");
-
       document.querySelector(".confirm-order-outerbox").style.display = "grid";
+      document.querySelector(".added_items-count").innerHTML = 0;
+      addedToCartCounter = 0;
+      totalCost = 0;
+      AddedOrderArray.splice(0, AddedOrderArray.length);
+      console.log(AddedOrderArray, "cleared array");
+      displayCartItems();
     })
     .catch((err) => console.log(err));
 }
