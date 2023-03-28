@@ -332,30 +332,37 @@ function OrderItems() {
   console.log(instruction);
   console.log(orderCustomization);
   console.log(tableNumber);
-  const obj = {
-    item_id: ItemsIDArray,
-    quantity: QuantityArray,
-    order_total_cost: cost,
-    order_status: "true",
-    customization_instructions: instruction,
-    customization: orderCustomization,
-    table_number: tableNumber,
-  };
-  console.log(obj);
+  // const obj = {
+  //   item_id: ItemsIDArray,
+  //   quantity: QuantityArray,
+  //   order_total_cost: cost,
+  //   order_status: "true",
+  //   customization_instructions: instruction,
+  //   customization: orderCustomization,
+  //   table_number: tableNumber,
+  // };
+  // console.log(obj);
 
-  // const formData = new FormData();
+  const formData = new FormData();
+  for (let i = 0; i < ItemsIDArray.length; i++) {
+    formData.append("item_id", ItemsIDArray[i]);
+    }
+  for (let i = 0; i < QuantityArray.length; i++) {
+      formData.append("quantity", QuantityArray[i]);
+  }
+
   // formData.append("item_id", ItemsIDArray);
   // formData.append("quantity", QuantityArray);
-  // formData.append("order_total_cost", cost);
-  // formData.append("order_status", status);
-  // formData.append("customization_instructions", instruction);
-  // formData.append("customization", orderCustomization);
-  // formData.append("table_number", tableNumber);
-  // console.log(formData);
+  formData.append("order_total_cost", cost);
+  formData.append("order_status", status);
+  formData.append("customization_instructions", instruction);
+  formData.append("customization", orderCustomization);
+  formData.append("table_number", tableNumber);
+  console.log(formData);
 
   fetch("http://192.168.2.103:50/api/order/addorder", {
     method: "POST",
-    body: JSON.stringify(obj),
+    body: formData,
   })
     .then((res) => res.json())
     .then((data) => {
