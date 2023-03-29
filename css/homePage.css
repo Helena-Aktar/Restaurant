@@ -1,5 +1,6 @@
 :root {
   --menu_header-icons-tranform-deg: 45deg;
+  --hour-glass-icons-tranform-deg: 45deg;
   --color-gray: #838390;
   --color-light: #fef7ee;
   --color-danger: hsl(0, 93%, 61%);
@@ -211,7 +212,7 @@ body {
 #cart_container {
   position: absolute;
   width: 290px;
-  /* height: 90%; */
+  height: 90%;
   top: 80px;
   right: -295px;
   /* left: -99999px; */
@@ -566,7 +567,7 @@ body {
 #orders_container {
   position: absolute;
   width: 290px;
-  /* height: 90%; */
+  height: 90%;
   top: 80px;
   right: -295px;
   /* right: 0; */
@@ -586,7 +587,7 @@ body {
   background: var(--color-light);
   transform: rotate(45deg);
   top: -14px;
-  right: 80px;
+  right: 100px;
   z-index: -10;
 }
 #orders_container.active {
@@ -640,8 +641,14 @@ body {
 .status.active i {
   color: var(--color-success);
 }
-.status.active .status-line {
+.status-line.active {
   background: var(--color-success);
+}
+.hour-glass i {
+  font-size: 16px;
+  color: var(--color-primary);
+  transform: rotate(var(--hour-glass-icons-tranform-deg));
+  -webkit-transform: rotate(var(--hour-glass-icons-tranform-deg));
 }
 /* ======================== media queries  for small laptops and big tablets =======================  */
 

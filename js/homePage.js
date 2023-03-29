@@ -73,7 +73,7 @@ const menuHeaderIcons = document.querySelectorAll(".menu-tabs-header-icon");
 var root = document.querySelector(":root");
 var i = 0;
 console.log(menuHeaderIcons);
-function rotateIcons() {
+function rotateSquareIcons() {
   setInterval(() => {
     // menuHeaderIcons.style.transform = "rotate(45deg)";
     root.style.setProperty("--menu_header-icons-tranform-deg", i + "deg");
@@ -81,7 +81,21 @@ function rotateIcons() {
     // console.log(i);
   }, 100);
 }
-rotateIcons();
+rotateSquareIcons();
+// // timer  icons rotaion
+const howerGlass = document.querySelector(".hour-glass");
+var root = document.querySelector(":root");
+var i = 0;
+console.log(menuHeaderIcons);
+function rotateTimerIcons() {
+  setInterval(() => {
+    // menuHeaderIcons.style.transform = "rotate(45deg)";
+    root.style.setProperty("--hour-glass-icons-tranform-deg", i + "deg");
+    i += 5;
+    // console.log(i);
+  }, 200);
+}
+rotateTimerIcons();
 
 // show Dish details
 function showDishDetails() {
@@ -408,7 +422,7 @@ cartBTN.addEventListener("click", () => {
 
 const showOrderBTN = document.querySelector("#show_order");
 const orderContainer = document.getElementById("orders_container");
-
+const orderedItems = document.querySelector(".ordered_items");
 showOrderBTN.addEventListener("click", () => {
   cartContainer.classList.remove("active");
 
@@ -418,9 +432,198 @@ showOrderBTN.addEventListener("click", () => {
   console.log(OrdersArray);
   for (var i = 0; i < OrdersArray.length; i++) {
     if (OrdersArray[i].table_number == tableNumber) {
-      console.log(tableNumber, "tableNumber", i);
+      orderedItems.innerHTML = `<div class="d-flex justify-content-between ps-2 pe-2 p-1">
+      <div class="order-info">
+        <div class="order-date fw-bold">Wed,12Sep</div>
+      <span class="fw-bold">Order ID:</span>  <span class="order-id"> #12345</span>
+      </div>
+      <div class="fw-bold">Cost: <span class="price">$141</span></div>
+    </div>
+  <div class="sidebar_delimiter"></div>
+
+    <!-- <img class="empty_order_img" src="/images/emptyCart.4e943399.png" alt=""> -->
+    <div class="d-flex m-1 p-1">
+      <h6 class="mt-1"> ETA: <span class="arrival-time">20 Min</span></h6>
+      <div class="hour-glass ms-2 mb-1 pb-2 "style="width=20px;">
+        <i class="fa-regular fa-hourglass-half"></i>
+      </div>
+    </div>
+    <div class="order_tracking-body p-1">
+      <!--  -->
+      <div class="status" id="order_placed">
+        <div class="status-content">
+          <div class="status-line"></div>
+          <div class="status-icon"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="status-body">
+            <h6>Order Placed</h6>
+            <p class="">Your order is being placed.</p>
+          </div>
+          <span class="status-time">8:20</span>
+        </div>
+      </div>
+      <!--  -->
+      <!--  -->
+      <div class="status" id="order_recived">
+        <div class="status-content">
+          <div class="status-line"></div>
+        <div class="status-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="status-body">
+          <h6>Order Recieved</h6>
+          <p class=""> Your order got confirmed.</p>
+          
+        </div><span class="time">8:20</span>
+      </div>
+      </div>
+      <!--  -->
+      <!--  -->
+      <div class="status" id="preparing">
+        <div class="status-content">
+          <div class="status-line"></div>
+        <div class="status-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="status-body">
+          <h6>Preparing</h6>
+          <p class="">We started preparing your dish.</p>
+          
+        </div><span class="time">8:20</span>
+      </div>
+      </div>
+      <!--  -->
+      <!--  -->
+      <div class="status" id="cooking">
+        <div class="status-content">
+          <div class="status-line"></div>
+        <div class="status-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="status-body">
+          <h6>Cooking</h6>
+          <p class="">We hav strted cooking your food.</p>
+          
+        </div><span class="time">8:20</span>
+      </div>
+      </div>
+      <!--  -->
+      <!--  -->
+      <div class="status" id="ready">
+        <div class="status-content">
+          <div class="status-line"></div>
+        <div class="status-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="status-body">
+          <h6>It's Ready</h6>
+          <p class="bold-text">Our executive strted to deliver your food.</p>
+          
+        </div><span class="time">8:20</span>
+      </div>
+      </div>
+      <!--  -->
+      <!--  -->
+      <div class="status" id="delivered">
+        <div class="status-content ms-1">
+        <!-- <div class="status-line"></div> -->
+
+        <div class="status-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="status-body">
+          <h6>Delivered</h6>
+          <p class="bold-text">Enjoy your meal and have a great day. Don't forget to rate us.</p>
+        </div><span class="time">8:20</span>
+      </div>
+      </div>
+      <!--  -->
+
+    </div>
+  </div>`;
+      const orderPlaced = document.getElementById("order_placed");
+      const orderRecieved = document.getElementById("order_recived");
+      const preparing = document.getElementById("preparing");
+      const cooking = document.getElementById("cooking");
+      const ready = document.getElementById("ready");
+      const delivered = document.getElementById("delivered");
+      console.log(OrdersArray[i], "obj");
+      console.log(tableNumber, "URLtableNumber", i);
       console.log(OrdersArray[i].table_number, "table_number", i);
       console.log(OrdersArray[i].order_status, "order_status", i);
+      document.querySelector(".order-date").innerHTML =
+        OrdersArray[i].order_datetime;
+      document.querySelector(".order-id").innerHTML =
+        "#" + OrdersArray[i].order_id;
+      document.querySelector(".price").innerHTML =
+        "$" + OrdersArray[i].order_total_cost;
+      // document.querySelector(".arrival-time").innerHTML =
+      //   OrdersArray[i].serving_time;
+      const orderStatus = OrdersArray[i].order_status;
+      console.log(orderStatus);
+      if (orderStatus == "true") {
+        // console.log(orderPlaced, "iseohtfpowes");
+        orderPlaced.classList.add("active");
+        // orderPlaced.style.background = "red";
+      }
+      if (orderStatus == "order_recived") {
+        orderPlaced.classList.add("active");
+        orderRecieved.classList.add("active");
+        document
+          .querySelector("#order_placed .status-line")
+          .classList.add("active");
+      }
+      if (orderStatus == "preparing") {
+        orderPlaced.classList.add("active");
+        orderRecieved.classList.add("active");
+        document
+          .querySelector("#order_placed .status-line")
+          .classList.add("active");
+        preparing.classList.add("active");
+        document
+          .querySelector("#order_recived .status-line")
+          .classList.add("active");
+      }
+      if (orderStatus == "cooking") {
+        orderPlaced.classList.add("active");
+        orderRecieved.classList.add("active");
+        document
+          .querySelector("#order_placed .status-line")
+          .classList.add("active");
+        preparing.classList.add("active");
+        document
+          .querySelector("#order_recived .status-line")
+          .classList.add("active");
+        cooking.classList.add("active");
+        document
+          .querySelector("#preparing .status-line")
+          .classList.add("active");
+      }
+      if (orderStatus == "ready") {
+        orderPlaced.classList.add("active");
+        orderRecieved.classList.add("active");
+        document
+          .querySelector("#order_placed .status-line")
+          .classList.add("active");
+        preparing.classList.add("active");
+        document
+          .querySelector("#order_recived .status-line")
+          .classList.add("active");
+        cooking.classList.add("active");
+        document
+          .querySelector("#preparing .status-line")
+          .classList.add("active");
+        ready.classList.add("active");
+        document.querySelector("#cooking .status-line").classList.add("active");
+      }
+      if (orderStatus == "delivered") {
+        orderPlaced.classList.add("active");
+        orderRecieved.classList.add("active");
+        document
+          .querySelector("#order_placed .status-line")
+          .classList.add("active");
+        preparing.classList.add("active");
+        document
+          .querySelector("#order_recived .status-line")
+          .classList.add("active");
+        cooking.classList.add("active");
+        document
+          .querySelector("#preparing .status-line")
+          .classList.add("active");
+        ready.classList.add("active");
+        document.querySelector("#cooking .status-line").classList.add("active");
+        delivered.classList.add("active");
+        document.querySelector("#ready .status-line").classList.add("active");
+      }
     }
   }
   console.log("hujsdf");
