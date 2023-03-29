@@ -53,8 +53,10 @@ function active(num) {
     buttonStatistics.classList.remove("active");
     buttonSetting.classList.remove("active");
     buttonAddFoodItem.classList.remove("active");
-    if(orderDatahis==0 || itemDatahis==0)
+    if(orderDatahis==0 || itemDatahis!=0||orderDatahis!=0 || itemDatahis==0)
     {
+      orderDatahis.length=0;
+      itemDatahis.length=0;
       fetch("http://192.168.2.103:50/api/order/getallorderlist")
       .then((response) => response.json())
       .then((orderdata) => {
@@ -355,7 +357,7 @@ orderform.addEventListener("submit", (e) => {
     input.value = "";
   });
 });
-function hi() {
+function addItem() {
   fetch("http://192.168.2.102:85/GetAllDishItems")
     .then((response) => response.json())
     .then((data) => {
@@ -924,3 +926,55 @@ function history(a,c,r) {
       }
   }
 }
+
+// item Addons dynamic
+var addinputfield=document.getElementById("addinputfield");
+
+addinputfield.addEventListener('click',function(){
+  // var itemAddons=document.getElementById("itemAddons");
+  var inputField=document.getElementById("inputField");
+  console.log(inputField);
+  var createDiv = document.createElement("div");
+  createDiv.classList.add("d-flex", "justify-content-center", "mt-3");
+  createDiv.setAttribute("id", "inputFieldsForAddons");
+  
+  createDiv.innerHTML=`
+                  <input
+                    id="Name"
+                    name="Name"
+                    class="form-control me-3"
+                    type="text"
+                    placeholder="Name"
+                  />
+                  <input
+                    id="Price"
+                    class="form-control"
+                    name="Price"
+                    type="number"
+                    placeholder="price"
+                  />
+                  <div class="btn btn-danger ms-3 deleteInputFieldsForAddons">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </div>
+  `
+  inputField.append(createDiv);
+  // Get all the delete buttons inside the inputField and add a click event listener to them
+  var deleteButtons = inputField.querySelectorAll(".deleteInputFieldsForAddons");
+  deleteButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      // Get the parent element of the button and remove it from the inputField
+      var parentDiv = button.parentNode;
+      inputField.removeChild(parentDiv);
+    });
+  });
+})
+
+// var deleteInputFieldsForAddons=document.querySelectorAll("#deleteInputFieldsForAddons");
+// console.log(deleteInputFieldsForAddons);
+// deleteInputFieldsForAddons.addEventListener('click',function(){
+//   var parentDiv = deleteInputFieldsForAddons.parentNode;
+//   console.log(deleteInputFieldsForAddons);
+//   console.log(parentDiv);
+
+// })
+

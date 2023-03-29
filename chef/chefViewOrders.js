@@ -53,7 +53,7 @@ function active(num) {
     buttonStatistics.classList.remove("active");
     buttonSetting.classList.remove("active");
     buttonAddFoodItem.classList.remove("active");
-    if(orderDatahis==0 || itemDatahis==0)
+    if(orderDatahis==0 || itemDatahis!=0||orderDatahis!=0 || itemDatahis==0)
     {
       fetch("http://192.168.2.103:50/api/order/getallorderlist")
       .then((response) => response.json())
