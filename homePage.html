@@ -44,24 +44,97 @@
             <h3>Track Order</h3>
         </div>
       <div class="sidebar_delimiter"></div>
-          <div class="d-flex">
-            <div class="d-grid">
-              <div class="text-muted">Wed,12Sep</div>
-              Order ID: #12345
+          <div class="d-flex justify-content-between ps-2 pe-2 p-1">
+            <div class="order-info">
+              <div class="order-date fw-bold">Wed,12Sep</div>
+            <span class="fw-bold">Order ID:</span>  <span class="order-id"> #12345</span>
             </div>
-            <div class="">Cost: $141</div>
+            <div class="fw-bold">Cost: <span class="price">$141</span></div>
           </div>
         <div class="sidebar_delimiter"></div>
 
           <!-- <img class="empty_order_img" src="/images/emptyCart.4e943399.png" alt=""> -->
-          <h6>ETA: 20 Min</h6>
-          <div class="order_tracking-body">
-            <div class="circle"> <h6>Order Placed </h6></div>
-            <div class="circle"> <h6>Order Recieved </h6></div>
-            <div class="circle"> <h6>Preparing </h6></div>
-            <div class="circle"> <h6>Cooking </h6></div>
-            <div class="circle"> <h6>It's Ready</h6></div>
-            <div class="circle"> <h6>Delivered!</h6></div>
+          <h6 class="m-1 p-1">ETA: <span class="arrival-time">20 Min</span></h6>
+          <div class="order_tracking-body p-1">
+            <!--  -->
+            <div class="status active">
+              <div class="status-content">
+                <div class="status-line"></div>
+                <div class="status-icon"><i class="fa-solid fa-circle-check"></i></div>
+                <div class="status-body">
+                  <h6>Order Placed</h6>
+                  <p class="">Your order is being placed.</p>
+                </div>
+                <span class="status-time">8:20</span>
+              </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <div class="status active">
+              <div class="status-content">
+                <div class="status-line"></div>
+              <div class="status-icon"><i class="fa-solid fa-circle-check"></i></div>
+              <div class="status-body">
+                <h6>Order Recieved</h6>
+                <p class=""> Your order got confirmed.</p>
+                
+              </div><span class="time">8:20</span>
+            </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <div class="status">
+              <div class="status-content">
+                <div class="status-line"></div>
+              <div class="status-icon"><i class="fa-solid fa-circle-check"></i></div>
+              <div class="status-body">
+                <h6>Preparing</h6>
+                <p class="">We started preparing your dish.</p>
+                
+              </div><span class="time">8:20</span>
+            </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <div class="status">
+              <div class="status-content">
+                <div class="status-line"></div>
+              <div class="status-icon"><i class="fa-solid fa-circle-check"></i></div>
+              <div class="status-body">
+                <h6>Cooking</h6>
+                <p class="">We hav strted cooking your food.</p>
+                
+              </div><span class="time">8:20</span>
+            </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <div class="status">
+              <div class="status-content">
+                <div class="status-line"></div>
+              <div class="status-icon"><i class="fa-solid fa-circle-check"></i></div>
+              <div class="status-body">
+                <h6>It's Ready</h6>
+                <p class="bold-text">Our executive strted to deliver your food.</p>
+                
+              </div><span class="time">8:20</span>
+            </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <div class="status">
+              <div class="status-content ms-1">
+              <!-- <div class="status-line"></div> -->
+
+              <div class="status-icon"><i class="fa-solid fa-circle-check"></i></div>
+              <div class="status-body">
+                <h6>Delivered</h6>
+                <p class="bold-text">Enjoy your meal and have a great day. Don't forget to rate us.</p>
+              </div><span class="time">8:20</span>
+            </div>
+            </div>
+            <!--  -->
+
           </div>
         </div>
         <div class="add_to_cart-header_btn" id="nav_cart">
