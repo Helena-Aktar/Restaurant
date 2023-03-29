@@ -19,18 +19,18 @@ function active(num) {
   const Messages = document.getElementById("core_container_Messages");
   const Statistics = document.getElementById("core_container_Statistics");
   const Setting = document.getElementById("core_container_Setting");
-  const AddFoodItem = document.getElementById("core_container_Add-food-item");
+  const FoodReady = document.getElementById("core_container_food_ready");
 
   const buttonHome = document.getElementById("home");
   const buttonOrderHistory = document.getElementById("Order_History");
-  const buttonAddFoodItem = document.getElementById("Add_food_item");
+  const buttonFoodReady = document.getElementById("food_ready");
   const buttonMessages = document.getElementById("Messages");
   const buttonStatistics = document.getElementById("Statistics");
   const buttonSetting = document.getElementById("Setting");
   if (num == 1) {
     home.style.display = "block";
     orderHistory.style.display = "none";
-    AddFoodItem.style.display = "none";
+    FoodReady.style.display = "none";
     Messages.style.display = "none";
     Statistics.style.display = "none";
     Setting.style.display = "none";
@@ -39,11 +39,11 @@ function active(num) {
     buttonMessages.classList.remove("active");
     buttonStatistics.classList.remove("active");
     buttonSetting.classList.remove("active");
-    buttonAddFoodItem.classList.remove("active");
+    buttonFoodReady.classList.remove("active");
   } else if (num == 2) {
     home.style.display = "none";
     orderHistory.style.display = "block";
-    AddFoodItem.style.display = "none";
+    FoodReady.style.display = "none";
     Messages.style.display = "none";
     Statistics.style.display = "none";
     Setting.style.display = "none";
@@ -52,9 +52,11 @@ function active(num) {
     buttonMessages.classList.remove("active");
     buttonStatistics.classList.remove("active");
     buttonSetting.classList.remove("active");
-    buttonAddFoodItem.classList.remove("active");
+    buttonFoodReady.classList.remove("active");
     if(orderDatahis==0 || itemDatahis!=0||orderDatahis!=0 || itemDatahis==0)
     {
+      orderDatahis.length=0;
+      itemDatahis.length=0;
       fetch("http://192.168.2.103:50/api/order/getallorderlist")
       .then((response) => response.json())
       .then((orderdata) => {
@@ -139,39 +141,40 @@ function active(num) {
   } else if (num == 3) {
     home.style.display = "none";
     orderHistory.style.display = "none";
-    AddFoodItem.style.display = "block";
+    FoodReady.style.display = "block";
     Messages.style.display = "none";
     Statistics.style.display = "none";
     Setting.style.display = "none";
     buttonHome.classList.remove("active");
     buttonOrderHistory.classList.remove("active");
-    buttonAddFoodItem.classList.add("active");
+    buttonFoodReady.classList.add("active");
     buttonMessages.classList.remove("active");
     buttonStatistics.classList.remove("active");
     buttonSetting.classList.remove("active");
+    foodReady();
   } else if (num == 4) {
     home.style.display = "none";
     orderHistory.style.display = "none";
-    AddFoodItem.style.display = "none";
+    FoodReady.style.display = "none";
     Messages.style.display = "block";
     Statistics.style.display = "none";
     Setting.style.display = "none";
     buttonHome.classList.remove("active");
     buttonOrderHistory.classList.remove("active");
-    buttonAddFoodItem.classList.remove("active");
+    buttonFoodReady.classList.remove("active");
     buttonMessages.classList.add("active");
     buttonStatistics.classList.remove("active");
     buttonSetting.classList.remove("active");
   } else if (num == 5) {
     home.style.display = "none";
     orderHistory.style.display = "none";
-    AddFoodItem.style.display = "none";
+    FoodReady.style.display = "none";
     Messages.style.display = "none";
     Statistics.style.display = "block";
     Setting.style.display = "none";
     buttonHome.classList.remove("active");
     buttonOrderHistory.classList.remove("active");
-    buttonAddFoodItem.classList.remove("active");
+    buttonFoodReady.classList.remove("active");
     buttonMessages.classList.remove("active");
     buttonStatistics.classList.add("active");
     buttonSetting.classList.remove("active");
@@ -247,19 +250,110 @@ function active(num) {
   else if (num == 6) {
     home.style.display = "none";
     orderHistory.style.display = "none";
-    AddFoodItem.style.display = "none";
+    FoodReady.style.display = "none";
     Messages.style.display = "none";
     Statistics.style.display = "none";
     Setting.style.display = "block";
     buttonHome.classList.remove("active");
     buttonOrderHistory.classList.remove("active");
-    buttonAddFoodItem.classList.remove("active");
+    buttonFoodReady.classList.remove("active");
     buttonMessages.classList.remove("active");
     buttonStatistics.classList.remove("active");
     buttonSetting.classList.add("active");
   }
 }
-
+function foodReady() {
+  fetch("http://192.168.2.103:50/api/order/getallorderlist")
+      .then((response) => response.json())
+      .then((orderdata) => {
+        console.log(orderdata);
+        // load();
+        // const a = orderData.length;
+        // console.log(orderdata);
+        console.log(itemData);
+        //     console.log(a);
+        var r = "rejected";
+        console.log(r);
+        var tb = document.getElementById("order_Ready_parent");
+        tb.innerHTML="";
+        for (var i = orderdata.length - 1; i > 0; i--) {
+          // console.log("hi");
+          for (var j = 0; j < itemData.length; j++) {
+            if (orderdata[i].order_status == "cooking") {
+              if (orderdata[i].item_id == itemData[j].id) {
+                var imgpath = itemData[j].imagePath;
+                let pathArray = imgpath.split("\\");
+                let newPath = pathArray.slice(1).join("\\");
+                // console.log(imgpath);
+                var p = orderdata[i].order_total_cost / orderdata[i].quantity;
+                var x = document.createElement("div");
+                x.style.width = "45%";
+                x.style.paddingRight = "25px";
+                x.innerHTML = `
+                    <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
+                    <!-- <div id="order_list" class=""> -->
+                      <div class="d-flex justify-content-between">
+                        <div class="text-start m-2">
+                          <h5>Order #TN-<label>${orderdata[i].table_number}</label></h5>
+                          <p>${orderdata[i].order_datetime}</p>
+                        </div>
+                        <img
+                          class="profile_photo"
+                          src="/images/user_icon_1.png"
+                          alt=""
+                        />
+                      </div>
+                        <div class="d-flex justify-content-around mb-4">
+                          <img id=img5
+                            class="foodItem_photo me-5"
+                            src="/${newPath}"
+                            alt=""
+                          />
+                          <div>
+                            <h5>${itemData[j].name}</h5>
+                            <p id="dis">${itemData[j].description}</p>
+                            <div class="d-flex justify-content-around">
+                              <h5>$${p}</h5>
+                              <h5>Qty:${orderdata[i].quantity}</h5>
+                            </div>
+                          </div>
+                        </div>
+                      <div
+                        class="m-3"
+                        style="height: 1.2px; background: #c1c3cd"
+                      ></div>
+                      <div class="d-flex justify-content-between">
+                        <div class="text-start">
+                          <p style="font-size: larger">1 Items</p>
+                          <h3>$${orderdata[i].order_total_cost}</h3>
+                        </div>
+                        <div class="text-center pt-3">
+                          <p
+                            id="${orderdata[i].order_id}"
+                            onclick="orderselectionone(${orderdata[i].order_id},'ready')"
+                            class="btn btn-outline-primary"
+                          >
+                          cooking Started
+                          </p>
+                        </div>
+                      </div>
+                    <!-- </div> -->
+                  </div>
+                  `;
+                // tb.innerText=orderData[i].tablenumber;
+                var img = document.querySelector(".foodItem_photo");
+                // console.log(img);
+                // img.setAttribute("src", newPath);
+                tb.appendChild(x);
+                // console.log(img);
+                j = j + 8;
+              }
+            }
+            // console.log("hello")
+          }
+        }
+      });
+}
 // conformOder
 function orderselectionone(id, status) {
   // var value ="false";
@@ -281,11 +375,11 @@ function orderselectionone(id, status) {
   .then((response) => response.json())
   .then((data) => {
     console.log("success",data);
-    window.location.href="http://127.0.0.1:5001/Admin/viewOrders.html";
+    //window.location.href="http://127.0.0.1:5001/Admin/viewOrders.html";
   })
   .catch((err) => {
     console.log("error:",err);
-    window.location.href="http://127.0.0.1:5001/Admin/viewOrders.html";
+    //window.location.href="http://127.0.0.1:5001/Admin/viewOrders.html";
   });
 }
 function orderselectiontwo(num) {
@@ -302,93 +396,13 @@ function orderselectiontwo(num) {
   }
 }
 
-//add list
-const orderform = document.getElementById("form_card");
-const buttonSubmit = document.getElementById("btn-submit");
-
-//console.log(orderform);
-orderform.addEventListener("submit", (e) => {
-  e.preventDefault();
-  var Name = document.getElementById("Name").value;
-  console.log(Name);
-  var ParentMenuID = document.getElementById("parentMenuID").value;
-  console.log(ParentMenuID);
-  var Price = document.getElementById("Price").value;
-  console.log(Price);
-  var Description = document.getElementById("Description").value;
-  console.log(Description);
-  var fileInput = document.getElementById("ImageFile");
-  const file = fileInput.files[0];
-  console.log("Full Image: " + file);
-  console.log("Image Name: " + file.name);
-  console.log("Image Type: " + file.type);
-  console.log("Splited Type: " + file.type.split("/")[1]);
-  //   random name
-  const randomString = Math.random().toString(36).substring(2);
-  const timestamp = Date.now();
-  const imageType = file.type.split("/")[1];
-  const randomName = `${randomString}-${timestamp}.${imageType}`;
-  console.log(randomName);
-  const formData = new FormData();
-  formData.append("Name", Name);
-  formData.append("ParentMenuID", ParentMenuID);
-  formData.append("Price", Price);
-  formData.append("Description", Description);
-  formData.append("Image", file);
-  formData.append("ImageName", randomName);
-  console.log(formData);
-  fetch(" http://192.168.2.102:85/AddDishItems", {
-    method: "POST",
-    body: formData,
-  })
-    // .then((res) => res.json())
-    .then((data) => {
-      console.log("data" + data);
-    })
-    .catch((err) => console.log(err));
-
-  // clear input fields
-  const inputs = document.querySelectorAll("input,textarea");
-  document.getElementById("parentMenuID");
-  inputs.forEach((input) => {
-    // console.log(input);
-    input.value = "";
-  });
-});
-function hi() {
-  fetch("http://192.168.2.102:85/GetAllDishItems")
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-    });
-}
-const DishItemsArrayT = [];
-function sellectoption() {
-  fetch("http://192.168.2.102:85/GetAllDishItems")
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log(data);
-      data.forEach((item) => {
-        const obj = { ...item }; // spread operator (...)
-        // pushing objects to array
-        DishItemsArrayT.push(obj);
-      });
-      const optionsparent = document.getElementById("parentMenuID");
-      for (i = 0; i < DishItemsArrayT.length; i++) {
-        if (DishItemsArrayT[i].id == DishItemsArrayT[i].parentMenuID) {
-          // console.log("hh");
-          const newOption = document.createElement("option");
-          newOption.value = DishItemsArrayT[i].id;
-          newOption.text = DishItemsArrayT[i].name;
-          optionsparent.add(newOption);
-        }
-
-        // Add the new option to the select elemen
-        //optionsparent.appendChild(a);
-      }
-    });
-}
-sellectoption();
+// function hi() {
+//   fetch("http://192.168.2.102:85/GetAllDishItems")
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log(data);
+//     });
+// }
 // var op = document.querySelectorAll("option");
 // var s = (op[1].selected = true);
 // console.log(s);
@@ -426,11 +440,13 @@ function onload()
             // alllist.push(obj);
           });
           load();
-          history();
+          // history();
         // console.log(alllist);
       });
 }
 onload();
+
+
 function load() {
   // const a = orderData.length;
   console.log(orderData);
@@ -441,7 +457,7 @@ function load() {
   for (var i = orderData.length - 1; i > 0; i--) {
     // console.log("hi");
     for (var j = 0; j < itemData.length; j++) {
-      if (orderData[i].order_status == "true") {
+      if (orderData[i].order_status == "conformed") {
         if (orderData[i].item_id == itemData[j].id) {
           var imgpath = itemData[j].imagePath;
           let pathArray = imgpath.split("\\");
@@ -494,7 +510,7 @@ function load() {
                   <div class="text-center pt-3">
                     <p
                       id="${orderData[i].order_id}"
-                      onclick="orderselectionone(${orderData[i].order_id},'cooking Started')"
+                      onclick="orderselectionone(${orderData[i].order_id},'cooking')"
                       class="btn btn-outline-primary"
                     >
                     cooking Started
@@ -612,14 +628,14 @@ function history(a,c,r) {
                   <h3>$${orderDatahis[i].order_total_cost}</h3>
                 </div>
                 <div class="text-center pt-3">
-                  <p
-                    class="btn btn-primary"
-                  >
-                    <label
-                      style="font-size: 20px; width: 120px"
-                    >${orderDatahis[i].order_status}</label>
-                  </p>
-                </div>
+                <p
+                  id="${orderData[i].order_id}"
+                  onclick="orderselectionone(${orderData[i].order_id},'cooking')"
+                  class="btn btn-outline-primary"
+                >
+                cooking Started
+                </p>
+              </div>
               </div>
             <!-- </div> -->
           </div>

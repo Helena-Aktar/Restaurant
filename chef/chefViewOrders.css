@@ -43,7 +43,7 @@ body {
   grid-column: 3 / -1;
   display: none;
 }
-#core_container_Add-food-item {
+#core_container_food_ready {
   background: #bebec2;
   grid-column: 3 / -1;
   display: none;
