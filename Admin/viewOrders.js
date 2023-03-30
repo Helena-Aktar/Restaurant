@@ -428,7 +428,7 @@ function onload()
             // alllist.push(obj);
           });
           load();
-          history();
+          // history();
         // console.log(alllist);
       });
 }
