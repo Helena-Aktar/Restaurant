@@ -25,7 +25,7 @@ body{
 
 .table_header {
     display: grid;
-    grid-template-columns: 1fr 2fr 2fr 2fr 2fr ;
+    grid-template-columns:1fr 1fr 2fr 1fr 2fr 2fr ;
     justify-content: space-between;
     background: #85919b;
     /* border: 2px solid rgb(170, 110, 14); */
@@ -40,7 +40,7 @@ body{
 
 .table_items {
     display: grid;
-    grid-template-columns: 1fr 2fr 2fr 2fr 2fr;
+    grid-template-columns: 1fr 1fr 2fr 1fr 2fr 2fr ;
     /* justify-content: space-between; */
     background: #5b656e;
     margin: 5px;
@@ -59,6 +59,7 @@ body{
     }
 
 /* increase size of first row */
+#no0,
 #id0,
 #name0,
 #email0,
