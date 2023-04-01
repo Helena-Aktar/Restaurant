@@ -187,7 +187,7 @@ function displayCartItems() {
     cartDishImage.classList = "cart_dish-img";
     let imgPath = AddedOrderArray[i].ImageSRC;
     let pathArray = imgPath.split("\\"); // Split the file path into an array based on the backslash character
-    let newPath = pathArray.slice(1).join("\\"); // Join the array elements starting from the second element using the backslash character
+    let newPath = pathArray.slice(2).join("\\"); // Join the array elements starting from the second element using the backslash character
     console.log("new path" + newPath);
     cartDishImage.setAttribute("src", newPath);
     cartHeader.appendChild(cartDishImage);
