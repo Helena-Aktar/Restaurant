@@ -11,6 +11,20 @@ const orderData = [];
 const itemData = [];
 const orderDatahis = [];
 const itemDatahis = [];
+fetch("http://192.168.2.102:85/GetAllDishItems")
+.then((response) => response.json())
+.then((itemdata) => {
+  // console.log(itemdata);
+    itemdata.forEach((item) => {
+      const obj = { ...item }; // spread operator (...)
+      // pushing objects to array
+      itemData.push(obj);
+      // alllist.push(obj);
+    });
+    // load(itemdata);
+    // history();
+  // console.log(alllist);
+});
 // console.log("Eureka!");
 
 function active(num) {
@@ -558,59 +572,62 @@ sellectoption();
 // console.log(s);
 
 //get order informations url => http://192.168.2.103:50/api/order/getallorderlist
-
-function onload() {
-  // const alllist=[];
-  // const orderData=[];
-  // const itemData=[];
-  fetch("http://192.168.2.103:50/api/order/getallorderlist")
-    .then((response) => response.json())
-    .then((orderdata) => {
-      orderDatalength = orderData.length;
-      orderdata.forEach((item) => {
-        const obj = { ...item }; // spread operator (...)
-        // pushing objects to array
-        orderData.push(obj);
-        // alllist.push(obj);
-        // console.log(orderData.length);
-      });
-      // console.log(alllist);
-      // load();
-    });
-  // console.log(orderdata);
-  fetch("http://192.168.2.102:85/GetAllDishItems")
-    .then((response) => response.json())
-    .then((itemdata) => {
-      // console.log(itemdata);
-      itemdata.forEach((item) => {
-        const obj = { ...item }; // spread operator (...)
-        // pushing objects to array
-        itemData.push(obj);
-        // alllist.push(obj);
-      });
-      load();
-      history();
-      // console.log(alllist);
-    });
-}
 onload();
-function load() {
+function onload()
+{
+    // const alllist=[];
+    // const orderData=[];
+    // const itemData=[];
+    
+    // console.log(orderdata);
+      fetch("http://192.168.2.103:50/api/order/getallorderlist")
+      .then((response) => response.json())
+      .then((orderdata) => {
+          orderDatalength=orderData.length;
+          orderdata.forEach((item) => {
+            const obj = { ...item }; // spread operator (...)
+            // pushing objects to array
+            orderData.push(obj);
+            // alllist.push(obj);
+            console.log(orderdata.length);
+            // for(var i=0;i<orderdata.length;i++)
+            // {
+            //   console.log(orderdata[i].item_id)
+            //   for(var x=0;x<orderdata[i].item_id.length;x++){
+            //     var ll= orderdata[i].item_id[x];
+            //     console.log("hi",ll);
+            //   }
+            //   // console.log("end",orderdata[i].item_id.length);
+            // }
+          });
+        // console.log(alllist);
+
+          load(orderdata);
+          
+
+      });
+}
+function  load(orderdata) {
   // const a = orderData.length;
   console.log(orderData);
   console.log(itemData);
-  //     console.log(a);
   var r = "rejected";
   console.log(r);
-  for (var i = orderData.length - 1; i > 0; i--) {
+  var z= 0;
+  for (var i = orderdata.length - 1; i > 0; i--) 
+  {
     // console.log("hi");
-    for (var j = 0; j < itemData.length; j++) {
-      if (orderData[i].order_status == "true") {
-        if (orderData[i].item_id == itemData[j].id) {
+    for (var j = 0; j < itemData.length; j++) 
+    {
+      if (orderdata[i].order_status == "true") 
+      {
+        if (orderdata[i].item_id == itemData[j].id) 
+        {
           var imgpath = itemData[j].imagePath;
           let pathArray = imgpath.split("\\");
           let newPath = pathArray.slice(2).join("\\");
           // console.log(imgpath);
-          var p = orderData[i].order_total_cost / orderData[i].quantity;
+          var p = orderdata[i].order_total_cost / orderData[i].quantity;
           var tb = document.getElementById("parentOrder");
           // tb.innerHTML="";
           var x = document.createElement("div");
@@ -630,21 +647,8 @@ function load() {
                     alt=""
                   />
                 </div>
-                  <div class="d-flex justify-content-around mb-4">
-                    <img id=img5
-                      class="foodItem_photo me-5"
-                      src="/${newPath}"
-                      alt=""
-                    />
-                    <div>
-                      <h5>${itemData[j].name}</h5>
-                      <p id="dis">${itemData[j].description}</p>
-                      <div class="d-flex justify-content-around">
-                        <h5>$${p}</h5>
-                        <h5>Qty:${orderData[i].quantity}</h5>
-                      </div>
-                    </div>
-                  </div>
+                <div id="overflow${z}" class="">
+                </div>
                 <div
                   class="m-3"
                   style="height: 1.2px; background: #c1c3cd"
@@ -680,16 +684,86 @@ function load() {
               <!-- </div> -->
             </div>
             `;
+            console.log(z);
+            z++;
           // tb.innerText=orderData[i].tablenumber;
           var img = document.querySelector(".foodItem_photo");
           // console.log(img);
           // img.setAttribute("src", newPath);
           tb.appendChild(x);
-          // console.log(img);
+          // var itemOverflow=document.getElementById("overflow");
           j = j + 8;
         }
       }
       // console.log("hello")
+    }
+  }
+  forOverflow(orderdata,itemData);
+}
+function forOverflow(orderdata,itemData){
+  console.log(orderdata);
+  console.log(itemData);
+  var m=0;
+  for (var i = orderdata.length - 1; i > 0; i--) 
+  {
+    // debugger
+    if (orderdata[i].order_status == "true") 
+    {
+      var p = orderdata[i].order_total_cost / orderData[i].quantity;
+      // console.log(itemOverflow);
+            for(var x=0;x<orderdata[i].item_id.length;x++)
+            {
+              for (var j = 0; j < itemData.length; j++) 
+              {
+                var itemOverflow=document.getElementById("overflow"+m);
+                // if (orderdata[i].item_id == itemData[j].id) 
+                // {
+                //   // var itemOverflow=document.getElementById("overflow"+m);
+                //   // console.log("tu",m);
+                //   m++;
+                // }
+                if (orderdata[i].item_id[x] == itemData[j].id) 
+                {
+                  // var itemOverflow=document.getElementById("overflow"+m);
+                  // console.log("tu",m);
+                  // m++;
+                  // console.log(itemOverflow);
+                  var imgpath = itemData[j].imagePath;
+                  let pathArray = imgpath.split("\\");
+                  let newPath = pathArray.slice(1).join("\\");
+                  var newdiv=document.createElement("div");
+                  newdiv.innerHTML=`
+                      <div class="d-flex justify-content-around mb-4">
+                      <img id=img5
+                        class="foodItem_photo me-5"
+                        src="/${newPath}"
+                        alt=""
+                      />
+                      <div>
+                        <h5>${itemData[j].name}</h5>
+                        <p id="dis">${itemData[j].description}</p>
+                        <div class="d-flex justify-content-around">
+                          <h5>$${p}</h5>
+                          <h5>Qty:${orderData[i].quantity[x]}</h5>
+                        </div>
+                      </div>
+                    </div>
+                  `
+                  // var ll= orderdata[i].item_id[x];
+
+                  itemOverflow.appendChild(newdiv);
+                  j=j+100;
+                  console.log("i:",i,"j:",j,"m:",m,"itemOverflow:",itemOverflow);
+                }
+
+              // }
+            }
+
+      }
+      m++;
+      // console.log(itemOverflow);
+
+
     }
   }
 }
