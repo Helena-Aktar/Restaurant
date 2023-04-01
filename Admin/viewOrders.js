@@ -321,21 +321,35 @@ function orderselectiontwo(num) {
     console.log(a);
   }
 }
+// const data = [
+//   ["John", 1],
+//   ["Jane", 2],
+//   ["Bob", 3],
+// ];
+
+// // Create a new FormData object
+// const formData = new FormData();
+
+// // Loop through the array and append each element to the FormData object
+// for (let i = 0; i < data.length; i++) {
+//   formData.append(`row${i}`, data[i].join(","));
+// }
+// for (let pair of formData.entries()) {
+//   console.log(pair[0] + ": " + pair[1]);
+// }
+// const cars = ["Saab", "Volvo", "BMW"];
+// console.log(cars);
+// console.log(data);
 
 //add list
 const orderform = document.getElementById("form_card");
 const buttonSubmit = document.getElementById("btn-submit");
 const addonList = document.querySelector("#inputField");
-console.log(addonList.children.length);
+// console.log(addonList.children.length);
 // console.log(addonList);
 function additemWithAddons() {
-  //  helloAddon();
   helloAddon();
-  console.log(adddonArray.length, "lenght");
-  for (var i = 0; i < adddonArray.length; i++) {
-    console.log(adddonArray[i].name, "aname");
-    console.log(adddonArray[i].price, "aprice");
-  }
+  // console.log(adddonArray.length, "lenght");
   var Name = document.getElementById("Name").value;
   console.log(Name);
   var ParentMenuID = document.getElementById("parentMenuID").value;
@@ -350,7 +364,7 @@ function additemWithAddons() {
   console.log("Image Name: " + file.name);
   console.log("Image Type: " + file.type);
   console.log("Splited Type: " + file.type.split("/")[1]);
-  // console.log("arraystring", AddonArrayAsString);
+  console.log("arraystring", AddonArrayAsString);
   console.log("addonArray", adddonArray);
   //   random name
   const randomString = Math.random().toString(36).substring(2);
@@ -365,17 +379,18 @@ function additemWithAddons() {
   formData.append("Description", Description);
   formData.append("Image", file);
   formData.append("ImageName", randomName);
-  // formData.append("addons", AddonArrayAsString);
-  for (let i = 0; i < adddonArray.length; i++) {
-    formData.append("addons[" + i + "].Name", adddonArray[i].name);
-    formData.append("addons[" + i + "].Price", adddonArray[i].price);
-  }
+  formData.append("addons", AddonArrayAsString);
+  // for (let i = 0; i < adddonArray.length; i++) {
+  //   formData.append("addons[" + i + "].Name", adddonArray[i].name);
+  //   formData.append("addons[" + i + "].Price", adddonArray[i].price);
+  // }
+
   for (let pair of formData.entries()) {
     console.log(pair[0] + ": " + pair[1]);
   }
   console.log(formData);
-  // fetch(" http://192.168.2.102:75/AddDishItems", {
-  fetch(" http://localhost:5176/AddDishItems", {
+  fetch(" http://192.168.2.102:75/AddDishItems", {
+    // fetch(" http://localhost:5176/AddDishItems", {
     method: "POST",
     body: formData,
   })
@@ -420,9 +435,7 @@ function additemWithAddons() {
   // //   "ao[hoihoaek"
   // // );
 }
-// orderform.addEventListener("submit", (e) => {
-//   e.preventDefault();
-// });
+
 function addItem() {
   fetch("http://192.168.2.102:85/GetAllDishItems")
     .then((response) => response.json())
@@ -502,7 +515,7 @@ function helloAddon() {
   AddonArrayAsString = JSON.stringify(adddonArray);
   console.log(AddonArrayAsString, "AddonArrayAsString");
   // return AddonArrayAsString;
-  return adddonArray;
+  // return adddonArray;
 }
 //  helloAddon();
 // var deleteInputFieldsForAddons=document.querySelectorAll("#deleteInputFieldsForAddons");
