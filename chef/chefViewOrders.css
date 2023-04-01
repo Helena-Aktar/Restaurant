@@ -92,8 +92,8 @@ body {
 #overflow {
   overflow: scroll;
   height: 335px;
-  scrollbar-width: none; /* hides scrollbar on Firefox */
-  -ms-overflow-style: none; /*hides scrollbar on IE10+  */
+  scrollbar-width: none;   /* hides scrollbar on Firefox */
+  -ms-overflow-style: none;   /* hides scrollbar on IE10+  */
 }
 /* hides scrollbar on Chrome, Safari, and Opera */
 #overflow::-webkit-scrollbar {
