@@ -428,14 +428,17 @@ const orderContainer = document.getElementById("orders_container");
 const orderedItems = document.querySelector(".ordered_items");
 function OrderTracker() {
   if (orderedItems != null || orderedItems != "") {
-    orderedItems.innerHTML = "";
+    orderedItems.innerHTML = ` <img class="empty_order_img" src="/images/emptyCart.4e943399.png" alt="">`;
   }
 
   // document.querySelector(".added_items-count").innerHTML = 0;
   // console.log(AddedOrderArray, " cart: added order items");
   console.log(OrdersArray);
   for (var i = 0; i < OrdersArray.length; i++) {
-    if (OrdersArray[i].table_number == tableNumber) {
+    if (
+      OrdersArray[i].table_number == tableNumber &&
+      OrdersArray[i].order_status != "delivered"
+    ) {
       orderedItems.innerHTML = `<div class="d-flex justify-content-between ps-2 pe-2 p-1">
       <div class="order-info">
         <div class="order-date fw-bold">Wed,12Sep</div>
