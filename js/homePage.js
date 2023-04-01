@@ -109,30 +109,6 @@ const urlParams = new URLSearchParams(window.location.search);
 const tableNumber = parseInt(urlParams.get("tableNumber"));
 console.log(tableNumber); // Output: 123
 
-const OrdersArray = [];
-// Fetchhing Ortders from API
-fetch("http://192.168.2.103:50/api/order/getallorderlist")
-  // fetch("/order.json")
-  .then((response) => response.json())
-  .then((data) => {
-    // console.log("All Data");
-    // console.log(data);
-    // creating object from fetched data
-    data.forEach((item) => {
-      const obj = { ...item }; // spread operator (...)
-      // pushing objects to array
-      OrdersArray.push(obj);
-    });
-    // console.log("Orders Array");
-    // console.log(OrdersArray);
-    showOrders();
-  });
-
-function showOrders() {
-  console.log("Orders Array");
-  console.log(OrdersArray);
-}
-
 // order confirm
 const okBTN = document.getElementById("order_ok-btn");
 okBTN.addEventListener("click", () => {
@@ -419,16 +395,44 @@ cartBTN.addEventListener("click", () => {
   displayCartItems();
   // cartOutbox.style.display = "block";
 });
+const OrdersArray = [];
+// Fetchhing Ortders from API
+function fetchOrders() {
+  OrdersArray.length = 0;
+  fetch("http://192.168.2.103:50/api/order/getallorderlist")
+    // fetch("/order.json")
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log("All Data");
+      // console.log(data);
+      // creating object from fetched data
+      data.forEach((item) => {
+        const obj = { ...item }; // spread operator (...)
+        // pushing objects to array
+        OrdersArray.push(obj);
+      });
+      // console.log("Orders Array");
+      // console.log(OrdersArray);
+      showOrders();
+    });
+}
+fetchOrders();
+setInterval(fetchOrders, 5000);
+function showOrders() {
+  console.log("Orders Array");
+  console.log(OrdersArray);
+}
 
 const showOrderBTN = document.querySelector("#show_order");
 const orderContainer = document.getElementById("orders_container");
 const orderedItems = document.querySelector(".ordered_items");
-showOrderBTN.addEventListener("click", () => {
-  cartContainer.classList.remove("active");
+function OrderTracker() {
+  if (orderedItems != null || orderedItems != "") {
+    orderedItems.innerHTML = "";
+  }
 
-  orderContainer.classList.toggle("active");
   // document.querySelector(".added_items-count").innerHTML = 0;
-  console.log(AddedOrderArray, " cart: added order items");
+  // console.log(AddedOrderArray, " cart: added order items");
   console.log(OrdersArray);
   for (var i = 0; i < OrdersArray.length; i++) {
     if (OrdersArray[i].table_number == tableNumber) {
@@ -626,6 +630,12 @@ showOrderBTN.addEventListener("click", () => {
       }
     }
   }
+  setTimeout(OrderTracker, 5000);
+}
+showOrderBTN.addEventListener("click", () => {
+  cartContainer.classList.remove("active");
+  orderContainer.classList.toggle("active");
+  OrderTracker();
   console.log("hujsdf");
   // OrdersArray
   // displayCartItems();
@@ -810,20 +820,20 @@ const closeOrderModal = (event) => {
 orderModal.addEventListener("click", closeOrderModal);
 //sidebar onclick
 function sidebarOnClick() {
-  const removeParentActiveSidebarItem = () => {
-    parentSidebarMenuList.forEach((item) => {
-      item.classList.remove("active");
-    });
-  };
+  // const removeParentActiveSidebarItem = () => {
+  //   parentSidebarMenuList.forEach((item) => {
+  //     item.classList.remove("active");
+  //   });
+  // };
 
-  const removeChildsActiveSidebarItem = () => {
-    childsSidebarMenuList.forEach((item) => {
-      item.classList.remove("active");
-    });
-  };
+  // const removeChildsActiveSidebarItem = () => {
+  //   childsSidebarMenuList.forEach((item) => {
+  //     item.classList.remove("active");
+  //   });
+  // };
 
   const parentSidebarMenuList = document.querySelectorAll(".parent");
-  const childsSidebarMenuList = document.querySelectorAll(".childs");
+  // const childsSidebarMenuList = document.querySelectorAll(".childs");
 
   parentSidebarMenuList.forEach(function (parentMenuItem) {
     parentMenuItem.addEventListener("click", function () {
@@ -848,7 +858,8 @@ const DishItemsArray = [];
 //   .then((data) => {
 
 // Fetchhing dish items from API
-fetch("http://192.168.2.102:85/GetAllDishItems")
+// fetch("http://192.168.2.102:85/GetAllDishItems")
+fetch("http://localhost:5176/GetAllDishItems")
   .then((response) => response.json())
   .then((data) => {
     // console.log("All Data");
@@ -861,7 +872,6 @@ fetch("http://192.168.2.102:85/GetAllDishItems")
     });
     console.log("Array");
     console.log(DishItemsArray);
-
     displayMenuHeaderTitles();
     menuHeaderActive();
     displayDishItems();
@@ -932,7 +942,7 @@ function displayDishItems() {
       // let newPath = imgSRC.substring(index + 1);
 
       let pathArray = imgSRC.split("\\"); // Split the file path into an array based on the backslash character
-      let newPath = pathArray.slice(1).join("\\"); // Join the array elements starting from the second element using the backslash character
+      let newPath = pathArray.slice(2).join("\\"); // Join the array elements starting from the second element using the backslash character
       // console.log("new path" + newPath);
 
       spDishimg.setAttribute("src", newPath);

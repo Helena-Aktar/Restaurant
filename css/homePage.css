@@ -513,6 +513,8 @@ body {
   border-radius: 25px;
   padding: 5px;
   margin: 5px;
+  height: 150px;
+  /* overflow-y: hidden; */
 }
 .sp_dish-title {
   width: 90%;

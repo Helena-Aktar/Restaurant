@@ -99,7 +99,10 @@
               id="first_row_Cards_In_home"
               class="d-flex justify-content-around text-center mb-4"
             > -->
-            <div id="parentOrder" class="d-flex flex-wrap justify-content-start">
+            <div
+              id="parentOrder"
+              class="d-flex flex-wrap justify-content-start"
+            >
               <!-- <div id="order_list_one" class="p-3 m-3 bg-white rounded-3">
                   <div class="d-flex justify-content-between">
                     <div class="text-start m-2">
@@ -583,7 +586,7 @@
       <!-- working -->
       <div id="core_container_Add-food-item" class=" ">
         <div class="align-items-center">
-          <form id="form_card" class="">
+          <div id="form_card" class="">
             <div id="itemAddons" class="d-flex justify-content-between">
               <div class="me-2 p-2 border border-success rounded-2">
                 <h1>Add New Item</h1>
@@ -595,8 +598,7 @@
                     name="ParentMenuID"
                   >
                     <!-- <option value="1">tushar</option>
-                    <option value="2">reya</option> -->
-                  </select
+                    <option value="2">reya</option> --></select
                   ><br />
                 </div>
                 <div class="d-flex justify-content-center mt-4 mb-4">
@@ -633,37 +635,51 @@
                   ></textarea>
                 </div>
               </div>
-              <div class="ms-2 p-2 border border-success rounded-2">
+              <div
+                id="addonItems"
+                class="ms-2 p-2 border border-success rounded-2"
+              >
                 <h1>Item Addons</h1>
                 <div id="addinputfield" class="btn btn-primary">
                   <i class="fa-thin fa-plus"></i>
                 </div>
-                <div  id="inputField">
-                  <div class="d-flex justify-content-center mt-3 mb-3 border-top pt-2">
+                <div id="inputField">
+                  <div
+                    id=""
+                    class="d-flex justify-content-center mt-3 mb-3 border-top pt-2"
+                  >
                     <input
-                      id="Name"
+                      id="addonName0"
                       name="Name"
                       class="form-control me-3"
                       type="text"
                       placeholder="Name"
                     />
                     <input
-                      id="Price"
+                      id="addonPrice0"
                       class="form-control"
                       name="Price"
                       type="number"
                       placeholder="price"
                     />
-                    <div id="deleteInputFieldsForAddons" class="btn btn-danger ms-3">
+                    <div
+                      id="deleteInputFieldsForAddons"
+                      class="btn btn-danger ms-3"
+                    >
                       <i class="fa-solid fa-trash-can"></i>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <button class="mt-3" id="btn-submit">Submit</button>
-          </form>
+            <button class="mt-3" id="btn-submit" onclick="additemWithAddons()">
+              Submit
+            </button>
+          </div>
           <button id="btn-submit" onclick="addItem()">show Dish Items</button>
+          <button id="btn-submit" onclick="helloAddon()">
+            show Addon Items
+          </button>
           <!-- <button id="btn-submit" onclick="addDishItems()">
             ADD Dish Items
           </button> -->
@@ -1037,9 +1053,18 @@
       </div>
       <div id="core_container_Statistics" class="">
         <div>
-          <canvas id="myChart" style="width: 100%;max-width: 900px;max-height: 550px; position: absolute;top: 5%;left: 25%;"></canvas>
+          <canvas
+            id="myChart"
+            style="
+              width: 100%;
+              max-width: 900px;
+              max-height: 550px;
+              position: absolute;
+              top: 5%;
+              left: 25%;
+            "
+          ></canvas>
         </div>
-        
       </div>
       <div id="core_container_Setting" class="">Setting</div>
       <div id="footer_container" class="text-center">footer</div>

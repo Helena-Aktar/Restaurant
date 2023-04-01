@@ -53,14 +53,18 @@ function active(num) {
     buttonStatistics.classList.remove("active");
     buttonSetting.classList.remove("active");
     buttonAddFoodItem.classList.remove("active");
-    if(orderDatahis==0 || itemDatahis!=0||orderDatahis!=0 || itemDatahis==0)
-    {
-      orderDatahis.length=0;
-      itemDatahis.length=0;
+    if (
+      orderDatahis == 0 ||
+      itemDatahis != 0 ||
+      orderDatahis != 0 ||
+      itemDatahis == 0
+    ) {
+      orderDatahis.length = 0;
+      itemDatahis.length = 0;
       fetch("http://192.168.2.103:50/api/order/getallorderlist")
-      .then((response) => response.json())
-      .then((orderdata) => {
-          console.log(orderdata,orderdata.length);
+        .then((response) => response.json())
+        .then((orderdata) => {
+          console.log(orderdata, orderdata.length);
           //orderDatalength=orderData.length;
           orderdata.forEach((item) => {
             const obj = { ...item }; // spread operator (...)
@@ -69,75 +73,93 @@ function active(num) {
             // alllist.push(obj);
             console.log(orderdata.length);
           });
-        // console.log(alllist);
-        // load();
-      });
+          // console.log(alllist);
+          // load();
+        });
       // console.log(orderdata);
       fetch("http://192.168.2.102:85/GetAllDishItems")
         .then((response) => response.json())
         .then((itemdata) => {
           // console.log(itemdata);
-            itemdata.forEach((item) => {
-              const obj = { ...item }; // spread operator (...)
-              // pushing objects to array
-              itemDatahis.push(obj);
-              // alllist.push(obj);
-            });
-            // load();
-            // let allbuttonClicked = false;
-            // let completebuttonClicked = false;
-            // let rejectedbuttonClicked = false;
-            let completebuttonClicked = false;
-            let rejectedbuttonClicked = false;
-            let allbuttonClicked = false;
-            var all=document.querySelector("#all");
-            var complete = document.querySelector("#complete");
-            var rejected = document.querySelector("#rejected");
+          itemdata.forEach((item) => {
+            const obj = { ...item }; // spread operator (...)
+            // pushing objects to array
+            itemDatahis.push(obj);
+            // alllist.push(obj);
+          });
+          // load();
+          // let allbuttonClicked = false;
+          // let completebuttonClicked = false;
+          // let rejectedbuttonClicked = false;
+          let completebuttonClicked = false;
+          let rejectedbuttonClicked = false;
+          let allbuttonClicked = false;
+          var all = document.querySelector("#all");
+          var complete = document.querySelector("#complete");
+          var rejected = document.querySelector("#rejected");
 
-              all.addEventListener("click",function(){
-                allbuttonClicked = true;
-                completebuttonClicked = false;
-                rejectedbuttonClicked = false;
-                  console.log("event all",allbuttonClicked);
-                  all.style.background="orange";
-                  complete.style.background="green";
-                  rejected.style.background="green";
-                  history(allbuttonClicked,completebuttonClicked,rejectedbuttonClicked);
-                })
+          all.addEventListener("click", function () {
+            allbuttonClicked = true;
+            completebuttonClicked = false;
+            rejectedbuttonClicked = false;
+            console.log("event all", allbuttonClicked);
+            all.style.background = "orange";
+            complete.style.background = "green";
+            rejected.style.background = "green";
+            history(
+              allbuttonClicked,
+              completebuttonClicked,
+              rejectedbuttonClicked
+            );
+          });
 
-              complete.addEventListener("click",function(){
-                completebuttonClicked = true;
-                allbuttonClicked = false;
-                rejectedbuttonClicked = false;
-                  console.log("event complete",completebuttonClicked);
-                  all.style.background="green";
-                  complete.style.background="orange";
-                  rejected.style.background="green";
-                  history(allbuttonClicked,completebuttonClicked,rejectedbuttonClicked);
-                })
+          complete.addEventListener("click", function () {
+            completebuttonClicked = true;
+            allbuttonClicked = false;
+            rejectedbuttonClicked = false;
+            console.log("event complete", completebuttonClicked);
+            all.style.background = "green";
+            complete.style.background = "orange";
+            rejected.style.background = "green";
+            history(
+              allbuttonClicked,
+              completebuttonClicked,
+              rejectedbuttonClicked
+            );
+          });
 
-              rejected.addEventListener("click",function(){
-                rejectedbuttonClicked = true;
-                completebuttonClicked = false;
-                allbuttonClicked = false;
-                  console.log("event rejected",rejectedbuttonClicked);
-                  all.style.background="green";
-                  complete.style.background="green";
-                  rejected.style.background="orange";
-                  history(allbuttonClicked,completebuttonClicked,rejectedbuttonClicked);
-                })
-            if(allbuttonClicked==false && completebuttonClicked==false && rejectedbuttonClicked==false)
-            {
-              all.style.background="yellow";
-              complete.style.background="green";
-              rejected.style.background="green";
-              history(allbuttonClicked,completebuttonClicked,rejectedbuttonClicked);
-            }
+          rejected.addEventListener("click", function () {
+            rejectedbuttonClicked = true;
+            completebuttonClicked = false;
+            allbuttonClicked = false;
+            console.log("event rejected", rejectedbuttonClicked);
+            all.style.background = "green";
+            complete.style.background = "green";
+            rejected.style.background = "orange";
+            history(
+              allbuttonClicked,
+              completebuttonClicked,
+              rejectedbuttonClicked
+            );
+          });
+          if (
+            allbuttonClicked == false &&
+            completebuttonClicked == false &&
+            rejectedbuttonClicked == false
+          ) {
+            all.style.background = "yellow";
+            complete.style.background = "green";
+            rejected.style.background = "green";
+            history(
+              allbuttonClicked,
+              completebuttonClicked,
+              rejectedbuttonClicked
+            );
+          }
 
           // console.log(alllist);
         });
     }
-    
   } else if (num == 3) {
     home.style.display = "none";
     orderHistory.style.display = "none";
@@ -178,75 +200,71 @@ function active(num) {
     buttonStatistics.classList.add("active");
     buttonSetting.classList.remove("active");
 
-    const ctx = document.getElementById('myChart');
-    var Items=[];
-    var ItemsId=[];
-    var sell=[];
-    var x=0;
+    const ctx = document.getElementById("myChart");
+    var Items = [];
+    var ItemsId = [];
+    var sell = [];
+    var x = 0;
     var totalCost = 0;
-    for(var i=0;i<itemData.length;i++)
-    {
-      if(itemData[i].id != itemData[i].parentMenuID)
-      {
-        Items[x]=itemData[i].name;
-        ItemsId[x]=itemData[i].id;
+    for (var i = 0; i < itemData.length; i++) {
+      if (itemData[i].id != itemData[i].parentMenuID) {
+        Items[x] = itemData[i].name;
+        ItemsId[x] = itemData[i].id;
         x++;
       }
     }
-    for(var i=0;i<ItemsId.length;i++)
-    {
-      for(var j=0;j<orderData.length;j++)
-      {
-        if(ItemsId[i] == orderData[j].item_id)
-        {
+    for (var i = 0; i < ItemsId.length; i++) {
+      for (var j = 0; j < orderData.length; j++) {
+        if (ItemsId[i] == orderData[j].item_id) {
           totalCost = totalCost + orderData[j].order_total_cost;
         }
       }
-      sell[i]=totalCost;
-      totalCost=0;
+      sell[i] = totalCost;
+      totalCost = 0;
     }
-    console.log("ItemsId",ItemsId);
+    console.log("ItemsId", ItemsId);
     console.log(Items);
     console.log(sell);
-    Chart.defaults.font.size=18;
+    Chart.defaults.font.size = 18;
     new Chart(ctx, {
-      type: 'bar',
+      type: "bar",
       data: {
         labels: Items,
-        datasets: [{
-          label: '# sell Report',
-          data: sell,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(201, 203, 207, 0.2)'
-          ],
-          borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-            'rgb(201, 203, 207)'
-          ],
-          borderWidth: 1
-        }]
+        datasets: [
+          {
+            label: "# sell Report",
+            data: sell,
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(255, 159, 64, 0.2)",
+              "rgba(255, 205, 86, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(201, 203, 207, 0.2)",
+            ],
+            borderColor: [
+              "rgb(255, 99, 132)",
+              "rgb(255, 159, 64)",
+              "rgb(255, 205, 86)",
+              "rgb(75, 192, 192)",
+              "rgb(54, 162, 235)",
+              "rgb(153, 102, 255)",
+              "rgb(201, 203, 207)",
+            ],
+            borderWidth: 1,
+          },
+        ],
       },
       options: {
         scales: {
           y: {
-            beginAtZero: true
-          }
-        }
-      }
+            beginAtZero: true,
+          },
+        },
+      },
     });
-  } 
-  else if (num == 6) {
+  } else if (num == 6) {
     home.style.display = "none";
     orderHistory.style.display = "none";
     AddFoodItem.style.display = "none";
@@ -280,15 +298,15 @@ function orderselectionone(id, status) {
     },
     body: JSON.stringify(obj),
   })
-  .then((response) => response.json())
-  .then((data) => {
-    console.log("success",data);
-    window.location.href="http://127.0.0.1:5001/Admin/viewOrders.html";
-  })
-  .catch((err) => {
-    console.log("error:",err);
-    window.location.href="http://127.0.0.1:5001/Admin/viewOrders.html";
-  });
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("success", data);
+      window.location.href = "http://127.0.0.1:5001/Admin/viewOrders.html";
+    })
+    .catch((err) => {
+      console.log("error:", err);
+      window.location.href = "http://127.0.0.1:5001/Admin/viewOrders.html";
+    });
 }
 function orderselectiontwo(num) {
   const parentOrderList = document.getElementById("order_list_two");
@@ -307,10 +325,17 @@ function orderselectiontwo(num) {
 //add list
 const orderform = document.getElementById("form_card");
 const buttonSubmit = document.getElementById("btn-submit");
-
-//console.log(orderform);
-orderform.addEventListener("submit", (e) => {
-  e.preventDefault();
+const addonList = document.querySelector("#inputField");
+console.log(addonList.children.length);
+// console.log(addonList);
+function additemWithAddons() {
+  //  helloAddon();
+  helloAddon();
+  console.log(adddonArray.length, "lenght");
+  for (var i = 0; i < adddonArray.length; i++) {
+    console.log(adddonArray[i].name, "aname");
+    console.log(adddonArray[i].price, "aprice");
+  }
   var Name = document.getElementById("Name").value;
   console.log(Name);
   var ParentMenuID = document.getElementById("parentMenuID").value;
@@ -325,6 +350,8 @@ orderform.addEventListener("submit", (e) => {
   console.log("Image Name: " + file.name);
   console.log("Image Type: " + file.type);
   console.log("Splited Type: " + file.type.split("/")[1]);
+  // console.log("arraystring", AddonArrayAsString);
+  console.log("addonArray", adddonArray);
   //   random name
   const randomString = Math.random().toString(36).substring(2);
   const timestamp = Date.now();
@@ -338,25 +365,64 @@ orderform.addEventListener("submit", (e) => {
   formData.append("Description", Description);
   formData.append("Image", file);
   formData.append("ImageName", randomName);
+  // formData.append("addons", AddonArrayAsString);
+  for (let i = 0; i < adddonArray.length; i++) {
+    formData.append("addons[" + i + "].Name", adddonArray[i].name);
+    formData.append("addons[" + i + "].Price", adddonArray[i].price);
+  }
+  for (let pair of formData.entries()) {
+    console.log(pair[0] + ": " + pair[1]);
+  }
   console.log(formData);
-  fetch(" http://192.168.2.102:85/AddDishItems", {
+  // fetch(" http://192.168.2.102:75/AddDishItems", {
+  fetch(" http://localhost:5176/AddDishItems", {
     method: "POST",
     body: formData,
   })
     // .then((res) => res.json())
     .then((data) => {
       console.log("data" + data);
-    })
-    .catch((err) => console.log(err));
+      // alert("data Inserted successfully!");
+      // clear input fields
+      const inputs = document.querySelectorAll("input,textarea");
+      document.getElementById("parentMenuID");
+      inputs.forEach((input) => {
+        console.log(input);
+        input.value = "";
+      });
 
-  // clear input fields
-  const inputs = document.querySelectorAll("input,textarea");
-  document.getElementById("parentMenuID");
-  inputs.forEach((input) => {
-    // console.log(input);
-    input.value = "";
-  });
-});
+      // adddonArray.length = 0;
+      AddonArrayAsString = "";
+      let deleteFields = document.querySelectorAll("#inputFieldsForAddons");
+      deleteFields.forEach((item) => {
+        item.remove();
+      });
+    })
+
+    .catch((err) => console.log(err));
+  return false;
+  // // clear input fields
+  // const inputs = document.querySelectorAll("input,textarea");
+  // document.getElementById("parentMenuID");
+  // inputs.forEach((input) => {
+  //   console.log(input);
+  //   input.value = "";
+  // });
+
+  // adddonArray.length = 0;
+  // AddonArrayAsString = "";
+  // let deleteFields = document.querySelectorAll("#inputFieldsForAddons");
+  // deleteFields.forEach((item) => {
+  //   item.remove();
+  // });
+  // // console.log(
+  // //   document.querySelectorAll("#inputFieldsForAddons"),
+  // //   "ao[hoihoaek"
+  // // );
+}
+// orderform.addEventListener("submit", (e) => {
+//   e.preventDefault();
+// });
 function addItem() {
   fetch("http://192.168.2.102:85/GetAllDishItems")
     .then((response) => response.json())
@@ -364,6 +430,89 @@ function addItem() {
       console.log(data);
     });
 }
+
+// item Addons dynamic
+var addinputfield = document.getElementById("addinputfield");
+var addonCnt = 1;
+addinputfield.addEventListener("click", function () {
+  // var itemAddons=document.getElementById("itemAddons");
+  var inputField = document.getElementById("inputField");
+  console.log(inputField);
+  var createDiv = document.createElement("div");
+  createDiv.classList.add("d-flex", "justify-content-center", "mt-3");
+  createDiv.setAttribute("id", "inputFieldsForAddons");
+
+  createDiv.innerHTML = `
+                  <input
+                    id=addonName${addonCnt}
+                    name="aName"
+                    class="form-control me-3"
+                    type="text"
+                    placeholder="Name"
+                  />
+                  <input
+                    id=addonPrice${addonCnt}
+                    class="form-control"
+                    name="aPrice"
+                    type="number"
+                    placeholder="price"
+                  />
+                  <div class="btn btn-danger ms-3 deleteInputFieldsForAddons">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </div>
+  `;
+  addonCnt++;
+  inputField.append(createDiv);
+  // Get all the delete buttons inside the inputField and add a click event listener to them
+  var deleteButtons = inputField.querySelectorAll(
+    ".deleteInputFieldsForAddons"
+  );
+  deleteButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      // Get the parent element of the button and remove it from the inputField
+      var parentDiv = button.parentNode;
+      inputField.removeChild(parentDiv);
+    });
+  });
+});
+const adddonArray = [];
+var AddonArrayAsString;
+function helloAddon() {
+  const addonList = document.querySelector("#inputField");
+  console.log(addonList.children.length);
+  for (i = 0; i < addonList.children.length; i++) {
+    var addonName = document.querySelector("#addonName" + i).value;
+    var addonPrice = document.querySelector("#addonPrice" + i).value;
+    console.log(addonName);
+    console.log(addonPrice);
+    if (
+      addonName != null &&
+      addonName != "" &&
+      addonPrice != null &&
+      addonPrice != ""
+    ) {
+      var obj = {
+        name: addonName,
+        price: addonPrice,
+      };
+      adddonArray.push(obj);
+    }
+  }
+  console.log(adddonArray, "addon array");
+  AddonArrayAsString = JSON.stringify(adddonArray);
+  console.log(AddonArrayAsString, "AddonArrayAsString");
+  // return AddonArrayAsString;
+  return adddonArray;
+}
+//  helloAddon();
+// var deleteInputFieldsForAddons=document.querySelectorAll("#deleteInputFieldsForAddons");
+// console.log(deleteInputFieldsForAddons);
+// deleteInputFieldsForAddons.addEventListener('click',function(){
+//   var parentDiv = deleteInputFieldsForAddons.parentNode;
+//   console.log(deleteInputFieldsForAddons);
+//   console.log(parentDiv);
+
+// })
 const DishItemsArrayT = [];
 function sellectoption() {
   fetch("http://192.168.2.102:85/GetAllDishItems")
@@ -397,40 +546,39 @@ sellectoption();
 
 //get order informations url => http://192.168.2.103:50/api/order/getallorderlist
 
-function onload()
-{
-    // const alllist=[];
-    // const orderData=[];
-    // const itemData=[];
-    fetch("http://192.168.2.103:50/api/order/getallorderlist")
-      .then((response) => response.json())
-      .then((orderdata) => {
-          orderDatalength=orderData.length;
-          orderdata.forEach((item) => {
-            const obj = { ...item }; // spread operator (...)
-            // pushing objects to array
-            orderData.push(obj);
-            // alllist.push(obj);
-            // console.log(orderData.length);
-          });
-        // console.log(alllist);
-        // load();
+function onload() {
+  // const alllist=[];
+  // const orderData=[];
+  // const itemData=[];
+  fetch("http://192.168.2.103:50/api/order/getallorderlist")
+    .then((response) => response.json())
+    .then((orderdata) => {
+      orderDatalength = orderData.length;
+      orderdata.forEach((item) => {
+        const obj = { ...item }; // spread operator (...)
+        // pushing objects to array
+        orderData.push(obj);
+        // alllist.push(obj);
+        // console.log(orderData.length);
       });
-    // console.log(orderdata);
-    fetch("http://192.168.2.102:85/GetAllDishItems")
-      .then((response) => response.json())
-      .then((itemdata) => {
-        // console.log(itemdata);
-          itemdata.forEach((item) => {
-            const obj = { ...item }; // spread operator (...)
-            // pushing objects to array
-            itemData.push(obj);
-            // alllist.push(obj);
-          });
-          load();
-          history();
-        // console.log(alllist);
+      // console.log(alllist);
+      // load();
+    });
+  // console.log(orderdata);
+  fetch("http://192.168.2.102:85/GetAllDishItems")
+    .then((response) => response.json())
+    .then((itemdata) => {
+      // console.log(itemdata);
+      itemdata.forEach((item) => {
+        const obj = { ...item }; // spread operator (...)
+        // pushing objects to array
+        itemData.push(obj);
+        // alllist.push(obj);
       });
+      load();
+      history();
+      // console.log(alllist);
+    });
 }
 onload();
 function load() {
@@ -447,7 +595,7 @@ function load() {
         if (orderData[i].item_id == itemData[j].id) {
           var imgpath = itemData[j].imagePath;
           let pathArray = imgpath.split("\\");
-          let newPath = pathArray.slice(1).join("\\");
+          let newPath = pathArray.slice(2).join("\\");
           // console.log(imgpath);
           var p = orderData[i].order_total_cost / orderData[i].quantity;
           var tb = document.getElementById("parentOrder");
@@ -558,37 +706,36 @@ function load() {
 //       console.log("event rejected",rejectedbuttonClicked);
 //     })
 
-function history(a,c,r) {
+function history(a, c, r) {
   console.log(orderDatahis);
   console.log(itemDatahis);
-  console.log(a,c,r)
-  if(a == true)
-  {
+  console.log(a, c, r);
+  if (a == true) {
     // const a = orderData.length;
-  console.log(orderDatahis);
-  console.log(itemDatahis);
-  //     console.log(a);
-  // var r = "rejected";
-  console.log(r);
-  var tb = document.getElementById("order_Cards_In_History");
-  tb.innerHTML="";
-  for (var i = orderDatahis.length - 1; i > 0; i--) {
-    // console.log("hi");
-    for (var j = 0; j < itemDatahis.length; j++) {
-      if (
-        orderDatahis[i].order_status == "rejected" ||
-        orderDatahis[i].order_status == "conformed"
-      ) {
-        if (orderDatahis[i].item_id == itemDatahis[j].id) {
-          var imgpath = itemDatahis[j].imagePath;
-          let pathArray = imgpath.split("\\");
-          let newPath = pathArray.slice(1).join("\\");
-          // console.log(imgpath);
-          var p = orderDatahis[i].order_total_cost / orderDatahis[i].quantity;
-          var x = document.createElement("div");
-          x.style.width = "45%";
-          x.style.paddingRight = "25px";
-          x.innerHTML = `
+    console.log(orderDatahis);
+    console.log(itemDatahis);
+    //     console.log(a);
+    // var r = "rejected";
+    console.log(r);
+    var tb = document.getElementById("order_Cards_In_History");
+    tb.innerHTML = "";
+    for (var i = orderDatahis.length - 1; i > 0; i--) {
+      // console.log("hi");
+      for (var j = 0; j < itemDatahis.length; j++) {
+        if (
+          orderDatahis[i].order_status == "rejected" ||
+          orderDatahis[i].order_status == "conformed"
+        ) {
+          if (orderDatahis[i].item_id == itemDatahis[j].id) {
+            var imgpath = itemDatahis[j].imagePath;
+            let pathArray = imgpath.split("\\");
+            let newPath = pathArray.slice(2).join("\\");
+            // console.log(imgpath);
+            var p = orderDatahis[i].order_total_cost / orderDatahis[i].quantity;
+            var x = document.createElement("div");
+            x.style.width = "45%";
+            x.style.paddingRight = "25px";
+            x.innerHTML = `
             <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
             <!-- <div id="order_list" class=""> -->
               <div class="d-flex justify-content-between">
@@ -640,41 +787,34 @@ function history(a,c,r) {
           </div>
           `;
             // tb.innerText=orderData[i].tablenumber;
-            var img =document.querySelector(".foodItem_photo");
+            var img = document.querySelector(".foodItem_photo");
             // console.log(img);
             // img.setAttribute("src", newPath);
             tb.appendChild(x);
             // console.log(img);
-            j=j+15;
+            j = j + 15;
           }
-          }
-          // console.log("hello")
         }
+        // console.log("hello")
       }
-
-  }
-  else if(c==true)
-  {
+    }
+  } else if (c == true) {
     // const a = orderData.length;
     console.log(orderDatahis);
     console.log(itemDatahis);
     //     console.log(a);
     var r = "rejected";
-    console.log("i am in complete",c);
+    console.log("i am in complete", c);
     var tb = document.getElementById("order_Cards_In_History");
-    tb.innerHTML="";
-    for (var i = orderDatahis.length - 1; i > 0; i--) 
-    {
-      console.log("i am in complete cross orderdetailshis length",c);
-      for (var j = 0; j < itemDatahis.length; j++) 
-      {
-        if (orderDatahis[i].order_status == "conformed") 
-        {
-          if (orderDatahis[i].item_id == itemDatahis[j].id) 
-          {
+    tb.innerHTML = "";
+    for (var i = orderDatahis.length - 1; i > 0; i--) {
+      console.log("i am in complete cross orderdetailshis length", c);
+      for (var j = 0; j < itemDatahis.length; j++) {
+        if (orderDatahis[i].order_status == "conformed") {
+          if (orderDatahis[i].item_id == itemDatahis[j].id) {
             var imgpath = itemDatahis[j].imagePath;
             let pathArray = imgpath.split("\\");
-            let newPath = pathArray.slice(1).join("\\");
+            let newPath = pathArray.slice(2).join("\\");
             // console.log(imgpath);
             var p = orderDatahis[i].order_total_cost / orderDatahis[i].quantity;
 
@@ -733,45 +873,40 @@ function history(a,c,r) {
             </div>
             `;
             // tb.innerText=orderData[i].tablenumber;
-            var img =document.querySelector(".foodItem_photo");
+            var img = document.querySelector(".foodItem_photo");
             // console.log(img);
             // img.setAttribute("src", newPath);
             tb.appendChild(x);
             // console.log(img);
-            j=j+15;
+            j = j + 15;
           }
         }
-            // console.log("hello")
+        // console.log("hello")
       }
     }
-
-  }
-  else if(r==true)
-  {
+  } else if (r == true) {
     // const a = orderData.length;
-  console.log(orderDatahis);
-  console.log(itemDatahis);
-  //     console.log(a);
-  var r = "rejected";
-  console.log(r);
-  var tb = document.getElementById("order_Cards_In_History");
-  tb.innerHTML="";
-  for (var i = orderDatahis.length - 1; i > 0; i--) {
-    // console.log("hi");
-    for (var j = 0; j < itemDatahis.length; j++) {
-      if (
-        orderDatahis[i].order_status == "rejected"
-      ) {
-        if (orderDatahis[i].item_id == itemDatahis[j].id) {
-          var imgpath = itemDatahis[j].imagePath;
-          let pathArray = imgpath.split("\\");
-          let newPath = pathArray.slice(1).join("\\");
-          // console.log(imgpath);
-          var p = orderDatahis[i].order_total_cost / orderDatahis[i].quantity;
-          var x = document.createElement("div");
-          x.style.width = "45%";
-          x.style.paddingRight = "25px";
-          x.innerHTML = `
+    console.log(orderDatahis);
+    console.log(itemDatahis);
+    //     console.log(a);
+    var r = "rejected";
+    console.log(r);
+    var tb = document.getElementById("order_Cards_In_History");
+    tb.innerHTML = "";
+    for (var i = orderDatahis.length - 1; i > 0; i--) {
+      // console.log("hi");
+      for (var j = 0; j < itemDatahis.length; j++) {
+        if (orderDatahis[i].order_status == "rejected") {
+          if (orderDatahis[i].item_id == itemDatahis[j].id) {
+            var imgpath = itemDatahis[j].imagePath;
+            let pathArray = imgpath.split("\\");
+            let newPath = pathArray.slice(2).join("\\");
+            // console.log(imgpath);
+            var p = orderDatahis[i].order_total_cost / orderDatahis[i].quantity;
+            var x = document.createElement("div");
+            x.style.width = "45%";
+            x.style.paddingRight = "25px";
+            x.innerHTML = `
             <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
             <!-- <div id="order_list" class=""> -->
               <div class="d-flex justify-content-between">
@@ -823,45 +958,43 @@ function history(a,c,r) {
           </div>
           `;
             // tb.innerText=orderData[i].tablenumber;
-            var img =document.querySelector(".foodItem_photo");
+            var img = document.querySelector(".foodItem_photo");
             // console.log(img);
             // img.setAttribute("src", newPath);
             tb.appendChild(x);
             // console.log(img);
-            j=j+15;
+            j = j + 15;
           }
-          }
-          // console.log("hello")
         }
+        // console.log("hello")
       }
-
-  }
-  else{
+    }
+  } else {
     // const a = orderData.length;
-  console.log(orderDatahis);
-  console.log(itemDatahis);
-  //     console.log(a);
-  var r = "rejected";
-  console.log(r);
-  var tb = document.getElementById("order_Cards_In_History");
-  tb.innerHTML="";
-  for (var i = orderDatahis.length - 1; i > 0; i--) {
-    // console.log("hi");
-    for (var j = 0; j < itemDatahis.length; j++) {
-      if (
-        orderDatahis[i].order_status == "rejected" ||
-        orderDatahis[i].order_status == "conformed"
-      ) {
-        if (orderDatahis[i].item_id == itemDatahis[j].id) {
-          var imgpath = itemDatahis[j].imagePath;
-          let pathArray = imgpath.split("\\");
-          let newPath = pathArray.slice(1).join("\\");
-          // console.log(imgpath);
-          var p = orderDatahis[i].order_total_cost / orderDatahis[i].quantity;
-          var x = document.createElement("div");
-          x.style.width = "45%";
-          x.style.paddingRight = "25px";
-          x.innerHTML = `
+    console.log(orderDatahis);
+    console.log(itemDatahis);
+    //     console.log(a);
+    var r = "rejected";
+    console.log(r);
+    var tb = document.getElementById("order_Cards_In_History");
+    tb.innerHTML = "";
+    for (var i = orderDatahis.length - 1; i > 0; i--) {
+      // console.log("hi");
+      for (var j = 0; j < itemDatahis.length; j++) {
+        if (
+          orderDatahis[i].order_status == "rejected" ||
+          orderDatahis[i].order_status == "conformed"
+        ) {
+          if (orderDatahis[i].item_id == itemDatahis[j].id) {
+            var imgpath = itemDatahis[j].imagePath;
+            let pathArray = imgpath.split("\\");
+            let newPath = pathArray.slice(2).join("\\");
+            // console.log(imgpath);
+            var p = orderDatahis[i].order_total_cost / orderDatahis[i].quantity;
+            var x = document.createElement("div");
+            x.style.width = "45%";
+            x.style.paddingRight = "25px";
+            x.innerHTML = `
             <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
             <!-- <div id="order_list" class=""> -->
               <div class="d-flex justify-content-between">
@@ -913,68 +1046,16 @@ function history(a,c,r) {
           </div>
           `;
             // tb.innerText=orderData[i].tablenumber;
-            var img =document.querySelector(".foodItem_photo");
+            var img = document.querySelector(".foodItem_photo");
             // console.log(img);
             // img.setAttribute("src", newPath);
             tb.appendChild(x);
             // console.log(img);
-            j=j+15;
+            j = j + 15;
           }
-          }
-          // console.log("hello")
         }
+        // console.log("hello")
       }
+    }
   }
 }
-
-// item Addons dynamic
-var addinputfield=document.getElementById("addinputfield");
-
-addinputfield.addEventListener('click',function(){
-  // var itemAddons=document.getElementById("itemAddons");
-  var inputField=document.getElementById("inputField");
-  console.log(inputField);
-  var createDiv = document.createElement("div");
-  createDiv.classList.add("d-flex", "justify-content-center", "mt-3");
-  createDiv.setAttribute("id", "inputFieldsForAddons");
-  
-  createDiv.innerHTML=`
-                  <input
-                    id="Name"
-                    name="Name"
-                    class="form-control me-3"
-                    type="text"
-                    placeholder="Name"
-                  />
-                  <input
-                    id="Price"
-                    class="form-control"
-                    name="Price"
-                    type="number"
-                    placeholder="price"
-                  />
-                  <div class="btn btn-danger ms-3 deleteInputFieldsForAddons">
-                    <i class="fa-solid fa-trash-can"></i>
-                  </div>
-  `
-  inputField.append(createDiv);
-  // Get all the delete buttons inside the inputField and add a click event listener to them
-  var deleteButtons = inputField.querySelectorAll(".deleteInputFieldsForAddons");
-  deleteButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
-      // Get the parent element of the button and remove it from the inputField
-      var parentDiv = button.parentNode;
-      inputField.removeChild(parentDiv);
-    });
-  });
-})
-
-// var deleteInputFieldsForAddons=document.querySelectorAll("#deleteInputFieldsForAddons");
-// console.log(deleteInputFieldsForAddons);
-// deleteInputFieldsForAddons.addEventListener('click',function(){
-//   var parentDiv = deleteInputFieldsForAddons.parentNode;
-//   console.log(deleteInputFieldsForAddons);
-//   console.log(parentDiv);
-
-// })
-
