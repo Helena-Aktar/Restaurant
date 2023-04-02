@@ -5,7 +5,7 @@ function getValueFromController() {
     fetch("http://192.168.2.103:50/api/order/getallorderlist")
     .then((response) => response.json())
     .then((orderdata) => {
-      console.log(orderdata);
+      //console.log(orderdata);
                loop();
                function loop() {
                    var i = 0;
@@ -40,13 +40,46 @@ function getValueFromController() {
                        }
                        var q = 0;
                        for (j; j < x; j++) {
-                            document.getElementById("no" + q).innerHTML = "no."+j;
-                           var id = document.getElementById("id" + q);
-                           id.innerHTML = orderdata[j].table_number;
-                           document.getElementById("name" + q).innerHTML = orderdata[j].order_total_cost;
-                           var did = document.getElementById("email" + q).innerHTML = orderdata[j].order_datetime;
-                           document.getElementById("phone" + q).innerHTML = orderdata[j].order_status;
-                           document.getElementById("address" + q).innerHTML = orderdata[j].destination_country;
+
+                            if(orderdata[j].order_status!="deliverd")
+                            {
+                                var datetime = orderdata[j].order_datetime;
+                                console.log("my",datetime);
+                                const now = new Date(datetime);
+                                const options = {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                    hour: "numeric",
+                                    minute: "numeric",
+                                    // second: "numeric",
+                                    // timeZoneName: "short"
+                                  };
+                                  
+                                const result = now.toLocaleString("en-BD", options);
+                                console.log(result);
+                                
+                                const date = new Date(datetime);
+                                date.setMinutes(date.getMinutes() + 40);
+
+                                const opt = {
+                                hour: "numeric",
+                                minute: "numeric",
+                                hour12: true
+                                };
+
+                                const serveTime = date.toLocaleString("en-bn", opt);
+
+                                console.log(serveTime);
+
+                                document.getElementById("no" + q).innerHTML = "no."+j;
+                                var id = document.getElementById("id" + q);
+                                id.innerHTML = orderdata[j].table_number;
+                                document.getElementById("name" + q).innerHTML = orderdata[j].order_total_cost;
+                                var did = document.getElementById("email" + q).innerHTML = result;
+                                document.getElementById("phone" + q).innerHTML = orderdata[j].order_status;
+                                document.getElementById("address" + q).innerHTML = serveTime;
+                            }
 
                            // ------- Date Checker ------------
 
@@ -110,7 +143,7 @@ function getValueFromController() {
 
                            setTimeout(function () {
                                slide(j, x, p);
-                           }, 6000);
+                           }, 4000);
                        } else {
                            j = p + 0;
                            x = p + 10;
