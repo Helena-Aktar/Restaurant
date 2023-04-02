@@ -397,31 +397,44 @@ cartBTN.addEventListener("click", () => {
 });
 const OrdersArray = [];
 // Fetchhing Ortders from API
-function fetchOrders() {
-  OrdersArray.length = 0;
-  fetch("http://192.168.2.103:50/api/order/getallorderlist")
-    // fetch("/order.json")
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log("All Data");
-      // console.log(data);
-      // creating object from fetched data
-      data.forEach((item) => {
-        const obj = { ...item }; // spread operator (...)
-        // pushing objects to array
-        OrdersArray.push(obj);
-      });
-      // console.log("Orders Array");
-      // console.log(OrdersArray);
-      showOrders();
+fetch("http://192.168.2.103:50/api/order/getallorderlist")
+  // fetch("/order.json")
+  .then((response) => response.json())
+  .then((data) => {
+    data.forEach((item) => {
+      const obj = { ...item }; // spread operator (...)
+      // pushing objects to array
+      OrdersArray.push(obj);
     });
-}
-fetchOrders();
-setInterval(fetchOrders, 5000);
+    console.log("Orders Array");
+    console.log(OrdersArray);
+    showOrders();
+  });
+
 function showOrders() {
   console.log("Orders Array");
   console.log(OrdersArray);
 }
+const orderStatusArray = [];
+function fetchOrderStatus() {
+  orderStatusArray.length = 0;
+  fetch("http://192.168.2.103:50/api/order/getorderstatus")
+    // fetch("/order.json")
+    .then((response) => response.json())
+    .then((data) => {
+      // creating object from fetched data
+      data.forEach((item) => {
+        const obj = { ...item }; // spread operator (...)
+        // pushing objects to array
+        orderStatusArray.push(obj);
+      });
+      console.log("orderStatusArray");
+      console.log(orderStatusArray);
+      // showOrders();
+    });
+}
+fetchOrderStatus();
+setInterval(fetchOrderStatus, 5000);
 
 const showOrderBTN = document.querySelector("#show_order");
 const orderContainer = document.getElementById("orders_container");
@@ -433,11 +446,11 @@ function OrderTracker() {
 
   // document.querySelector(".added_items-count").innerHTML = 0;
   // console.log(AddedOrderArray, " cart: added order items");
-  console.log(OrdersArray);
-  for (var i = 0; i < OrdersArray.length; i++) {
+  // console.log(orderStatusArray);
+  for (var i = 0; i < orderStatusArray.length; i++) {
     if (
-      OrdersArray[i].table_number == tableNumber &&
-      OrdersArray[i].order_status != "delivered"
+      orderStatusArray[i].table_number == tableNumber &&
+      orderStatusArray[i].order_status != "delivered"
     ) {
       orderedItems.innerHTML = `<div class="d-flex justify-content-between ps-2 pe-2 p-1">
       <div class="order-info">
@@ -543,19 +556,19 @@ function OrderTracker() {
       const cooking = document.getElementById("cooking");
       const ready = document.getElementById("ready");
       const delivered = document.getElementById("delivered");
-      console.log(OrdersArray[i], "obj");
+      console.log(orderStatusArray[i], "obj");
       console.log(tableNumber, "URLtableNumber", i);
-      console.log(OrdersArray[i].table_number, "table_number", i);
-      console.log(OrdersArray[i].order_status, "order_status", i);
+      console.log(orderStatusArray[i].table_number, "table_number", i);
+      console.log(orderStatusArray[i].order_status, "order_status", i);
       document.querySelector(".order-date").innerHTML =
-        OrdersArray[i].order_datetime;
+        orderStatusArray[i].order_datetime;
       document.querySelector(".order-id").innerHTML =
-        "#" + OrdersArray[i].order_id;
+        "#" + orderStatusArray[i].order_id;
       document.querySelector(".price").innerHTML =
-        "$" + OrdersArray[i].order_total_cost;
+        "$" + orderStatusArray[i].order_total_cost;
       // document.querySelector(".arrival-time").innerHTML =
       //   OrdersArray[i].serving_time;
-      const orderStatus = OrdersArray[i].order_status;
+      const orderStatus = orderStatusArray[i].order_status;
       console.log(orderStatus);
       if (orderStatus == "true") {
         // console.log(orderPlaced, "iseohtfpowes");
@@ -803,24 +816,6 @@ function displaySidebarMenuItems() {
   }
 }
 
-// customized order
-const customize = document.querySelector("#customize");
-const orderModal = document.querySelector(".customize-order");
-// order customization
-
-//opens modal
-
-const openOrderModal = () => {
-  orderModal.style.display = "grid";
-};
-customize.addEventListener("click", openOrderModal);
-//closses modal
-const closeOrderModal = (event) => {
-  if (event.target.classList.contains("customize-order")) {
-    orderModal.style.display = "none";
-  }
-};
-orderModal.addEventListener("click", closeOrderModal);
 //sidebar onclick
 function sidebarOnClick() {
   // const removeParentActiveSidebarItem = () => {
@@ -984,6 +979,16 @@ function displayDishItems() {
       spDishBtnDiv.classList = "dish-buttons d-flex justify-content-around";
       let customizebtn = document.createElement("button");
       customizebtn.classList = "dish-btn";
+      customizebtn.setAttribute("id", `customizebtn${DishItemsArray[i].id}`);
+      let addonArraytest = [];
+      DishItemsArray[i].addonListArray.forEach((item) => {
+        addonArraytest.push(item.name);
+      });
+      console.log(addonArraytest, "addontest");
+      customizebtn.setAttribute(
+        "onclick",
+        `customeAddons(${DishItemsArray[i].id}, ${addonArraytest})`
+      ); //${DishItemsArray[i].addonListArray}
       customizebtn.innerHTML = "Customize";
       spDishBtnDiv.appendChild(customizebtn);
       let serveCountDiv = document.createElement("div");
@@ -1042,3 +1047,78 @@ function displayDishItems() {
     }
   }
 }
+// order customization
+
+const orderModal = document.querySelector(".customize-order");
+//opens modal
+
+function customeAddons(id, addonListArrayy) {
+  // const customize = document.querySelector(`#customizebtn${id}`);
+  orderModal.style.display = "grid";
+  //  if(DishItemsArray[i].)
+  // addonfor=
+
+  console.log(id, "id");
+  console.log(addonListArrayy, "addonArraytest");
+  // for (var i = 0; i < addonListArrayy.length; i++) {
+  //   console.log(addonListArrayy[i].name);
+  // }
+}
+//closes modal
+const closeOrderModal = (event) => {
+  if (event.target.classList.contains("customize-order")) {
+    orderModal.style.display = "none";
+  }
+};
+
+orderModal.addEventListener("click", closeOrderModal);
+// customized order
+// function showAddons(){
+
+// }
+
+addonAddBTN = document.querySelector("#addon_add-btn");
+function addAddons() {
+  console.log(DishItemsArray[DishItemsArray.length - 1].addonListArray);
+  let total = 0;
+  let result = "";
+  const checkboxes = document.querySelectorAll(
+    'input[type="checkbox"]:checked'
+  );
+  checkboxes.forEach((checkbox, index) => {
+    if (index > 0) {
+      //index == checkboxes.length - 1
+      result += ",";
+    }
+    result += checkbox.value;
+    total += parseInt(checkbox.dataset.price);
+  });
+
+  const myArray = ["apple", "banana", "orange", "kiwi"];
+  const myString = myArray.join(",");
+  console.log(myString);
+  const myArray2 = myString.split(",");
+  console.log(myArray2);
+  alert("Checked: " + result + "\nTotal price: $" + total);
+}
+
+// // customized order
+// // function customAddons() {
+//   const customize = document.querySelector("#customize");
+//   const orderModal = document.querySelector(".customize-order");
+//   // order customization
+
+//   //opens modal
+
+//   const openOrderModal = () => {
+//     orderModal.style.display = "grid";
+//   };
+//   customize.addEventListener("click", openOrderModal);
+//   //closses modal
+//   const closeOrderModal = (event) => {
+//     if (event.target.classList.contains("customize-order")) {
+//       orderModal.style.display = "none";
+//     }
+//   };
+//   orderModal.addEventListener("click", closeOrderModal);
+//   // }

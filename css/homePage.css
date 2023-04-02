@@ -460,9 +460,9 @@ body {
 
 .customize-order .order-card {
   background: white;
-  padding: 3rem;
+  padding: 10px 20px;
   border-radius: 8px;
-  width: 50%;
+  width: 20%;
   box-shadow: 0 0 1rem var(--color-primary);
 }
 
