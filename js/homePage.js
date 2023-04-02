@@ -862,7 +862,8 @@ const DishItemsArray = [];
 
 // Fetchhing dish items from API
 // fetch("http://192.168.2.102:85/GetAllDishItems")
-fetch("http://localhost:5176/GetAllDishItems")
+// fetch("http://localhost:5176/GetAllDishItems")
+fetch("http://192.168.2.102:8095/GetAllDishItemsWithAddons")
   .then((response) => response.json())
   .then((data) => {
     // console.log("All Data");

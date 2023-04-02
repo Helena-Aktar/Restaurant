@@ -363,7 +363,7 @@ const addonList = document.querySelector("#inputField");
 // console.log(addonList);
 function additemWithAddons() {
   helloAddon();
-  // console.log(adddonArray.length, "lenght");
+  // console.log(addonArray.length, "lenght");
   var Name = document.getElementById("Name").value;
   console.log(Name);
   var ParentMenuID = document.getElementById("parentMenuID").value;
@@ -379,7 +379,7 @@ function additemWithAddons() {
   console.log("Image Type: " + file.type);
   console.log("Splited Type: " + file.type.split("/")[1]);
   console.log("arraystring", AddonArrayAsString);
-  console.log("addonArray", adddonArray);
+  console.log("addonArray", addonArray);
   //   random name
   const randomString = Math.random().toString(36).substring(2);
   const timestamp = Date.now();
@@ -394,17 +394,17 @@ function additemWithAddons() {
   formData.append("Image", file);
   formData.append("ImageName", randomName);
   formData.append("addons", AddonArrayAsString);
-  // for (let i = 0; i < adddonArray.length; i++) {
-  //   formData.append("addons[" + i + "].Name", adddonArray[i].name);
-  //   formData.append("addons[" + i + "].Price", adddonArray[i].price);
+  // for (let i = 0; i < addonArray.length; i++) {
+  //   formData.append("addons[" + i + "].Name", addonArray[i].name);
+  //   formData.append("addons[" + i + "].Price", addonArray[i].price);
   // }
 
   for (let pair of formData.entries()) {
     console.log(pair[0] + ": " + pair[1]);
   }
   console.log(formData);
-  fetch(" http://192.168.2.102:75/AddDishItems", {
-    // fetch(" http://localhost:5176/AddDishItems", {
+  // fetch(" http://192.168.2.102:75/AddDishItems", {
+  fetch("http://localhost:5176/AddDishItems", {
     method: "POST",
     body: formData,
   })
@@ -420,7 +420,7 @@ function additemWithAddons() {
         input.value = "";
       });
 
-      // adddonArray.length = 0;
+      addonArray.length = 0;
       AddonArrayAsString = "";
       let deleteFields = document.querySelectorAll("#inputFieldsForAddons");
       deleteFields.forEach((item) => {
@@ -438,7 +438,7 @@ function additemWithAddons() {
   //   input.value = "";
   // });
 
-  // adddonArray.length = 0;
+  // addonArray.length = 0;
   // AddonArrayAsString = "";
   // let deleteFields = document.querySelectorAll("#inputFieldsForAddons");
   // deleteFields.forEach((item) => {
@@ -502,7 +502,7 @@ addinputfield.addEventListener("click", function () {
     });
   });
 });
-const adddonArray = [];
+const addonArray = [];
 var AddonArrayAsString;
 function helloAddon() {
   const addonList = document.querySelector("#inputField");
@@ -522,14 +522,14 @@ function helloAddon() {
         name: addonName,
         price: addonPrice,
       };
-      adddonArray.push(obj);
+      addonArray.push(obj);
     }
   }
-  console.log(adddonArray, "addon array");
-  AddonArrayAsString = JSON.stringify(adddonArray);
+  console.log(addonArray, "addon array");
+  AddonArrayAsString = JSON.stringify(addonArray);
   console.log(AddonArrayAsString, "AddonArrayAsString");
   // return AddonArrayAsString;
-  // return adddonArray;
+  // return addonArray;
 }
 //  helloAddon();
 // var deleteInputFieldsForAddons=document.querySelectorAll("#deleteInputFieldsForAddons");
