@@ -41,6 +41,7 @@ function active(num) {
     buttonOrderHistory.classList.add("active");
     buttonMessages.classList.remove("active");
     buttonFoodReady.classList.remove("active");
+    foodHistory();
     
   } else if (num == 3) {
     home.style.display = "none";
@@ -67,26 +68,29 @@ function foodReady() {
   fetch("http://192.168.2.103:50/api/order/getallorderlist")
       .then((response) => response.json())
       .then((orderdata) => {
+        console.log("food ready started");
+
         console.log(orderdata);
         // load();
         // const a = orderData.length;
         // console.log(orderdata);
         console.log(itemData);
         //     console.log(a);
-        var r = "rejected";
-        console.log(r);
-        var tb = document.getElementById("order_Ready_parent");
-        tb.innerHTML="";
+         // const a = orderData.length;
+        console.log(orderData);
+        var z = 0;
         for (var i = orderdata.length - 1; i > 0; i--) {
           // console.log("hi");
           for (var j = 0; j < itemData.length; j++) {
             if (orderdata[i].order_status == "cooking") {
-              if (orderdata[i].item_id == itemData[j].id) {
+              // if (orderdata[i].item_id == itemData[j].id) {
                 var imgpath = itemData[j].imagePath;
                 let pathArray = imgpath.split("\\");
-                let newPath = pathArray.slice(1).join("\\");
+                let newPath = pathArray.slice(2).join("\\");
                 // console.log(imgpath);
                 var p = orderdata[i].order_total_cost / orderdata[i].quantity;
+                var tb = document.getElementById("order_Ready_parent");
+                // tb.innerHTML="";
                 var x = document.createElement("div");
                 x.style.width = "45%";
                 x.style.paddingRight = "25px";
@@ -104,21 +108,8 @@ function foodReady() {
                           alt=""
                         />
                       </div>
-                        <div class="d-flex justify-content-around mb-4">
-                          <img id=img5
-                            class="foodItem_photo me-5"
-                            src="/${newPath}"
-                            alt=""
-                          />
-                          <div>
-                            <h5>${itemData[j].name}</h5>
-                            <p id="dis">${itemData[j].description}</p>
-                            <div class="d-flex justify-content-around">
-                              <h5>$${p}</h5>
-                              <h5>Qty:${orderdata[i].quantity}</h5>
-                            </div>
-                          </div>
-                        </div>
+                      <div id="readyoverflow${z}" class="">
+                      </div>
                       <div
                         class="m-3"
                         style="height: 1.2px; background: #c1c3cd"
@@ -130,30 +121,229 @@ function foodReady() {
                         </div>
                         <div class="text-center pt-3">
                           <p
-                            id="${orderdata[i].order_id}"
-                            onclick="orderselectionone(${orderdata[i].order_id},'ready')"
-                            class="btn btn-outline-primary"
+                            id="conform"
+                            onclick="orderselectionone(${orderdata[i].order_id},'cooking')"
+                            class="btn btn-outline-success"
                           >
-                          Food Ready
+                            Cooking start
                           </p>
                         </div>
                       </div>
                     <!-- </div> -->
                   </div>
                   `;
+                console.log(z);
+                z++;
                 // tb.innerText=orderData[i].tablenumber;
                 var img = document.querySelector(".foodItem_photo");
                 // console.log(img);
                 // img.setAttribute("src", newPath);
                 tb.appendChild(x);
-                // console.log(img);
-                j = j + 8;
-              }
+                // var itemOverflow=document.getElementById("overflow");
+                j = j + 100;
+                // console.log("readyoverflow",document.getElementById(`readyoverflow-${z}`));
+
+              // }
             }
             // console.log("hello")
           }
         }
+        foodreadyOverflow(orderdata, itemData);
       });
+}
+function foodreadyOverflow(orderData, itemData) {
+  console.log("foodreadyOverflow start");
+
+  console.log(orderData);
+  console.log(itemData);
+  var m = 0;
+  for (var i = orderData.length - 1; i > 0; i--) {
+    // debugger
+    if (orderData[i].order_status == "cooking") {
+      var p = orderData[i].order_total_cost / orderData[i].quantity;
+      // console.log(itemOverflow);
+      for (var x = 0; x < orderData[i].item_id.length; x++) {
+        for (var j = 0; j < itemData.length; j++) {
+          var itemOverflow = document.getElementById("readyoverflow" + m);
+
+          if (orderData[i].item_id[x] == itemData[j].id) {
+            var imgpath = itemData[j].imagePath;
+            let pathArray = imgpath.split("\\");
+            let newPath = pathArray.slice(2).join("\\");
+            var newdiv = document.createElement("div");
+            newdiv.innerHTML = `
+                      <div class="d-flex justify-content-around mb-4">
+                      <img id=img5
+                        class="foodItem_photo me-5"
+                        src="/${newPath}"
+                        alt=""
+                      />
+                      <div>
+                        <h5>${itemData[j].name}</h5>
+                        <p id="dis">${itemData[j].description}</p>
+                        <div class="d-flex justify-content-around">
+                          <h5>$${itemData[j].price}</h5>
+                          <h5>Qty:${orderData[i].quantity[x]}</h5>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+            // var ll= orderData[i].item_id[x];
+
+            itemOverflow.appendChild(newdiv);
+
+            j = j + 100;
+          }
+
+          // }
+        }
+      }
+      console.log("append",itemOverflow);
+      console.log("m",m);
+      m++;
+      // console.log(itemOverflow);
+    }
+  }
+}
+function foodHistory() {
+  fetch("http://192.168.2.103:50/api/order/getallorderlist")
+      .then((response) => response.json())
+      .then((orderdata) => {
+        // console.log("food ready started");
+
+        console.log(orderdata);
+        // load();
+        // const a = orderData.length;
+        // console.log(orderdata);
+        console.log(itemData);
+        //     console.log(a);
+         // const a = orderData.length;
+        console.log(orderData);
+        var z = 0;
+        for (var i = orderdata.length - 1; i > 0; i--) {
+          // console.log("hi");
+          for (var j = 0; j < itemData.length; j++) {
+            if (orderdata[i].order_status == "ready") {
+              // if (orderdata[i].item_id == itemData[j].id) {
+                var imgpath = itemData[j].imagePath;
+                let pathArray = imgpath.split("\\");
+                let newPath = pathArray.slice(2).join("\\");
+                // console.log(imgpath);
+                var p = orderdata[i].order_total_cost / orderdata[i].quantity;
+                var tb = document.getElementById("order_Cards_In_History");
+                // tb.innerHTML="";
+                var x = document.createElement("div");
+                x.style.width = "45%";
+                x.style.paddingRight = "25px";
+                x.innerHTML = `
+                    <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
+                    <!-- <div id="order_list" class=""> -->
+                      <div class="d-flex justify-content-between">
+                        <div class="text-start m-2">
+                          <h5>Order #TN-<label>${orderdata[i].table_number}</label></h5>
+                          <p>${orderdata[i].order_datetime}</p>
+                        </div>
+                        <img
+                          class="profile_photo"
+                          src="/images/user_icon_1.png"
+                          alt=""
+                        />
+                      </div>
+                      <div id="historyoverflow${z}" class="">
+                      </div>
+                      <div
+                        class="m-3"
+                        style="height: 1.2px; background: #c1c3cd"
+                      ></div>
+                      <div class="d-flex justify-content-between">
+                        <div class="text-start">
+                          <p style="font-size: larger">1 Items</p>
+                          <h3>$${orderdata[i].order_total_cost}</h3>
+                        </div>
+                        <div class="text-center pt-3">
+                          <p
+                            id="conform"
+                            class="btn btn-outline-success"
+                          >
+                            food ready
+                          </p>
+                        </div>
+                      </div>
+                    <!-- </div> -->
+                  </div>
+                  `;
+                console.log(z);
+                z++;
+                // tb.innerText=orderData[i].tablenumber;
+                var img = document.querySelector(".foodItem_photo");
+                // console.log(img);
+                // img.setAttribute("src", newPath);
+                tb.appendChild(x);
+                // var itemOverflow=document.getElementById("overflow");
+                j = j + 100;
+                // console.log("readyoverflow",document.getElementById(`readyoverflow-${z}`));
+
+              // }
+            }
+            // console.log("hello")
+          }
+        }
+        foodhistoryOverflow(orderdata, itemData);
+      });
+}
+function foodhistoryOverflow(orderData, itemData) {
+  console.log("foodreadyOverflow start");
+
+  console.log(orderData);
+  console.log(itemData);
+  var m = 0;
+  for (var i = orderData.length - 1; i > 0; i--) {
+    // debugger
+    if (orderData[i].order_status == "ready") {
+      var p = orderData[i].order_total_cost / orderData[i].quantity;
+      // console.log(itemOverflow);
+      for (var x = 0; x < orderData[i].item_id.length; x++) {
+        for (var j = 0; j < itemData.length; j++) {
+          var itemOverflow = document.getElementById("historyoverflow" + m);
+
+          if (orderData[i].item_id[x] == itemData[j].id) {
+            var imgpath = itemData[j].imagePath;
+            let pathArray = imgpath.split("\\");
+            let newPath = pathArray.slice(2).join("\\");
+            var newdiv = document.createElement("div");
+            newdiv.innerHTML = `
+                      <div class="d-flex justify-content-around mb-4">
+                      <img id=img5
+                        class="foodItem_photo me-5"
+                        src="/${newPath}"
+                        alt=""
+                      />
+                      <div>
+                        <h5>${itemData[j].name}</h5>
+                        <p id="dis">${itemData[j].description}</p>
+                        <div class="d-flex justify-content-around">
+                          <h5>$${itemData[j].price}</h5>
+                          <h5>Qty:${orderData[i].quantity[x]}</h5>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+            // var ll= orderData[i].item_id[x];
+
+            itemOverflow.appendChild(newdiv);
+
+            j = j + 100;
+          }
+
+          // }
+        }
+      }
+      console.log("append",itemOverflow);
+      console.log("m",m);
+      m++;
+      // console.log(itemOverflow);
+    }
+  }
 }
 // conformOder
 function orderselectionone(id, status) {
@@ -252,13 +442,11 @@ function load() {
    // const a = orderData.length;
    console.log(orderData);
    console.log(itemData);
-   var r = "rejected";
-   console.log(r);
    var z = 0;
    for (var i = orderData.length - 1; i > 0; i--) {
      // console.log("hi");
      for (var j = 0; j < itemData.length; j++) {
-       if (orderData[i].order_status == "true") {
+       if (orderData[i].order_status == "conformed") {
          if (orderData[i].item_id == itemData[j].id) {
            var imgpath = itemData[j].imagePath;
            let pathArray = imgpath.split("\\");
@@ -298,13 +486,10 @@ function load() {
                    <div class="text-center pt-3">
                      <p
                        id="conform"
-                       onclick="orderselectionone(${orderData[i].order_id},'conformed')"
+                       onclick="orderselectionone(${orderData[i].order_id},'cooking')"
                        class="btn btn-outline-success"
                      >
-                       <i
-                         style="font-size: 40px"
-                         class="fa-solid fa-check"
-                       ></i>
+                      Cooking start
                      </p>
                    </div>
                  </div>
@@ -333,7 +518,7 @@ function load() {
    var m = 0;
    for (var i = orderData.length - 1; i > 0; i--) {
      // debugger
-     if (orderData[i].order_status == "true") {
+     if (orderData[i].order_status == "conformed") {
        var p = orderData[i].order_total_cost / orderData[i].quantity;
        // console.log(itemOverflow);
        for (var x = 0; x < orderData[i].item_id.length; x++) {
@@ -372,26 +557,21 @@ function load() {
                      </div>
                    `;
              // var ll= orderData[i].item_id[x];
- 
-             itemOverflow.appendChild(newdiv);
-             j = j + 100;
-             console.log(
-               "i:",
-               i,
-               "j:",
-               j,
-               "m:",
-               m,
-               "itemOverflow:",
-               itemOverflow
-             );
-           }
+            // if(itemOverflow!=null){
+              itemOverflow.appendChild(newdiv);
+            // }
+            j = j + 100;
+            }
  
            // }
          }
        }
-       m++;
+       console.log("m",m);
+       if(m<18)
+       {
+        m++;
+       }
        // console.log(itemOverflow);
-     }
+      }
    }
  }
