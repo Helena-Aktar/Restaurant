@@ -731,7 +731,7 @@ function forOverflow(orderdata, itemData) {
                         <h5>${itemData[j].name}</h5>
                         <p id="dis">${itemData[j].description}</p>
                         <div class="d-flex justify-content-around">
-                          <h5>$${p}</h5>
+                          <h5>$${itemData[j].price}</h5>
                           <h5>Qty:${orderData[i].quantity[x]}</h5>
                         </div>
                       </div>
