@@ -111,7 +111,24 @@ function active(num) {
           var all = document.querySelector("#all");
           var complete = document.querySelector("#complete");
           var rejected = document.querySelector("#rejected");
-
+          var allbutton = document.querySelector("#allbutton").childNodes;
+          allbutton.forEach(function(button){
+            button.addEventListener("click", function () {
+              rejectedbuttonClicked = true;
+              completebuttonClicked = false;
+              allbuttonClicked = false;
+              console.log("event rejected", rejectedbuttonClicked);
+              all.style.background = "green";
+              complete.style.background = "green";
+              button.style.background = "orange";
+              history(
+                allbuttonClicked,
+                completebuttonClicked,
+                rejectedbuttonClicked
+              );
+            });
+          });
+          console.log("allbutton",allbutton.length);
           all.addEventListener("click", function () {
             allbuttonClicked = true;
             completebuttonClicked = false;
@@ -135,21 +152,6 @@ function active(num) {
             all.style.background = "green";
             complete.style.background = "orange";
             rejected.style.background = "green";
-            history(
-              allbuttonClicked,
-              completebuttonClicked,
-              rejectedbuttonClicked
-            );
-          });
-
-          rejected.addEventListener("click", function () {
-            rejectedbuttonClicked = true;
-            completebuttonClicked = false;
-            allbuttonClicked = false;
-            console.log("event rejected", rejectedbuttonClicked);
-            all.style.background = "green";
-            complete.style.background = "green";
-            rejected.style.background = "orange";
             history(
               allbuttonClicked,
               completebuttonClicked,
@@ -746,16 +748,6 @@ function forOverflow(orderdata, itemData) {
               itemOverflow.appendChild(newdiv);
             }
             j = j + 100;
-            console.log(
-              "i:",
-              i,
-              "j:",
-              j,
-              "m:",
-              m,
-              "itemOverflow:",
-              itemOverflow
-            );
           }
 
           // }
