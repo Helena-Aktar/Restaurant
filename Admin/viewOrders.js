@@ -683,7 +683,10 @@ function load(orderdata) {
           var img = document.querySelector(".foodItem_photo");
           // console.log(img);
           // img.setAttribute("src", newPath);
-          tb.appendChild(x);
+          if(tb!=null)
+          {
+            tb.appendChild(x);
+          }
           // var itemOverflow=document.getElementById("overflow");
           j = j + 8;
         }
@@ -738,8 +741,10 @@ function forOverflow(orderdata, itemData) {
                     </div>
                   `;
             // var ll= orderdata[i].item_id[x];
-
-            itemOverflow.appendChild(newdiv);
+            if(itemOverflow!=null)
+            {
+              itemOverflow.appendChild(newdiv);
+            }
             j = j + 100;
             console.log(
               "i:",
@@ -761,31 +766,7 @@ function forOverflow(orderdata, itemData) {
     }
   }
 }
-// history();
-// let completebuttonClicked = false;
-// let rejectedbuttonClicked = false;
-// let allbuttonClicked = false;
-// var all=document.querySelector("#all");
-//   all.addEventListener("click",function(){
-//     allbuttonClicked = true;
-//     completebuttonClicked = false;
-//     rejectedbuttonClicked = false;
-//       console.log("event all",allbuttonClicked);
-//     })
-// var complete = document.querySelector("#complete");
-//   complete.addEventListener("click",function(){
-//     completebuttonClicked = true;
-//     allbuttonClicked = false;
-//     rejectedbuttonClicked = false;
-//       console.log("event complete",completebuttonClicked);
-//     })
-// var rejected = document.querySelector("#rejected");
-//   rejected.addEventListener("click",function(){
-//     rejectedbuttonClicked = true;
-//     completebuttonClicked = false;
-//     allbuttonClicked = false;
-//       console.log("event rejected",rejectedbuttonClicked);
-//     })
+
 
 function history(a, c, r) {
   console.log(orderDatahis);

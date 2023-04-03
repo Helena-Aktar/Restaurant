@@ -14,18 +14,44 @@ function getValueFromController() {
                    var parenttable =document.querySelector(".table_body");
 
                    for(i;i<k;i++){
+                    var datetime = orderdata[i].order_datetime;
+                    console.log("my",datetime);
+                    const now = new Date(datetime);
+                    const options = {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                        // second: "numeric",
+                        // timeZoneName: "short"
+                      };
+                      
+                    const result = now.toLocaleString("en-BD", options);
+                    console.log(result);
+                    
+                    const date = new Date(datetime);
+                    date.setMinutes(date.getMinutes() + 40);
+
+                    const opt = {
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true
+                    };
+
+                    const serveTime = date.toLocaleString("en-bn", opt);
+
+                    console.log(serveTime);
                     var creatediv = document.createElement("div");
                     creatediv.innerHTML=`
                     <!-- {/* item ${i} */} -->
                     <div class="table_items" id="row0">
-                        <div class="table_item" id="no${i}">123</div>
-                        <div class="table_item" id="id${i}">1234</div>
-                        <div class="table_item" id="name${i}">dfasfd fdsfdsfd</div>
-                        <div class="table_item" id="email${i}">jztrxohoe@gmail.com</div>
-                        <div class="table_item" id="phone${i}">01719785644</div>
-                        <div class="table_item" id="address${i}">
-                            H-671, H-671, Califxcsxcdxcdsfrgteorniarnia
-                        </div>
+                        <div class="table_item" id="no${i}">no.${i}</div>
+                        <div class="table_item" id="id${i}">${orderdata[i].table_number}</div>
+                        <div class="table_item" id="name${i}">${orderdata[i].order_total_cost}</div>
+                        <div class="table_item" id="email${i}">${result}</div>
+                        <div class="table_item" id="phone${i}">${orderdata[i].order_status}</div>
+                        <div class="table_item" id="address${i}">${serveTime}</div>
                     </div>
                     `
                     parenttable.appendChild(creatediv);
