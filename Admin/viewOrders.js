@@ -374,12 +374,12 @@ function additemWithAddons() {
   console.log(Description);
   var fileInput = document.getElementById("ImageFile");
   const file = fileInput.files[0];
-  console.log("Full Image: " + file);
-  console.log("Image Name: " + file.name);
-  console.log("Image Type: " + file.type);
-  console.log("Splited Type: " + file.type.split("/")[1]);
-  console.log("arraystring", AddonArrayAsString);
-  console.log("addonArray", addonArray);
+  // console.log("Full Image: " + file);
+  // console.log("Image Name: " + file.name);
+  // console.log("Image Type: " + file.type);
+  // console.log("Splited Type: " + file.type.split("/")[1]);
+  // console.log("arraystring", AddonArrayAsString);
+  // console.log("addonArray", addonArray);
   //   random name
   const randomString = Math.random().toString(36).substring(2);
   const timestamp = Date.now();
@@ -404,7 +404,7 @@ function additemWithAddons() {
   }
   console.log(formData);
   // fetch(" http://192.168.2.102:75/AddDishItems", {
-  fetch("http://localhost:5176/AddDishItems", {
+  fetch("http://192.168.2.102:8095/AddDishItems", {
     method: "POST",
     body: formData,
   })

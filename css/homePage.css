@@ -440,32 +440,6 @@ body {
   /* color: var(--color-success); */
 }
 
-/* =============== Order Customization =================== */
-
-.customize-order {
-  background: rgb(255, 255, 255, 0.5);
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  text-align: center;
-  display: grid;
-  place-items: center;
-  font-size: 0.9rem;
-  /* popup hidden */
-  display: none;
-}
-
-.customize-order .order-card {
-  background: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  width: 20%;
-  box-shadow: 0 0 1rem var(--color-primary);
-}
-
 /* @media (max-width: 1000px) {
     #body_container {
       width: 70%;
@@ -652,6 +626,45 @@ body {
   transform: rotate(var(--hour-glass-icons-tranform-deg));
   -webkit-transform: rotate(var(--hour-glass-icons-tranform-deg));
 }
+/* =============== Order Customization =================== */
+
+.customize-order {
+  background: rgb(255, 255, 255, 0.5);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  text-align: center;
+  display: grid;
+  place-items: center;
+  font-size: 0.9rem;
+  /* popup hidden */
+  display: none;
+}
+
+.customize-order .order-card {
+  background: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  width: fit-content;
+  box-shadow: 0 0 1rem var(--color-primary);
+}
+/* ================= addons =============== */
+.addon_title {
+  margin-left: 10px;
+}
+.addon {
+  display: flex;
+  justify-content: space-around;
+}
+.empty_addon_img {
+  width: 50%;
+  /* margin-top: 10%;
+  margin-left: 5%; */
+}
+
 /* ======================== media queries  for small laptops and big tablets =======================  */
 
 @media screen and (max-width: 1200px) {

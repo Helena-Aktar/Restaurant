@@ -121,6 +121,12 @@ const addedToCart = document.querySelector(".added_items-count");
 var addedToCartCounter = 0;
 
 function addToCart(id) {
+  console.log(
+    "CheckedAddons: " +
+      checkedAddonString +
+      "\nchecked Addon price: $" +
+      checkedAddonCost
+  );
   let quantity = servingCounter;
   const serveCountSpan = document.getElementById(`count${id}`);
   console.log(servingCounter);
@@ -148,10 +154,12 @@ function addToCart(id) {
           Quantity: quantity,
           Cost: price * quantity,
           price: price,
+          addons: checkedAddonString,
         };
         AddedOrderArray.push(obj);
       }
     });
+    console.log(AddedOrderArray);
   }
 
   if (!existingItem) {
@@ -167,6 +175,7 @@ function addToCart(id) {
 
 // display added to cart items
 var totalCost;
+var allAddons;
 function displayCartItems() {
   console.log(AddedOrderArray, "displayCartItems() ");
   const cartItems = document.querySelector(".cart_items");
@@ -175,6 +184,7 @@ function displayCartItems() {
     // cartItems.innerHTML = `<h5 class="text-center mt-5" style="color:red">You have not added any dish to cart yet!</h5>`;
     cartItems.innerHTML = ` <img class="empty_order_img" src="/images/emptyCart.4e943399.png" alt="">`;
   }
+  allAddons = "";
   for (var i = 0; i < AddedOrderArray.length; i++) {
     let cartItem = document.createElement("div");
     cartItem.classList = "cart_item";
@@ -211,6 +221,14 @@ function displayCartItems() {
     totalCost += AddedOrderArray[i].Cost;
     cartDishBody.appendChild(dishPriceDiv);
     cartDishCard.appendChild(cartDishBody);
+    if (checkedAddonString && checkedAddonCost) {
+      allAddons += checkedAddonString;
+      let cartDishAddons = document.createElement("span");
+      cartDishAddons.innerHTML =
+        "Addons: " + checkedAddonString + " Cost: $" + checkedAddonCost;
+      cartDishAddons.setAttribute("style", "color:var(--color-primary);");
+      cartDishBody.appendChild(cartDishAddons);
+    }
     let deleteIconDiv = document.createElement("div");
     deleteIconDiv.classList = "delete_icon mt-3 me-3 fs-5";
     let deleteIcon = document.createElement("i");
@@ -229,6 +247,11 @@ function displayCartItems() {
     AddedOrderArray.forEach((element) => {
       totalCost += element.Cost;
     });
+    if (checkedAddonCost != undefined) {
+      orderCustomization = checkedAddonString;
+      totalCost += checkedAddonCost;
+    }
+
     cartItems.innerHTML += `<div class="cart-footer">  <div class="text-end me-3 fs-5 fw-bold">Subtotal:<span class="ms-3" style="color: var(--color-primary);">$${totalCost}</span></div>
 
   <button class="dish-btn float-end w-50" onclick="OrderItems()">ORDER</button>
@@ -239,6 +262,12 @@ function displayCartItems() {
 // add single order
 
 function orderNow() {
+  // console.log(
+  //   "CheckedAddons: " +
+  //     checkedAddonString +
+  //     "\nchecked Addon price: $" +
+  //     checkedAddonCost
+  // );
   console.log("helloorder");
   console.log(DishItemsArray);
   let id = event.target.id;
@@ -256,7 +285,7 @@ function orderNow() {
   let cost;
   let status = true;
   let instruction = "Less Spice";
-  let orderCustomization = "Add Bell Paper";
+  let orderCustomization = "No addons found!";
 
   DishItemsArray.forEach((item) => {
     if (item.id == itemID) {
@@ -265,6 +294,10 @@ function orderNow() {
     }
     // console.log(item);
   });
+  if (checkedAddonString != undefined && checkedAddonCost != undefined) {
+    orderCustomization = checkedAddonString;
+    cost += checkedAddonCost;
+  }
   console.log("order");
   console.log(itemID);
   console.log(quantity);
@@ -294,6 +327,8 @@ function orderNow() {
       // alert("Order added!");
 
       document.querySelector(".confirm-order-outerbox").style.display = "grid";
+      checkedAddonString = "";
+      checkedAddonCost = 0;
     })
     .catch((err) => console.log(err));
 }
@@ -312,7 +347,10 @@ function OrderItems() {
   // }
   // console.log(ItemsIDArray, "ItemsIDArray");
   // console.log(QuantityArray, "QuantityArray");
-
+  // if (checkedAddonString != undefined && checkedAddonCost != undefined) {
+  //   orderCustomization = checkedAddonString;
+  //   cost += checkedAddonCost;
+  // }
   console.log("order");
   console.log(cost);
   console.log(status);
@@ -980,14 +1018,13 @@ function displayDishItems() {
       let customizebtn = document.createElement("button");
       customizebtn.classList = "dish-btn";
       customizebtn.setAttribute("id", `customizebtn${DishItemsArray[i].id}`);
-      let addonArraytest = [];
-      DishItemsArray[i].addonListArray.forEach((item) => {
-        addonArraytest.push(item.name);
-      });
-      console.log(addonArraytest, "addontest");
+
+      let addonArrayStringified = JSON.stringify(
+        DishItemsArray[i].addonListArray
+      );
       customizebtn.setAttribute(
         "onclick",
-        `customeAddons(${DishItemsArray[i].id}, ${addonArraytest})`
+        `customeAddons(${DishItemsArray[i].id}, ${addonArrayStringified})`
       ); //${DishItemsArray[i].addonListArray}
       customizebtn.innerHTML = "Customize";
       spDishBtnDiv.appendChild(customizebtn);
@@ -1052,23 +1089,63 @@ function displayDishItems() {
 const orderModal = document.querySelector(".customize-order");
 //opens modal
 
-function customeAddons(id, addonListArrayy) {
-  // const customize = document.querySelector(`#customizebtn${id}`);
+function customeAddons(dishID, stringifiedAddons) {
+  const addonList = document.querySelector(".addon_list");
   orderModal.style.display = "grid";
-  //  if(DishItemsArray[i].)
-  // addonfor=
-
-  console.log(id, "id");
-  console.log(addonListArrayy, "addonArraytest");
-  // for (var i = 0; i < addonListArrayy.length; i++) {
-  //   console.log(addonListArrayy[i].name);
-  // }
+  console.log(dishID, "dishID");
+  console.log(stringifiedAddons, "addonArrayString");
+  // createAddons(stringifiedAddons);
+  addonList.innerHTML = "";
+  if (stringifiedAddons.length) {
+    let addons = document.createElement("div");
+    addons.classList = `addons_for${dishID}`;
+    for (var i = 0; i < stringifiedAddons.length; i++) {
+      let addon = document.createElement("div");
+      addon.classList = `addon  d-flex justify-content-start p-1`;
+      addon.setAttribute("id", `addon${stringifiedAddons.id}`);
+      let addonCheckbox = document.createElement("input");
+      addonCheckbox.setAttribute("type", "checkbox");
+      addonCheckbox.setAttribute("value", `${stringifiedAddons[i].name}`);
+      addonCheckbox.setAttribute("data-price", `${stringifiedAddons[i].price}`);
+      addon.appendChild(addonCheckbox);
+      let addonTitle = document.createElement("span");
+      addonTitle.classList = "addon_title ms-1";
+      addonTitle.innerHTML = stringifiedAddons[i].name;
+      addon.appendChild(addonTitle);
+      let addonPrice = document.createElement("span");
+      addonPrice.classList = "price ms-3";
+      addonPrice.innerHTML = "$" + stringifiedAddons[i].price;
+      addon.appendChild(addonPrice);
+      addons.appendChild(addon);
+      // console.log(stringifiedAddons[i].name);
+      // console.log(stringifiedAddons[i].price);
+    }
+    addons.innerHTML += `<button class=" dish-btn mt-2" id="addon_add-btn" onclick="addAddons()">ADD</button>`;
+    addonList.appendChild(addons);
+  } else {
+    addonList.innerHTML = ` <img class="empty_addon_img" src="/images/empty_addon2.png" alt="">`;
+  }
 }
+// function createAddons(stringifiedAddons) {
+//   let totalAddonPrice = 0;
+//   for (var i = 0; i < stringifiedAddons.length; i++) {
+//     totalAddonPrice += stringifiedAddons[i].price;
+//     console.log(stringifiedAddons[i].name);
+//     console.log(stringifiedAddons[i].price);
+//   }
+//   console.log("totalAddonPrice", totalAddonPrice);
+// }
 //closes modal
 const closeOrderModal = (event) => {
   if (event.target.classList.contains("customize-order")) {
     orderModal.style.display = "none";
   }
+  console.log(
+    "CheckedAddons: " +
+      checkedAddonString +
+      "\nchecked Addon price: $" +
+      checkedAddonCost
+  );
 };
 
 orderModal.addEventListener("click", closeOrderModal);
@@ -1076,30 +1153,38 @@ orderModal.addEventListener("click", closeOrderModal);
 // function showAddons(){
 
 // }
-
+var checkedAddonCost;
+var checkedAddonString;
 addonAddBTN = document.querySelector("#addon_add-btn");
 function addAddons() {
+  orderModal.style.display = "none";
   console.log(DishItemsArray[DishItemsArray.length - 1].addonListArray);
-  let total = 0;
-  let result = "";
+  checkedAddonCost = 0;
+  checkedAddonString = "";
   const checkboxes = document.querySelectorAll(
     'input[type="checkbox"]:checked'
   );
   checkboxes.forEach((checkbox, index) => {
     if (index > 0) {
       //index == checkboxes.length - 1
-      result += ",";
+      checkedAddonString += ",";
     }
-    result += checkbox.value;
-    total += parseInt(checkbox.dataset.price);
+    checkedAddonString += checkbox.value;
+    checkedAddonCost += parseFloat(checkbox.dataset.price);
   });
 
-  const myArray = ["apple", "banana", "orange", "kiwi"];
-  const myString = myArray.join(",");
-  console.log(myString);
-  const myArray2 = myString.split(",");
-  console.log(myArray2);
-  alert("Checked: " + result + "\nTotal price: $" + total);
+  // const myArray = ["apple", "banana", "orange", "kiwi"];
+  // const myString = myArray.join(",");
+  // console.log(myString);
+  // const myArray2 = myString.split(",");
+  // console.log(myArray2);
+  // alert("Checked: " + result + "\nTotal price: $" + addonCostTotal);
+  console.log(
+    "CheckedAddons: " +
+      checkedAddonString +
+      "\nchecked Addon price: $" +
+      checkedAddonCost
+  );
 }
 
 // // customized order
