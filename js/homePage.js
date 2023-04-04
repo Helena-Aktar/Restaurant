@@ -147,19 +147,24 @@ function addToCart(id) {
     DishItemsArray.forEach((item) => {
       if (item.id == id) {
         price = item.price;
+        let cost = price * quantity;
+        if (checkedAddonCost) cost += checkedAddonCost;
         const obj = {
           Name: item.name,
           ImageSRC: item.imagePath,
           ID: item.id,
           Quantity: quantity,
-          Cost: price * quantity,
-          price: price,
-          addons: checkedAddonString,
+          Cost: cost,
+          Price: price,
+          Addon: checkedAddonString,
+          AddonCost: checkedAddonCost,
         };
         AddedOrderArray.push(obj);
       }
     });
-    console.log(AddedOrderArray);
+    checkedAddonString = "";
+    checkedAddonCost = 0;
+    console.log(AddedOrderArray, "AddedOrderArray");
   }
 
   if (!existingItem) {
@@ -184,7 +189,7 @@ function displayCartItems() {
     // cartItems.innerHTML = `<h5 class="text-center mt-5" style="color:red">You have not added any dish to cart yet!</h5>`;
     cartItems.innerHTML = ` <img class="empty_order_img" src="/images/emptyCart.4e943399.png" alt="">`;
   }
-  allAddons = "";
+  // allAddons = "";
   for (var i = 0; i < AddedOrderArray.length; i++) {
     let cartItem = document.createElement("div");
     cartItem.classList = "cart_item";
@@ -215,20 +220,23 @@ function displayCartItems() {
     quantitySpan.innerHTML = AddedOrderArray[i].Quantity;
     itemQuantityDiv.appendChild(quantitySpan);
     cartDishBody.appendChild(itemQuantityDiv);
-    let dishPriceDiv = document.createElement("div");
-    dishPriceDiv.classList = "dish-price";
-    dishPriceDiv.innerHTML = "$" + AddedOrderArray[i].Cost;
-    totalCost += AddedOrderArray[i].Cost;
-    cartDishBody.appendChild(dishPriceDiv);
-    cartDishCard.appendChild(cartDishBody);
-    if (checkedAddonString && checkedAddonCost) {
-      allAddons += checkedAddonString;
+    if (AddedOrderArray[i].Addon && AddedOrderArray[i].AddonCost) {
+      // allAddons += checkedAddonString;
       let cartDishAddons = document.createElement("span");
-      cartDishAddons.innerHTML =
-        "Addons: " + checkedAddonString + " Cost: $" + checkedAddonCost;
+      cartDishAddons.innerHTML = "Addons: " + AddedOrderArray[i].Addon;
+      //+
+      // " Cost: $" +
+      // AddedOrderArray[i].AddonCost;
       cartDishAddons.setAttribute("style", "color:var(--color-primary);");
       cartDishBody.appendChild(cartDishAddons);
     }
+    let dishPriceDiv = document.createElement("div");
+    dishPriceDiv.classList = "dish-price";
+    dishPriceDiv.innerHTML = "Total: $" + AddedOrderArray[i].Cost;
+    totalCost += AddedOrderArray[i].Cost;
+    cartDishBody.appendChild(dishPriceDiv);
+    cartDishCard.appendChild(cartDishBody);
+
     let deleteIconDiv = document.createElement("div");
     deleteIconDiv.classList = "delete_icon mt-3 me-3 fs-5";
     let deleteIcon = document.createElement("i");
@@ -247,10 +255,10 @@ function displayCartItems() {
     AddedOrderArray.forEach((element) => {
       totalCost += element.Cost;
     });
-    if (checkedAddonCost != undefined) {
-      orderCustomization = checkedAddonString;
-      totalCost += checkedAddonCost;
-    }
+    // if (checkedAddonCost != undefined) {
+    //   orderCustomization = checkedAddonString;
+    //   totalCost += checkedAddonCost;
+    // }
 
     cartItems.innerHTML += `<div class="cart-footer">  <div class="text-end me-3 fs-5 fw-bold">Subtotal:<span class="ms-3" style="color: var(--color-primary);">$${totalCost}</span></div>
 
@@ -285,7 +293,7 @@ function orderNow() {
   let cost;
   let status = true;
   let instruction = "Less Spice";
-  let orderCustomization = "No addons found!";
+  let orderCustomization = "";
 
   DishItemsArray.forEach((item) => {
     if (item.id == itemID) {
@@ -339,7 +347,7 @@ function OrderItems() {
   let cost = `${totalCost}`;
   let status = true;
   let instruction = "Less Spice";
-  let orderCustomization = "Add Bell Paper";
+  let orderCustomization = "";
   // console.log(AddedOrderArray, "hello order array");
   // for (var i = 0; i < AddedOrderArray.length; i++) {
   //   ItemsIDArray.push(AddedOrderArray[i].ID);
@@ -378,11 +386,16 @@ function OrderItems() {
   for (var i = 0; i < AddedOrderArray.length; i++) {
     formData.append("item_id", AddedOrderArray[i].ID);
     formData.append("quantity", AddedOrderArray[i].Quantity);
+    if (AddedOrderArray[i].addon) {
+      formData.append("customization", AddedOrderArray[i].Addon);
+    } else {
+      formData.append("customization", "");
+    }
   }
   formData.append("order_total_cost", cost);
   formData.append("order_status", status);
   formData.append("customization_instructions", instruction);
-  formData.append("customization", orderCustomization);
+  // formData.append("customization", orderCustomization);
   formData.append("table_number", tableNumber);
   console.log(formData);
 
