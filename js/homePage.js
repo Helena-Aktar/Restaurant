@@ -121,6 +121,12 @@ const addedToCart = document.querySelector(".added_items-count");
 var addedToCartCounter = 0;
 
 function addToCart(id) {
+  console.log(
+    "CheckedAddons: " +
+      checkedAddonString +
+      "\nchecked Addon price: $" +
+      checkedAddonCost
+  );
   let quantity = servingCounter;
   const serveCountSpan = document.getElementById(`count${id}`);
   console.log(servingCounter);
@@ -141,17 +147,24 @@ function addToCart(id) {
     DishItemsArray.forEach((item) => {
       if (item.id == id) {
         price = item.price;
+        let cost = price * quantity;
+        if (checkedAddonCost) cost += checkedAddonCost;
         const obj = {
           Name: item.name,
           ImageSRC: item.imagePath,
           ID: item.id,
           Quantity: quantity,
-          Cost: price * quantity,
-          price: price,
+          Cost: cost,
+          Price: price,
+          Addon: checkedAddonString,
+          AddonCost: checkedAddonCost,
         };
         AddedOrderArray.push(obj);
       }
     });
+    checkedAddonString = "";
+    checkedAddonCost = 0;
+    console.log(AddedOrderArray, "AddedOrderArray");
   }
 
   if (!existingItem) {
@@ -167,6 +180,7 @@ function addToCart(id) {
 
 // display added to cart items
 var totalCost;
+var allAddons;
 function displayCartItems() {
   console.log(AddedOrderArray, "displayCartItems() ");
   const cartItems = document.querySelector(".cart_items");
@@ -175,6 +189,7 @@ function displayCartItems() {
     // cartItems.innerHTML = `<h5 class="text-center mt-5" style="color:red">You have not added any dish to cart yet!</h5>`;
     cartItems.innerHTML = ` <img class="empty_order_img" src="/images/emptyCart.4e943399.png" alt="">`;
   }
+  // allAddons = "";
   for (var i = 0; i < AddedOrderArray.length; i++) {
     let cartItem = document.createElement("div");
     cartItem.classList = "cart_item";
@@ -205,12 +220,23 @@ function displayCartItems() {
     quantitySpan.innerHTML = AddedOrderArray[i].Quantity;
     itemQuantityDiv.appendChild(quantitySpan);
     cartDishBody.appendChild(itemQuantityDiv);
+    if (AddedOrderArray[i].Addon && AddedOrderArray[i].AddonCost) {
+      // allAddons += checkedAddonString;
+      let cartDishAddons = document.createElement("span");
+      cartDishAddons.innerHTML = "Addons: " + AddedOrderArray[i].Addon;
+      //+
+      // " Cost: $" +
+      // AddedOrderArray[i].AddonCost;
+      cartDishAddons.setAttribute("style", "color:var(--color-primary);");
+      cartDishBody.appendChild(cartDishAddons);
+    }
     let dishPriceDiv = document.createElement("div");
     dishPriceDiv.classList = "dish-price";
-    dishPriceDiv.innerHTML = "$" + AddedOrderArray[i].Cost;
+    dishPriceDiv.innerHTML = "Total: $" + AddedOrderArray[i].Cost;
     totalCost += AddedOrderArray[i].Cost;
     cartDishBody.appendChild(dishPriceDiv);
     cartDishCard.appendChild(cartDishBody);
+
     let deleteIconDiv = document.createElement("div");
     deleteIconDiv.classList = "delete_icon mt-3 me-3 fs-5";
     let deleteIcon = document.createElement("i");
@@ -229,6 +255,11 @@ function displayCartItems() {
     AddedOrderArray.forEach((element) => {
       totalCost += element.Cost;
     });
+    // if (checkedAddonCost != undefined) {
+    //   orderCustomization = checkedAddonString;
+    //   totalCost += checkedAddonCost;
+    // }
+
     cartItems.innerHTML += `<div class="cart-footer">  <div class="text-end me-3 fs-5 fw-bold">Subtotal:<span class="ms-3" style="color: var(--color-primary);">$${totalCost}</span></div>
 
   <button class="dish-btn float-end w-50" onclick="OrderItems()">ORDER</button>
@@ -239,6 +270,12 @@ function displayCartItems() {
 // add single order
 
 function orderNow() {
+  // console.log(
+  //   "CheckedAddons: " +
+  //     checkedAddonString +
+  //     "\nchecked Addon price: $" +
+  //     checkedAddonCost
+  // );
   console.log("helloorder");
   console.log(DishItemsArray);
   let id = event.target.id;
@@ -256,7 +293,7 @@ function orderNow() {
   let cost;
   let status = true;
   let instruction = "Less Spice";
-  let orderCustomization = "Add Bell Paper";
+  let orderCustomization = "";
 
   DishItemsArray.forEach((item) => {
     if (item.id == itemID) {
@@ -265,6 +302,10 @@ function orderNow() {
     }
     // console.log(item);
   });
+  if (checkedAddonString != undefined && checkedAddonCost != undefined) {
+    orderCustomization = checkedAddonString;
+    cost += checkedAddonCost;
+  }
   console.log("order");
   console.log(itemID);
   console.log(quantity);
@@ -294,6 +335,8 @@ function orderNow() {
       // alert("Order added!");
 
       document.querySelector(".confirm-order-outerbox").style.display = "grid";
+      checkedAddonString = "";
+      checkedAddonCost = 0;
     })
     .catch((err) => console.log(err));
 }
@@ -304,7 +347,7 @@ function OrderItems() {
   let cost = `${totalCost}`;
   let status = true;
   let instruction = "Less Spice";
-  let orderCustomization = "Add Bell Paper";
+  let orderCustomization = "";
   // console.log(AddedOrderArray, "hello order array");
   // for (var i = 0; i < AddedOrderArray.length; i++) {
   //   ItemsIDArray.push(AddedOrderArray[i].ID);
@@ -312,7 +355,10 @@ function OrderItems() {
   // }
   // console.log(ItemsIDArray, "ItemsIDArray");
   // console.log(QuantityArray, "QuantityArray");
-
+  // if (checkedAddonString != undefined && checkedAddonCost != undefined) {
+  //   orderCustomization = checkedAddonString;
+  //   cost += checkedAddonCost;
+  // }
   console.log("order");
   console.log(cost);
   console.log(status);
@@ -340,11 +386,16 @@ function OrderItems() {
   for (var i = 0; i < AddedOrderArray.length; i++) {
     formData.append("item_id", AddedOrderArray[i].ID);
     formData.append("quantity", AddedOrderArray[i].Quantity);
+    if (AddedOrderArray[i].addon) {
+      formData.append("customization", AddedOrderArray[i].Addon);
+    } else {
+      formData.append("customization", "");
+    }
   }
   formData.append("order_total_cost", cost);
   formData.append("order_status", status);
   formData.append("customization_instructions", instruction);
-  formData.append("customization", orderCustomization);
+  // formData.append("customization", orderCustomization);
   formData.append("table_number", tableNumber);
   console.log(formData);
 
@@ -397,31 +448,44 @@ cartBTN.addEventListener("click", () => {
 });
 const OrdersArray = [];
 // Fetchhing Ortders from API
-function fetchOrders() {
-  OrdersArray.length = 0;
-  fetch("http://192.168.2.103:50/api/order/getallorderlist")
-    // fetch("/order.json")
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log("All Data");
-      // console.log(data);
-      // creating object from fetched data
-      data.forEach((item) => {
-        const obj = { ...item }; // spread operator (...)
-        // pushing objects to array
-        OrdersArray.push(obj);
-      });
-      // console.log("Orders Array");
-      // console.log(OrdersArray);
-      showOrders();
+fetch("http://192.168.2.103:50/api/order/getallorderlist")
+  // fetch("/order.json")
+  .then((response) => response.json())
+  .then((data) => {
+    data.forEach((item) => {
+      const obj = { ...item }; // spread operator (...)
+      // pushing objects to array
+      OrdersArray.push(obj);
     });
-}
-fetchOrders();
-setInterval(fetchOrders, 5000);
+    console.log("Orders Array");
+    console.log(OrdersArray);
+    showOrders();
+  });
+
 function showOrders() {
   console.log("Orders Array");
   console.log(OrdersArray);
 }
+const orderStatusArray = [];
+function fetchOrderStatus() {
+  orderStatusArray.length = 0;
+  fetch("http://192.168.2.103:50/api/order/getorderstatus")
+    // fetch("/order.json")
+    .then((response) => response.json())
+    .then((data) => {
+      // creating object from fetched data
+      data.forEach((item) => {
+        const obj = { ...item }; // spread operator (...)
+        // pushing objects to array
+        orderStatusArray.push(obj);
+      });
+      console.log("orderStatusArray");
+      console.log(orderStatusArray);
+      // showOrders();
+    });
+}
+fetchOrderStatus();
+setInterval(fetchOrderStatus, 5000);
 
 const showOrderBTN = document.querySelector("#show_order");
 const orderContainer = document.getElementById("orders_container");
@@ -433,11 +497,11 @@ function OrderTracker() {
 
   // document.querySelector(".added_items-count").innerHTML = 0;
   // console.log(AddedOrderArray, " cart: added order items");
-  console.log(OrdersArray);
-  for (var i = 0; i < OrdersArray.length; i++) {
+  // console.log(orderStatusArray);
+  for (var i = 0; i < orderStatusArray.length; i++) {
     if (
-      OrdersArray[i].table_number == tableNumber &&
-      OrdersArray[i].order_status != "delivered"
+      orderStatusArray[i].table_number == tableNumber &&
+      orderStatusArray[i].order_status != "delivered"
     ) {
       orderedItems.innerHTML = `<div class="d-flex justify-content-between ps-2 pe-2 p-1">
       <div class="order-info">
@@ -543,19 +607,19 @@ function OrderTracker() {
       const cooking = document.getElementById("cooking");
       const ready = document.getElementById("ready");
       const delivered = document.getElementById("delivered");
-      console.log(OrdersArray[i], "obj");
+      console.log(orderStatusArray[i], "obj");
       console.log(tableNumber, "URLtableNumber", i);
-      console.log(OrdersArray[i].table_number, "table_number", i);
-      console.log(OrdersArray[i].order_status, "order_status", i);
+      console.log(orderStatusArray[i].table_number, "table_number", i);
+      console.log(orderStatusArray[i].order_status, "order_status", i);
       document.querySelector(".order-date").innerHTML =
-        OrdersArray[i].order_datetime;
+        orderStatusArray[i].order_datetime;
       document.querySelector(".order-id").innerHTML =
-        "#" + OrdersArray[i].order_id;
+        "#" + orderStatusArray[i].order_id;
       document.querySelector(".price").innerHTML =
-        "$" + OrdersArray[i].order_total_cost;
+        "$" + orderStatusArray[i].order_total_cost;
       // document.querySelector(".arrival-time").innerHTML =
       //   OrdersArray[i].serving_time;
-      const orderStatus = OrdersArray[i].order_status;
+      const orderStatus = orderStatusArray[i].order_status;
       console.log(orderStatus);
       if (orderStatus == "true") {
         // console.log(orderPlaced, "iseohtfpowes");
@@ -803,24 +867,6 @@ function displaySidebarMenuItems() {
   }
 }
 
-// customized order
-const customize = document.querySelector("#customize");
-const orderModal = document.querySelector(".customize-order");
-// order customization
-
-//opens modal
-
-const openOrderModal = () => {
-  orderModal.style.display = "grid";
-};
-customize.addEventListener("click", openOrderModal);
-//closses modal
-const closeOrderModal = (event) => {
-  if (event.target.classList.contains("customize-order")) {
-    orderModal.style.display = "none";
-  }
-};
-orderModal.addEventListener("click", closeOrderModal);
 //sidebar onclick
 function sidebarOnClick() {
   // const removeParentActiveSidebarItem = () => {
@@ -862,7 +908,8 @@ const DishItemsArray = [];
 
 // Fetchhing dish items from API
 // fetch("http://192.168.2.102:85/GetAllDishItems")
-fetch("http://localhost:5176/GetAllDishItems")
+// fetch("http://localhost:5176/GetAllDishItems")
+fetch("http://192.168.2.102:8095/GetAllDishItemsWithAddons")
   .then((response) => response.json())
   .then((data) => {
     // console.log("All Data");
@@ -983,6 +1030,15 @@ function displayDishItems() {
       spDishBtnDiv.classList = "dish-buttons d-flex justify-content-around";
       let customizebtn = document.createElement("button");
       customizebtn.classList = "dish-btn";
+      customizebtn.setAttribute("id", `customizebtn${DishItemsArray[i].id}`);
+
+      let addonArrayStringified = JSON.stringify(
+        DishItemsArray[i].addonListArray
+      );
+      customizebtn.setAttribute(
+        "onclick",
+        `customeAddons(${DishItemsArray[i].id}, ${addonArrayStringified})`
+      ); //${DishItemsArray[i].addonListArray}
       customizebtn.innerHTML = "Customize";
       spDishBtnDiv.appendChild(customizebtn);
       let serveCountDiv = document.createElement("div");
@@ -1041,3 +1097,126 @@ function displayDishItems() {
     }
   }
 }
+// order customization
+
+const orderModal = document.querySelector(".customize-order");
+//opens modal
+
+function customeAddons(dishID, stringifiedAddons) {
+  const addonList = document.querySelector(".addon_list");
+  orderModal.style.display = "grid";
+  console.log(dishID, "dishID");
+  console.log(stringifiedAddons, "addonArrayString");
+  // createAddons(stringifiedAddons);
+  addonList.innerHTML = "";
+  if (stringifiedAddons.length) {
+    let addons = document.createElement("div");
+    addons.classList = `addons_for${dishID}`;
+    for (var i = 0; i < stringifiedAddons.length; i++) {
+      let addon = document.createElement("div");
+      addon.classList = `addon  d-flex justify-content-start p-1`;
+      addon.setAttribute("id", `addon${stringifiedAddons.id}`);
+      let addonCheckbox = document.createElement("input");
+      addonCheckbox.setAttribute("type", "checkbox");
+      addonCheckbox.setAttribute("value", `${stringifiedAddons[i].name}`);
+      addonCheckbox.setAttribute("data-price", `${stringifiedAddons[i].price}`);
+      addon.appendChild(addonCheckbox);
+      let addonTitle = document.createElement("span");
+      addonTitle.classList = "addon_title ms-1";
+      addonTitle.innerHTML = stringifiedAddons[i].name;
+      addon.appendChild(addonTitle);
+      let addonPrice = document.createElement("span");
+      addonPrice.classList = "price ms-3";
+      addonPrice.innerHTML = "$" + stringifiedAddons[i].price;
+      addon.appendChild(addonPrice);
+      addons.appendChild(addon);
+      // console.log(stringifiedAddons[i].name);
+      // console.log(stringifiedAddons[i].price);
+    }
+    addons.innerHTML += `<button class=" dish-btn mt-2" id="addon_add-btn" onclick="addAddons()">ADD</button>`;
+    addonList.appendChild(addons);
+  } else {
+    addonList.innerHTML = ` <img class="empty_addon_img" src="/images/empty_addon2.png" alt="">`;
+  }
+}
+// function createAddons(stringifiedAddons) {
+//   let totalAddonPrice = 0;
+//   for (var i = 0; i < stringifiedAddons.length; i++) {
+//     totalAddonPrice += stringifiedAddons[i].price;
+//     console.log(stringifiedAddons[i].name);
+//     console.log(stringifiedAddons[i].price);
+//   }
+//   console.log("totalAddonPrice", totalAddonPrice);
+// }
+//closes modal
+const closeOrderModal = (event) => {
+  if (event.target.classList.contains("customize-order")) {
+    orderModal.style.display = "none";
+  }
+  console.log(
+    "CheckedAddons: " +
+      checkedAddonString +
+      "\nchecked Addon price: $" +
+      checkedAddonCost
+  );
+};
+
+orderModal.addEventListener("click", closeOrderModal);
+// customized order
+// function showAddons(){
+
+// }
+var checkedAddonCost;
+var checkedAddonString;
+addonAddBTN = document.querySelector("#addon_add-btn");
+function addAddons() {
+  orderModal.style.display = "none";
+  console.log(DishItemsArray[DishItemsArray.length - 1].addonListArray);
+  checkedAddonCost = 0;
+  checkedAddonString = "";
+  const checkboxes = document.querySelectorAll(
+    'input[type="checkbox"]:checked'
+  );
+  checkboxes.forEach((checkbox, index) => {
+    if (index > 0) {
+      //index == checkboxes.length - 1
+      checkedAddonString += ",";
+    }
+    checkedAddonString += checkbox.value;
+    checkedAddonCost += parseFloat(checkbox.dataset.price);
+  });
+
+  // const myArray = ["apple", "banana", "orange", "kiwi"];
+  // const myString = myArray.join(",");
+  // console.log(myString);
+  // const myArray2 = myString.split(",");
+  // console.log(myArray2);
+  // alert("Checked: " + result + "\nTotal price: $" + addonCostTotal);
+  console.log(
+    "CheckedAddons: " +
+      checkedAddonString +
+      "\nchecked Addon price: $" +
+      checkedAddonCost
+  );
+}
+
+// // customized order
+// // function customAddons() {
+//   const customize = document.querySelector("#customize");
+//   const orderModal = document.querySelector(".customize-order");
+//   // order customization
+
+//   //opens modal
+
+//   const openOrderModal = () => {
+//     orderModal.style.display = "grid";
+//   };
+//   customize.addEventListener("click", openOrderModal);
+//   //closses modal
+//   const closeOrderModal = (event) => {
+//     if (event.target.classList.contains("customize-order")) {
+//       orderModal.style.display = "none";
+//     }
+//   };
+//   orderModal.addEventListener("click", closeOrderModal);
+//   // }
