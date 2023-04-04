@@ -105,70 +105,178 @@ function active(num) {
           // let allbuttonClicked = false;
           // let completebuttonClicked = false;
           // let rejectedbuttonClicked = false;
-          let completebuttonClicked = false;
-          let rejectedbuttonClicked = false;
           let allbuttonClicked = false;
+          let completebuttonClicked = false;
+          let cookingbuttonClicked = false;
+          let readybuttonClicked = false;
+          let deliveredbuttonClicked = false;
+          let rejectedbuttonClicked = false;
           var all = document.querySelector("#all");
           var complete = document.querySelector("#complete");
+          var cooking = document.querySelector("#cooking");
+          var ready = document.querySelector("#ready");
+          var delivered = document.querySelector("#delivered");
           var rejected = document.querySelector("#rejected");
-
+          // var allbutton = document.querySelector("#allbutton").childNodes;
+          // allbutton.forEach(function(button){
+          //   button.addEventListener("click", function () {
+          //     rejectedbuttonClicked = true;
+          //     completebuttonClicked = false;
+          //     allbuttonClicked = false;
+          //     console.log("event rejected", rejectedbuttonClicked);
+          //     all.style.background = "green";
+          //     complete.style.background = "green";
+          //     button.style.background = "orange";
+          //     history(
+          //       allbuttonClicked,
+          //       completebuttonClicked,
+          //       rejectedbuttonClicked
+          //     );
+          //   });
+          // });
+          // console.log("allbutton",allbutton.length);
           all.addEventListener("click", function () {
-            allbuttonClicked = true;
-            completebuttonClicked = false;
-            rejectedbuttonClicked = false;
-            console.log("event all", allbuttonClicked);
+            let allbuttonClicked = false;
+            let completebuttonClicked = false;
+            let cookingbuttonClicked = false;
+            let readybuttonClicked = false;
+            let deliveredbuttonClicked = false;
+            let rejectedbuttonClicked = false;
+            // console.log("event all", allbuttonClicked);
             all.style.background = "orange";
             complete.style.background = "green";
+            cooking.style.background = "green";
+            ready.style.background = "green";
+            delivered.style.background = "green";
             rejected.style.background = "green";
             history(
-              allbuttonClicked,
-              completebuttonClicked,
-              rejectedbuttonClicked
-            );
+              allbuttonClicked, completebuttonClicked, 
+              cookingbuttonClicked ,readybuttonClicked, 
+              deliveredbuttonClicked, rejectedbuttonClicked);
           });
 
           complete.addEventListener("click", function () {
-            completebuttonClicked = true;
-            allbuttonClicked = false;
-            rejectedbuttonClicked = false;
-            console.log("event complete", completebuttonClicked);
+            let allbuttonClicked = false;
+            let completebuttonClicked = true;
+            let cookingbuttonClicked = false;
+            let readybuttonClicked = false;
+            let deliveredbuttonClicked = false;
+            let rejectedbuttonClicked = false;
+            // console.log("event all", allbuttonClicked);
             all.style.background = "green";
             complete.style.background = "orange";
+            cooking.style.background = "green";
+            ready.style.background = "green";
+            delivered.style.background = "green";
             rejected.style.background = "green";
             history(
-              allbuttonClicked,
-              completebuttonClicked,
-              rejectedbuttonClicked
-            );
+              allbuttonClicked, completebuttonClicked, 
+              cookingbuttonClicked ,readybuttonClicked, 
+              deliveredbuttonClicked, rejectedbuttonClicked);
+          });
+          cooking.addEventListener("click", function () {
+            let allbuttonClicked = false;
+            let completebuttonClicked = false;
+            let cookingbuttonClicked = true;
+            let readybuttonClicked = false;
+            let deliveredbuttonClicked = false;
+            let rejectedbuttonClicked = false;
+            // console.log("event all", allbuttonClicked);
+            all.style.background = "green";
+            complete.style.background = "green";
+            cooking.style.background = "orange";
+            ready.style.background = "green";
+            delivered.style.background = "green";
+            rejected.style.background = "green";
+            history(
+              allbuttonClicked, completebuttonClicked, 
+              cookingbuttonClicked ,readybuttonClicked, 
+              deliveredbuttonClicked, rejectedbuttonClicked);
+          });
+
+          ready.addEventListener("click", function () {
+            let allbuttonClicked = false;
+            let completebuttonClicked = false;
+            let cookingbuttonClicked = false;
+            let readybuttonClicked = true;
+            let deliveredbuttonClicked = false;
+            let rejectedbuttonClicked = false;
+            // console.log("event all", allbuttonClicked);
+            all.style.background = "green";
+            complete.style.background = "green";
+            cooking.style.background = "green";
+            ready.style.background = "orange";
+            delivered.style.background = "green";
+            rejected.style.background = "green";
+            history(
+              allbuttonClicked, completebuttonClicked, 
+              cookingbuttonClicked ,readybuttonClicked, 
+              deliveredbuttonClicked, rejectedbuttonClicked);
+          });
+          delivered.addEventListener("click", function () {
+            let allbuttonClicked = false;
+            let completebuttonClicked = false;
+            let cookingbuttonClicked = false;
+            let readybuttonClicked = false;
+            let deliveredbuttonClicked = true;
+            let rejectedbuttonClicked = false;
+            // console.log("event all", allbuttonClicked);
+            all.style.background = "green";
+            complete.style.background = "green";
+            cooking.style.background = "green";
+            ready.style.background = "green";
+            delivered.style.background = "orange";
+            rejected.style.background = "green";
+            history(
+              allbuttonClicked, completebuttonClicked, 
+              cookingbuttonClicked ,readybuttonClicked, 
+              deliveredbuttonClicked, rejectedbuttonClicked);
           });
 
           rejected.addEventListener("click", function () {
-            rejectedbuttonClicked = true;
-            completebuttonClicked = false;
-            allbuttonClicked = false;
-            console.log("event rejected", rejectedbuttonClicked);
+            let allbuttonClicked = false;
+            let completebuttonClicked = false;
+            let cookingbuttonClicked = false;
+            let readybuttonClicked = false;
+            let deliveredbuttonClicked = false;
+            let rejectedbuttonClicked = true;
+            // console.log("event all", allbuttonClicked);
             all.style.background = "green";
             complete.style.background = "green";
+            cooking.style.background = "green";
+            ready.style.background = "green";
+            delivered.style.background = "green";
             rejected.style.background = "orange";
             history(
-              allbuttonClicked,
-              completebuttonClicked,
-              rejectedbuttonClicked
-            );
+              allbuttonClicked, completebuttonClicked, 
+              cookingbuttonClicked ,readybuttonClicked, 
+              deliveredbuttonClicked, rejectedbuttonClicked);
           });
+
           if (
             allbuttonClicked == false &&
             completebuttonClicked == false &&
+            cookingbuttonClicked == false && readybuttonClicked == false &&
+            deliveredbuttonClicked == false &&
             rejectedbuttonClicked == false
           ) {
-            all.style.background = "yellow";
+            let allbuttonClicked = false;
+            let completebuttonClicked = false;
+            let cookingbuttonClicked = false;
+            let readybuttonClicked = false;
+            let deliveredbuttonClicked = false;
+            let rejectedbuttonClicked = false;
+            // console.log("event all", allbuttonClicked);
+            all.style.background = "orange";
             complete.style.background = "green";
+            cooking.style.background = "green";
+            ready.style.background = "green";
+            delivered.style.background = "green";
             rejected.style.background = "green";
             history(
-              allbuttonClicked,
-              completebuttonClicked,
-              rejectedbuttonClicked
-            );
+              allbuttonClicked, completebuttonClicked, 
+              cookingbuttonClicked ,readybuttonClicked, 
+              deliveredbuttonClicked, rejectedbuttonClicked);
           }
 
           // console.log(alllist);
@@ -684,7 +792,10 @@ function load(orderdata) {
           var img = document.querySelector(".foodItem_photo");
           // console.log(img);
           // img.setAttribute("src", newPath);
-          tb.appendChild(x);
+          if(tb!=null)
+          {
+            tb.appendChild(x);
+          }
           // var itemOverflow=document.getElementById("overflow");
           j = j + 8;
         }
@@ -739,19 +850,11 @@ function forOverflow(orderdata, itemData) {
                     </div>
                   `;
             // var ll= orderdata[i].item_id[x];
-
-            itemOverflow.appendChild(newdiv);
+            if(itemOverflow!=null)
+            {
+              itemOverflow.appendChild(newdiv);
+            }
             j = j + 100;
-            console.log(
-              "i:",
-              i,
-              "j:",
-              j,
-              "m:",
-              m,
-              "itemOverflow:",
-              itemOverflow
-            );
           }
 
           // }
@@ -762,135 +865,113 @@ function forOverflow(orderdata, itemData) {
     }
   }
 }
-// history();
-// let completebuttonClicked = false;
-// let rejectedbuttonClicked = false;
-// let allbuttonClicked = false;
-// var all=document.querySelector("#all");
-//   all.addEventListener("click",function(){
-//     allbuttonClicked = true;
-//     completebuttonClicked = false;
-//     rejectedbuttonClicked = false;
-//       console.log("event all",allbuttonClicked);
-//     })
-// var complete = document.querySelector("#complete");
-//   complete.addEventListener("click",function(){
-//     completebuttonClicked = true;
-//     allbuttonClicked = false;
-//     rejectedbuttonClicked = false;
-//       console.log("event complete",completebuttonClicked);
-//     })
-// var rejected = document.querySelector("#rejected");
-//   rejected.addEventListener("click",function(){
-//     rejectedbuttonClicked = true;
-//     completebuttonClicked = false;
-//     allbuttonClicked = false;
-//       console.log("event rejected",rejectedbuttonClicked);
-//     })
 
-function history(a, c, r) {
-  console.log(orderDatahis);
-  console.log(itemDatahis);
-  console.log(a, c, r);
-  if (a == true) {
+
+function history(all, complete, cooking, ready, delivered, rejected) {
+  // console.log(orderDatahis);
+  // console.log(itemDatahis);
+  // console.log(a, c, r);
+  // if (a == true) 
+  // {
+  //   // const a = orderData.length;
+  //   console.log(orderDatahis);
+  //   console.log(itemDatahis);
+  //   //     console.log(a);
+  //   // var r = "rejected";
+  //   console.log(r);
+  //   var tb = document.getElementById("order_Cards_In_History");
+  //   tb.innerHTML = "";
+  //   for (var i = orderDatahis.length - 1; i > 0; i--) {
+  //     // console.log("hi");
+  //     for (var j = 0; j < itemDatahis.length; j++) {
+  //       if (
+  //         orderDatahis[i].order_status == "rejected" ||
+  //         orderDatahis[i].order_status == "conformed"
+  //       ) {
+  //         if (orderDatahis[i].item_id == itemDatahis[j].id) {
+  //           var imgpath = itemDatahis[j].imagePath;
+  //           let pathArray = imgpath.split("\\");
+  //           let newPath = pathArray.slice(2).join("\\");
+  //           // console.log(imgpath);
+  //           var p = orderDatahis[i].order_total_cost / orderDatahis[i].quantity;
+  //           var x = document.createElement("div");
+  //           x.style.width = "45%";
+  //           x.style.paddingRight = "25px";
+  //           x.innerHTML = `
+  //           <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
+  //           <!-- <div id="order_list" class=""> -->
+  //             <div class="d-flex justify-content-between">
+  //               <div class="text-start m-2">
+  //                 <h5>Order #TN-<label>${orderDatahis[i].table_number}</label></h5>
+  //                 <p>${orderDatahis[i].order_datetime}</p>
+  //               </div>
+  //               <img
+  //                 class="profile_photo"
+  //                 src="/images/user_icon_1.png"
+  //                 alt=""
+  //               />
+  //             </div>
+  //               <div class="d-flex justify-content-around mb-4">
+  //                 <img id=img5
+  //                   class="foodItem_photo me-5"
+  //                   src="/${newPath}"
+  //                   alt=""
+  //                 />
+  //                 <div>
+  //                   <h5>${itemDatahis[j].name}</h5>
+  //                   <p id="dis">${itemDatahis[j].description}</p>
+  //                   <div class="d-flex justify-content-around">
+  //                     <h5>$${p}</h5>
+  //                     <h5>Qty:${orderDatahis[i].quantity}</h5>
+  //                   </div>
+  //                 </div>
+  //               </div>
+  //             <div
+  //               class="m-3"
+  //               style="height: 1.2px; background: #c1c3cd"
+  //             ></div>
+  //             <div class="d-flex justify-content-between">
+  //               <div class="text-start">
+  //                 <p style="font-size: larger">1 Items</p>
+  //                 <h3>$${orderDatahis[i].order_total_cost}</h3>
+  //               </div>
+  //               <div class="text-center pt-3">
+  //                 <p
+  //                   class="btn btn-primary"
+  //                 >
+  //                   <label
+  //                     style="font-size: 20px; width: 120px"
+  //                   >${orderDatahis[i].order_status}</label>
+  //                 </p>
+  //               </div>
+  //             </div>
+  //           <!-- </div> -->
+  //         </div>
+  //         `;
+  //           // tb.innerText=orderData[i].tablenumber;
+  //           var img = document.querySelector(".foodItem_photo");
+  //           // console.log(img);
+  //           // img.setAttribute("src", newPath);
+  //           tb.appendChild(x);
+  //           // console.log(img);
+  //           j = j + 15;
+  //         }
+  //       }
+  //       // console.log("hello")
+  //     }
+  //   }
+  // } 
+  if (complete == true) {
     // const a = orderData.length;
     console.log(orderDatahis);
     console.log(itemDatahis);
     //     console.log(a);
     // var r = "rejected";
-    console.log(r);
+    // console.log("i am in complete", c);
     var tb = document.getElementById("order_Cards_In_History");
     tb.innerHTML = "";
     for (var i = orderDatahis.length - 1; i > 0; i--) {
-      // console.log("hi");
-      for (var j = 0; j < itemDatahis.length; j++) {
-        if (
-          orderDatahis[i].order_status == "rejected" ||
-          orderDatahis[i].order_status == "conformed"
-        ) {
-          if (orderDatahis[i].item_id == itemDatahis[j].id) {
-            var imgpath = itemDatahis[j].imagePath;
-            let pathArray = imgpath.split("\\");
-            let newPath = pathArray.slice(2).join("\\");
-            // console.log(imgpath);
-            var p = orderDatahis[i].order_total_cost / orderDatahis[i].quantity;
-            var x = document.createElement("div");
-            x.style.width = "45%";
-            x.style.paddingRight = "25px";
-            x.innerHTML = `
-            <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
-            <!-- <div id="order_list" class=""> -->
-              <div class="d-flex justify-content-between">
-                <div class="text-start m-2">
-                  <h5>Order #TN-<label>${orderDatahis[i].table_number}</label></h5>
-                  <p>${orderDatahis[i].order_datetime}</p>
-                </div>
-                <img
-                  class="profile_photo"
-                  src="/images/user_icon_1.png"
-                  alt=""
-                />
-              </div>
-                <div class="d-flex justify-content-around mb-4">
-                  <img id=img5
-                    class="foodItem_photo me-5"
-                    src="/${newPath}"
-                    alt=""
-                  />
-                  <div>
-                    <h5>${itemDatahis[j].name}</h5>
-                    <p id="dis">${itemDatahis[j].description}</p>
-                    <div class="d-flex justify-content-around">
-                      <h5>$${p}</h5>
-                      <h5>Qty:${orderDatahis[i].quantity}</h5>
-                    </div>
-                  </div>
-                </div>
-              <div
-                class="m-3"
-                style="height: 1.2px; background: #c1c3cd"
-              ></div>
-              <div class="d-flex justify-content-between">
-                <div class="text-start">
-                  <p style="font-size: larger">1 Items</p>
-                  <h3>$${orderDatahis[i].order_total_cost}</h3>
-                </div>
-                <div class="text-center pt-3">
-                  <p
-                    class="btn btn-primary"
-                  >
-                    <label
-                      style="font-size: 20px; width: 120px"
-                    >${orderDatahis[i].order_status}</label>
-                  </p>
-                </div>
-              </div>
-            <!-- </div> -->
-          </div>
-          `;
-            // tb.innerText=orderData[i].tablenumber;
-            var img = document.querySelector(".foodItem_photo");
-            // console.log(img);
-            // img.setAttribute("src", newPath);
-            tb.appendChild(x);
-            // console.log(img);
-            j = j + 15;
-          }
-        }
-        // console.log("hello")
-      }
-    }
-  } else if (c == true) {
-    // const a = orderData.length;
-    console.log(orderDatahis);
-    console.log(itemDatahis);
-    //     console.log(a);
-    var r = "rejected";
-    console.log("i am in complete", c);
-    var tb = document.getElementById("order_Cards_In_History");
-    tb.innerHTML = "";
-    for (var i = orderDatahis.length - 1; i > 0; i--) {
-      console.log("i am in complete cross orderdetailshis length", c);
+      // console.log("i am in complete cross orderdetailshis length", c);
       for (var j = 0; j < itemDatahis.length; j++) {
         if (orderDatahis[i].order_status == "conformed") {
           if (orderDatahis[i].item_id == itemDatahis[j].id) {
@@ -966,13 +1047,275 @@ function history(a, c, r) {
         // console.log("hello")
       }
     }
-  } else if (r == true) {
+  } 
+  else if (cooking == true) {
     // const a = orderData.length;
     console.log(orderDatahis);
     console.log(itemDatahis);
     //     console.log(a);
-    var r = "rejected";
-    console.log(r);
+    // var r = "rejected";
+    // console.log(r);
+    var tb = document.getElementById("order_Cards_In_History");
+    tb.innerHTML = "";
+    for (var i = orderDatahis.length - 1; i > 0; i--) {
+      // console.log("hi");
+      for (var j = 0; j < itemDatahis.length; j++) {
+        if (orderDatahis[i].order_status == "cooking") {
+          if (orderDatahis[i].item_id == itemDatahis[j].id) {
+            var imgpath = itemDatahis[j].imagePath;
+            let pathArray = imgpath.split("\\");
+            let newPath = pathArray.slice(2).join("\\");
+            // console.log(imgpath);
+            var p = orderDatahis[i].order_total_cost / orderDatahis[i].quantity;
+            var x = document.createElement("div");
+            x.style.width = "45%";
+            x.style.paddingRight = "25px";
+            x.innerHTML = `
+            <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
+            <!-- <div id="order_list" class=""> -->
+              <div class="d-flex justify-content-between">
+                <div class="text-start m-2">
+                  <h5>Order #TN-<label>${orderDatahis[i].table_number}</label></h5>
+                  <p>${orderDatahis[i].order_datetime}</p>
+                </div>
+                <img
+                  class="profile_photo"
+                  src="/images/user_icon_1.png"
+                  alt=""
+                />
+              </div>
+                <div class="d-flex justify-content-around mb-4">
+                  <img id=img5
+                    class="foodItem_photo me-5"
+                    src="/${newPath}"
+                    alt=""
+                  />
+                  <div>
+                    <h5>${itemDatahis[j].name}</h5>
+                    <p id="dis">${itemDatahis[j].description}</p>
+                    <div class="d-flex justify-content-around">
+                      <h5>$${p}</h5>
+                      <h5>Qty:${orderDatahis[i].quantity}</h5>
+                    </div>
+                  </div>
+                </div>
+              <div
+                class="m-3"
+                style="height: 1.2px; background: #c1c3cd"
+              ></div>
+              <div class="d-flex justify-content-between">
+                <div class="text-start">
+                  <p style="font-size: larger">1 Items</p>
+                  <h3>$${orderDatahis[i].order_total_cost}</h3>
+                </div>
+                <div class="text-center pt-3">
+                  <p
+                    class="btn btn-primary"
+                  >
+                    <label
+                      style="font-size: 20px; width: 120px"
+                    >${orderDatahis[i].order_status}</label>
+                  </p>
+                </div>
+              </div>
+            <!-- </div> -->
+          </div>
+          `;
+            // tb.innerText=orderData[i].tablenumber;
+            var img = document.querySelector(".foodItem_photo");
+            // console.log(img);
+            // img.setAttribute("src", newPath);
+            tb.appendChild(x);
+            // console.log(img);
+            j = j + 15;
+          }
+        }
+        // console.log("hello")
+      }
+    }
+  }
+  else if (ready == true) {
+    // const a = orderData.length;
+    console.log(orderDatahis);
+    console.log(itemDatahis);
+    //     console.log(a);
+    // var r = "rejected";
+    // console.log(r);
+    var tb = document.getElementById("order_Cards_In_History");
+    tb.innerHTML = "";
+    for (var i = orderDatahis.length - 1; i > 0; i--) {
+      // console.log("hi");
+      if (orderDatahis[i].order_status == "ready") {
+        for (var j = 0; j < itemDatahis.length; j++) {
+        console.log("in ready");
+          if (orderDatahis[i].item_id == itemDatahis[j].id) 
+          {
+            console.log("hi");
+            var imgpath = itemDatahis[j].imagePath;
+            let pathArray = imgpath.split("\\");
+            let newPath = pathArray.slice(2).join("\\");
+            // console.log(imgpath);
+            var p = orderDatahis[i].order_total_cost / orderDatahis[i].quantity;
+            var x = document.createElement("div");
+            x.style.width = "45%";
+            x.style.paddingRight = "25px";
+            x.innerHTML = `
+            <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
+            <!-- <div id="order_list" class=""> -->
+              <div class="d-flex justify-content-between">
+                <div class="text-start m-2">
+                  <h5>Order #TN-<label>${orderDatahis[i].table_number}</label></h5>
+                  <p>${orderDatahis[i].order_datetime}</p>
+                </div>
+                <img
+                  class="profile_photo"
+                  src="/images/user_icon_1.png"
+                  alt=""
+                />
+              </div>
+                <div class="d-flex justify-content-around mb-4">
+                  <img id=img5
+                    class="foodItem_photo me-5"
+                    src="/${newPath}"
+                    alt=""
+                  />
+                  <div>
+                    <h5>${itemDatahis[j].name}</h5>
+                    <p id="dis">${itemDatahis[j].description}</p>
+                    <div class="d-flex justify-content-around">
+                      <h5>$${p}</h5>
+                      <h5>Qty:${orderDatahis[i].quantity}</h5>
+                    </div>
+                  </div>
+                </div>
+              <div
+                class="m-3"
+                style="height: 1.2px; background: #c1c3cd"
+              ></div>
+              <div class="d-flex justify-content-between">
+                <div class="text-start">
+                  <p style="font-size: larger">1 Items</p>
+                  <h3>$${orderDatahis[i].order_total_cost}</h3>
+                </div>
+                <div class="text-center pt-3">
+                  <p
+                    class="btn btn-primary"
+                  >
+                    <label
+                      style="font-size: 20px; width: 120px"
+                    >${orderDatahis[i].order_status}</label>
+                  </p>
+                </div>
+              </div>
+            <!-- </div> -->
+          </div>
+          `;
+            // tb.innerText=orderData[i].tablenumber;
+            var img = document.querySelector(".foodItem_photo");
+            // console.log(img);
+            // img.setAttribute("src", newPath);
+            tb.appendChild(x);
+            // console.log(img);
+            j = j + 15;
+          }
+        }
+        // console.log("hello")
+      }
+    }
+  }
+  else if (delivered == true) {
+    // const a = orderData.length;
+    console.log(orderDatahis);
+    console.log(itemDatahis);
+    //     console.log(a);
+    // var r = "rejected";
+    // console.log(r);
+    var tb = document.getElementById("order_Cards_In_History");
+    tb.innerHTML = "";
+    for (var i = orderDatahis.length - 1; i > 0; i--) {
+      // console.log("hi");
+      for (var j = 0; j < itemDatahis.length; j++) {
+        if (orderDatahis[i].order_status == "delivered") {
+          if (orderDatahis[i].item_id == itemDatahis[j].id) {
+            var imgpath = itemDatahis[j].imagePath;
+            let pathArray = imgpath.split("\\");
+            let newPath = pathArray.slice(2).join("\\");
+            // console.log(imgpath);
+            var p = orderDatahis[i].order_total_cost / orderDatahis[i].quantity;
+            var x = document.createElement("div");
+            x.style.width = "45%";
+            x.style.paddingRight = "25px";
+            x.innerHTML = `
+            <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
+            <!-- <div id="order_list" class=""> -->
+              <div class="d-flex justify-content-between">
+                <div class="text-start m-2">
+                  <h5>Order #TN-<label>${orderDatahis[i].table_number}</label></h5>
+                  <p>${orderDatahis[i].order_datetime}</p>
+                </div>
+                <img
+                  class="profile_photo"
+                  src="/images/user_icon_1.png"
+                  alt=""
+                />
+              </div>
+                <div class="d-flex justify-content-around mb-4">
+                  <img id=img5
+                    class="foodItem_photo me-5"
+                    src="/${newPath}"
+                    alt=""
+                  />
+                  <div>
+                    <h5>${itemDatahis[j].name}</h5>
+                    <p id="dis">${itemDatahis[j].description}</p>
+                    <div class="d-flex justify-content-around">
+                      <h5>$${p}</h5>
+                      <h5>Qty:${orderDatahis[i].quantity}</h5>
+                    </div>
+                  </div>
+                </div>
+              <div
+                class="m-3"
+                style="height: 1.2px; background: #c1c3cd"
+              ></div>
+              <div class="d-flex justify-content-between">
+                <div class="text-start">
+                  <p style="font-size: larger">1 Items</p>
+                  <h3>$${orderDatahis[i].order_total_cost}</h3>
+                </div>
+                <div class="text-center pt-3">
+                  <p
+                    class="btn btn-primary"
+                  >
+                    <label
+                      style="font-size: 20px; width: 120px"
+                    >${orderDatahis[i].order_status}</label>
+                  </p>
+                </div>
+              </div>
+            <!-- </div> -->
+          </div>
+          `;
+            // tb.innerText=orderData[i].tablenumber;
+            var img = document.querySelector(".foodItem_photo");
+            // console.log(img);
+            // img.setAttribute("src", newPath);
+            tb.appendChild(x);
+            // console.log(img);
+            j = j + 15;
+          }
+        }
+        // console.log("hello")
+      }
+    }
+  }
+  else if (rejected == true) {
+    // const a = orderData.length;
+    console.log(orderDatahis);
+    console.log(itemDatahis);
+    //     console.log(a);
+    // var r = "rejected";
+    // console.log(r);
     var tb = document.getElementById("order_Cards_In_History");
     tb.innerHTML = "";
     for (var i = orderDatahis.length - 1; i > 0; i--) {
@@ -1051,22 +1394,24 @@ function history(a, c, r) {
         // console.log("hello")
       }
     }
-  } else {
+  } 
+  else {
     // const a = orderData.length;
     console.log(orderDatahis);
     console.log(itemDatahis);
     //     console.log(a);
-    var r = "rejected";
-    console.log(r);
+    // var r = "rejected";
+    // console.log(r);
     var tb = document.getElementById("order_Cards_In_History");
     tb.innerHTML = "";
     for (var i = orderDatahis.length - 1; i > 0; i--) {
       // console.log("hi");
       for (var j = 0; j < itemDatahis.length; j++) {
-        if (
-          orderDatahis[i].order_status == "rejected" ||
-          orderDatahis[i].order_status == "conformed"
-        ) {
+        // if (
+        //   orderDatahis[i].order_status == "rejected" ||
+        //   orderDatahis[i].order_status == "conformed"
+        // ) 
+        // {
           if (orderDatahis[i].item_id == itemDatahis[j].id) {
             var imgpath = itemDatahis[j].imagePath;
             let pathArray = imgpath.split("\\");
@@ -1135,7 +1480,7 @@ function history(a, c, r) {
             // console.log(img);
             j = j + 15;
           }
-        }
+        // }
         // console.log("hello")
       }
     }

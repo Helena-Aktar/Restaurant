@@ -32,6 +32,7 @@ function active(num) {
     buttonOrderHistory.classList.remove("active");
     buttonMessages.classList.remove("active");
     buttonFoodReady.classList.remove("active");
+    onload();
   } else if (num == 2) {
     home.style.display = "none";
     orderHistory.style.display = "block";
@@ -65,6 +66,11 @@ function active(num) {
   }
 }
 function foodReady() {
+  var ORP = document.getElementById("order_Ready_parent");
+  if(ORP!=null || ORP!="")
+  {
+    ORP.innerHTML="";
+  }
   fetch("http://192.168.2.103:50/api/order/getallorderlist")
       .then((response) => response.json())
       .then((orderdata) => {
@@ -164,9 +170,9 @@ function foodreadyOverflow(orderData, itemData) {
       // console.log(itemOverflow);
       for (var x = 0; x < orderData[i].item_id.length; x++) {
         for (var j = 0; j < itemData.length; j++) {
-          var itemOverflow = document.getElementById("readyoverflow" + m);
 
           if (orderData[i].item_id[x] == itemData[j].id) {
+            var itemOverflow = document.getElementById("readyoverflow" + m);
             var imgpath = itemData[j].imagePath;
             let pathArray = imgpath.split("\\");
             let newPath = pathArray.slice(2).join("\\");
@@ -206,6 +212,11 @@ function foodreadyOverflow(orderData, itemData) {
   }
 }
 function foodHistory() {
+  var OCH = document.getElementById("order_Cards_In_History");
+  if(OCH!=null || OCH!="")
+  {
+    OCH.innerHTML="";
+  }
   fetch("http://192.168.2.103:50/api/order/getallorderlist")
       .then((response) => response.json())
       .then((orderdata) => {
@@ -439,6 +450,11 @@ onload();
 
 
 function load() {
+  var PO = document.getElementById("parentOrder");
+  if(PO!=null || PO!="")
+  {
+    PO.innerHTML="";
+  }
    // const a = orderData.length;
    console.log(orderData);
    console.log(itemData);
