@@ -268,14 +268,21 @@ function displayCartItems() {
   }
 }
 // add single order
-
-function orderNow() {
+var prevElementID;
+function orderNow(OrderNowid) {
   // console.log(
   //   "CheckedAddons: " +
   //     checkedAddonString +
   //     "\nchecked Addon price: $" +
   //     checkedAddonCost
   // );
+  var addons;
+  var addonCost;
+  if (prevElementID == OrderNowid) {
+    addons = checkedAddonString;
+    addonCost = checkedAddonCost;
+    prevElementID = OrderNowid;
+  }
   console.log("helloorder");
   console.log(DishItemsArray);
   let id = event.target.id;
@@ -386,10 +393,14 @@ function OrderItems() {
   for (var i = 0; i < AddedOrderArray.length; i++) {
     formData.append("item_id", AddedOrderArray[i].ID);
     formData.append("quantity", AddedOrderArray[i].Quantity);
-    if (AddedOrderArray[i].addon) {
+    if (
+      AddedOrderArray[i].Addon != null &&
+      AddedOrderArray[i].Addon != undefined &&
+      AddedOrderArray[i].Addon != ""
+    ) {
       formData.append("customization", AddedOrderArray[i].Addon);
     } else {
-      formData.append("customization", "");
+      formData.append("customization", "None");
     }
   }
   formData.append("order_total_cost", cost);
@@ -1088,7 +1099,7 @@ function displayDishItems() {
       orderNowbtn.innerHTML = "Order Now";
       DishBtnDiv.appendChild(orderNowbtn);
       orderNowbtn.setAttribute("id", "orderNow" + `${DishItemsArray[i].id}`);
-      orderNowbtn.setAttribute("onclick", "orderNow()");
+      orderNowbtn.setAttribute("onclick", `orderNow(${DishItemsArray[i].id})`);
       // console.log(orderNowbtn);
       // output
 
