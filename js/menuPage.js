@@ -121,12 +121,12 @@ const addedToCart = document.querySelector(".added_items-count");
 var addedToCartCounter = 0;
 
 function addToCart(id) {
-  console.log(
-    "CheckedAddons: " +
-      checkedAddonString +
-      "\nchecked Addon price: $" +
-      checkedAddonCost
-  );
+  // console.log(
+  //   "CheckedAddons: " +
+  //     checkedAddonString +
+  //     "\nchecked Addon price: $" +
+  //     checkedAddonCost
+  // );
   let quantity = servingCounter;
   const serveCountSpan = document.getElementById(`count${id}`);
   console.log(servingCounter);
@@ -148,7 +148,18 @@ function addToCart(id) {
       if (item.id == id) {
         price = item.price;
         let cost = price * quantity;
-        if (checkedAddonCost) cost += checkedAddonCost;
+        let addonItems = "",
+          addonItemsCost = 0;
+        // if (checkedAddonCost) cost += checkedAddonCost;
+        addedAddonsArray.forEach((item) => {
+          if (item.addonDishID == id) {
+            addonItems = item.addonItems;
+            addonItemsCost = item.addonItemsCost;
+            console.log(addonItems);
+            console.log(cost);
+          }
+          // addedAddonsArray.length = 0;
+        });
         const obj = {
           Name: item.name,
           ImageSRC: item.imagePath,
@@ -156,8 +167,8 @@ function addToCart(id) {
           Quantity: quantity,
           Cost: cost,
           Price: price,
-          Addon: checkedAddonString,
-          AddonCost: checkedAddonCost,
+          Addon: addonItems,
+          AddonCost: addonItemsCost,
         };
         AddedOrderArray.push(obj);
       }
@@ -268,26 +279,19 @@ function displayCartItems() {
   }
 }
 // add single order
-var prevElementID;
-function orderNow(OrderNowid) {
+function orderNow() {
   // console.log(
   //   "CheckedAddons: " +
   //     checkedAddonString +
   //     "\nchecked Addon price: $" +
   //     checkedAddonCost
   // );
-  var addons;
-  var addonCost;
-  if (prevElementID == OrderNowid) {
-    addons = checkedAddonString;
-    addonCost = checkedAddonCost;
-    prevElementID = OrderNowid;
-  }
+
   console.log("helloorder");
   console.log(DishItemsArray);
   let id = event.target.id;
   let itemID = id.split("orderNow")[1];
-  console.log(itemID);
+  console.log(itemID, "itemID");
   let quantity = servingCounter;
   let serveElementID = "count" + itemID;
   console.log(serveElementID);
@@ -309,10 +313,16 @@ function orderNow(OrderNowid) {
     }
     // console.log(item);
   });
-  if (checkedAddonString != undefined && checkedAddonCost != undefined) {
-    orderCustomization = checkedAddonString;
-    cost += checkedAddonCost;
-  }
+  // console.log(addedAddonsArray, "iujhfoasdhasfd");
+  addedAddonsArray.forEach((item) => {
+    if (item.addonDishID == itemID) {
+      orderCustomization = item.addonItems;
+      cost += item.addonItemsCost;
+      console.log(orderCustomization);
+      console.log(cost);
+    }
+    addedAddonsArray.length = 0;
+  });
   console.log("order");
   console.log(itemID);
   console.log(quantity);
@@ -332,7 +342,7 @@ function orderNow(OrderNowid) {
   formData.append("table_number", tableNumber);
   console.log(formData);
 
-  fetch("http://192.168.2.103:50/api/order/addorder", {
+  fetch("http://192.168.2.102:8095/api/order/addorder", {
     method: "POST",
     body: formData,
   })
@@ -410,7 +420,7 @@ function OrderItems() {
   formData.append("table_number", tableNumber);
   console.log(formData);
 
-  fetch("http://192.168.2.103:50/api/order/addorder", {
+  fetch("http://192.168.2.102:8095/api/order/addorder", {
     method: "POST",
     body: formData,
   })
@@ -461,7 +471,7 @@ cartBTN.addEventListener("click", () => {
 });
 const OrdersArray = [];
 // Fetchhing Ortders from API
-fetch("http://192.168.2.103:50/api/order/getallorderlist")
+fetch("http://192.168.2.103:8095/api/order/getallorderlist")
   // fetch("/order.json")
   .then((response) => response.json())
   .then((data) => {
@@ -482,7 +492,7 @@ function showOrders() {
 const orderStatusArray = [];
 function fetchOrderStatus() {
   orderStatusArray.length = 0;
-  fetch("http://192.168.2.103:50/api/order/getorderstatus")
+  fetch("http://192.168.2.102:8095/api/order/getorderstatus")
     // fetch("/order.json")
     .then((response) => response.json())
     .then((data) => {
@@ -767,7 +777,7 @@ const SidebarMenuArray = [];
 //   .then((response) => response.json())
 //   .then((data) => {
 // Fetchhing Sidebar items from API
-fetch("http://192.168.2.102:85/GetAllSidebarItems")
+fetch("http://192.168.2.102:8095/GetAllSidebarItems")
   .then((response) => response.json())
   .then((data) => {
     // console.log("All Data");
@@ -1099,7 +1109,7 @@ function displayDishItems() {
       orderNowbtn.innerHTML = "Order Now";
       DishBtnDiv.appendChild(orderNowbtn);
       orderNowbtn.setAttribute("id", "orderNow" + `${DishItemsArray[i].id}`);
-      orderNowbtn.setAttribute("onclick", `orderNow(${DishItemsArray[i].id})`);
+      orderNowbtn.setAttribute("onclick", `orderNow()`);
       // console.log(orderNowbtn);
       // output
 
@@ -1146,7 +1156,7 @@ function customeAddons(dishID, stringifiedAddons) {
       // console.log(stringifiedAddons[i].name);
       // console.log(stringifiedAddons[i].price);
     }
-    addons.innerHTML += `<button class=" dish-btn mt-2" id="addon_add-btn" onclick="addAddons()">ADD</button>`;
+    addons.innerHTML += `<button class=" dish-btn mt-2" id="addon_add-btn" onclick=addAddons(${dishID})>ADD</button>`;
     addonList.appendChild(addons);
   } else {
     addonList.innerHTML = ` <img class="empty_addon_img" src="/images/empty_addon2.png" alt="">`;
@@ -1158,23 +1168,16 @@ const closeOrderModal = (event) => {
   if (event.target.classList.contains("customize-order")) {
     orderModal.style.display = "none";
   }
-  console.log(
-    "CheckedAddons: " +
-      checkedAddonString +
-      "\nchecked Addon price: $" +
-      checkedAddonCost
-  );
 };
 
 orderModal.addEventListener("click", closeOrderModal);
-var checkedAddonCost;
-var checkedAddonString;
+var addedAddonsArray = [];
 addonAddBTN = document.querySelector("#addon_add-btn");
-function addAddons() {
+function addAddons(dish_id) {
   orderModal.style.display = "none";
   console.log(DishItemsArray[DishItemsArray.length - 1].addonListArray);
-  checkedAddonCost = 0;
-  checkedAddonString = "";
+  var checkedAddonCost = 0;
+  var checkedAddonString = "";
   const checkboxes = document.querySelectorAll(
     'input[type="checkbox"]:checked'
   );
@@ -1192,6 +1195,13 @@ function addAddons() {
       "\nchecked Addon price: $" +
       checkedAddonCost
   );
+  var adddonOBJ = {
+    addonDishID: dish_id,
+    addonItems: checkedAddonString,
+    addonItemsCost: checkedAddonCost,
+  };
+  addedAddonsArray.push(adddonOBJ);
+  console.log(addedAddonsArray, "added adddons");
 }
 
 // // customized order
