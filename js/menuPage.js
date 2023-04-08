@@ -352,8 +352,9 @@ function orderNow() {
       // alert("Order added!");
 
       document.querySelector(".confirm-order-outerbox").style.display = "grid";
-      checkedAddonString = "";
-      checkedAddonCost = 0;
+      // checkedAddonString = "";
+      // checkedAddonCost = 0;
+      servingCounter = 1;
     })
     .catch((err) => console.log(err));
 }
