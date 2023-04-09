@@ -140,8 +140,9 @@ function addToCart(id) {
 
   if (existingItem) {
     // increase count and cost of existing item
-    existingItem.Quantity += quantity;
-    existingItem.Cost += quantity * existingItem.price;
+    // existingItem.Quantity += quantity;
+    // existingItem.Cost += quantity * existingItem.price;
+    alert("Item added already! Please remove previous item to add again!");
   } else {
     let price;
     DishItemsArray.forEach((item) => {
@@ -157,6 +158,7 @@ function addToCart(id) {
             addonItemsCost = item.addonItemsCost;
             console.log(addonItems);
             console.log(cost);
+            cost += addonItemsCost;
           }
           // addedAddonsArray.length = 0;
         });
@@ -173,9 +175,9 @@ function addToCart(id) {
         AddedOrderArray.push(obj);
       }
     });
-    checkedAddonString = "";
-    checkedAddonCost = 0;
-    console.log(AddedOrderArray, "AddedOrderArray");
+    // checkedAddonString = "";
+    // checkedAddonCost = 0;
+    // console.log(AddedOrderArray, "AddedOrderArray");
   }
 
   if (!existingItem) {
@@ -404,16 +406,20 @@ function OrderItems() {
   for (var i = 0; i < AddedOrderArray.length; i++) {
     formData.append("item_id", AddedOrderArray[i].ID);
     formData.append("quantity", AddedOrderArray[i].Quantity);
-    if (
-      AddedOrderArray[i].Addon != null &&
-      AddedOrderArray[i].Addon != undefined &&
-      AddedOrderArray[i].Addon != ""
-    ) {
+    if (AddedOrderArray[i].Addon != "") {
       formData.append("customization", AddedOrderArray[i].Addon);
-    } else {
-      formData.append("customization", "None");
-    }
+    } else formData.append("customization", "None");
+    // if (
+    //   AddedOrderArray[i].Addon != null &&
+    //   AddedOrderArray[i].Addon != undefined &&
+    //   AddedOrderArray[i].Addon != ""
+    // ) {
+    // formData.append("customization", AddedOrderArray[i].Addon);
+    // } else {
+    //   formData.append("customization", "None");
+    // }
   }
+
   formData.append("order_total_cost", cost);
   formData.append("order_status", status);
   formData.append("customization_instructions", instruction);
