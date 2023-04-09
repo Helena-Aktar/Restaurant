@@ -121,12 +121,12 @@ const addedToCart = document.querySelector(".added_items-count");
 var addedToCartCounter = 0;
 
 function addToCart(id) {
-  console.log(
-    "CheckedAddons: " +
-      checkedAddonString +
-      "\nchecked Addon price: $" +
-      checkedAddonCost
-  );
+  // console.log(
+  //   "CheckedAddons: " +
+  //     checkedAddonString +
+  //     "\nchecked Addon price: $" +
+  //     checkedAddonCost
+  // );
   let quantity = servingCounter;
   const serveCountSpan = document.getElementById(`count${id}`);
   console.log(servingCounter);
@@ -140,15 +140,28 @@ function addToCart(id) {
 
   if (existingItem) {
     // increase count and cost of existing item
-    existingItem.Quantity += quantity;
-    existingItem.Cost += quantity * existingItem.price;
+    // existingItem.Quantity += quantity;
+    // existingItem.Cost += quantity * existingItem.price;
+    alert("Item added already! Please remove previous item to add again!");
   } else {
     let price;
     DishItemsArray.forEach((item) => {
       if (item.id == id) {
         price = item.price;
         let cost = price * quantity;
-        if (checkedAddonCost) cost += checkedAddonCost;
+        let addonItems = "",
+          addonItemsCost = 0;
+        // if (checkedAddonCost) cost += checkedAddonCost;
+        addedAddonsArray.forEach((item) => {
+          if (item.addonDishID == id) {
+            addonItems = item.addonItems;
+            addonItemsCost = item.addonItemsCost;
+            console.log(addonItems);
+            console.log(cost);
+            cost += addonItemsCost;
+          }
+          // addedAddonsArray.length = 0;
+        });
         const obj = {
           Name: item.name,
           ImageSRC: item.imagePath,
@@ -156,15 +169,15 @@ function addToCart(id) {
           Quantity: quantity,
           Cost: cost,
           Price: price,
-          Addon: checkedAddonString,
-          AddonCost: checkedAddonCost,
+          Addon: addonItems,
+          AddonCost: addonItemsCost,
         };
         AddedOrderArray.push(obj);
       }
     });
-    checkedAddonString = "";
-    checkedAddonCost = 0;
-    console.log(AddedOrderArray, "AddedOrderArray");
+    // checkedAddonString = "";
+    // checkedAddonCost = 0;
+    // console.log(AddedOrderArray, "AddedOrderArray");
   }
 
   if (!existingItem) {
@@ -268,7 +281,6 @@ function displayCartItems() {
   }
 }
 // add single order
-
 function orderNow() {
   // console.log(
   //   "CheckedAddons: " +
@@ -276,11 +288,12 @@ function orderNow() {
   //     "\nchecked Addon price: $" +
   //     checkedAddonCost
   // );
+
   console.log("helloorder");
   console.log(DishItemsArray);
   let id = event.target.id;
   let itemID = id.split("orderNow")[1];
-  console.log(itemID);
+  console.log(itemID, "itemID");
   let quantity = servingCounter;
   let serveElementID = "count" + itemID;
   console.log(serveElementID);
@@ -302,10 +315,16 @@ function orderNow() {
     }
     // console.log(item);
   });
-  if (checkedAddonString != undefined && checkedAddonCost != undefined) {
-    orderCustomization = checkedAddonString;
-    cost += checkedAddonCost;
-  }
+  // console.log(addedAddonsArray, "iujhfoasdhasfd");
+  addedAddonsArray.forEach((item) => {
+    if (item.addonDishID == itemID) {
+      orderCustomization = item.addonItems;
+      cost += item.addonItemsCost;
+      console.log(orderCustomization);
+      console.log(cost);
+    }
+    addedAddonsArray.length = 0;
+  });
   console.log("order");
   console.log(itemID);
   console.log(quantity);
@@ -325,7 +344,7 @@ function orderNow() {
   formData.append("table_number", tableNumber);
   console.log(formData);
 
-  fetch("http://192.168.2.103:50/api/order/addorder", {
+  fetch("http://192.168.2.102:8095/api/order/addorder", {
     method: "POST",
     body: formData,
   })
@@ -335,8 +354,9 @@ function orderNow() {
       // alert("Order added!");
 
       document.querySelector(".confirm-order-outerbox").style.display = "grid";
-      checkedAddonString = "";
-      checkedAddonCost = 0;
+      // checkedAddonString = "";
+      // checkedAddonCost = 0;
+      servingCounter = 1;
     })
     .catch((err) => console.log(err));
 }
@@ -386,12 +406,20 @@ function OrderItems() {
   for (var i = 0; i < AddedOrderArray.length; i++) {
     formData.append("item_id", AddedOrderArray[i].ID);
     formData.append("quantity", AddedOrderArray[i].Quantity);
-    if (AddedOrderArray[i].addon) {
+    if (AddedOrderArray[i].Addon != "") {
       formData.append("customization", AddedOrderArray[i].Addon);
-    } else {
-      formData.append("customization", "");
-    }
+    } else formData.append("customization", "None");
+    // if (
+    //   AddedOrderArray[i].Addon != null &&
+    //   AddedOrderArray[i].Addon != undefined &&
+    //   AddedOrderArray[i].Addon != ""
+    // ) {
+    // formData.append("customization", AddedOrderArray[i].Addon);
+    // } else {
+    //   formData.append("customization", "None");
+    // }
   }
+
   formData.append("order_total_cost", cost);
   formData.append("order_status", status);
   formData.append("customization_instructions", instruction);
@@ -399,7 +427,7 @@ function OrderItems() {
   formData.append("table_number", tableNumber);
   console.log(formData);
 
-  fetch("http://192.168.2.103:50/api/order/addorder", {
+  fetch("http://192.168.2.102:8095/api/order/addorder", {
     method: "POST",
     body: formData,
   })
@@ -450,7 +478,7 @@ cartBTN.addEventListener("click", () => {
 });
 const OrdersArray = [];
 // Fetchhing Ortders from API
-fetch("http://192.168.2.103:50/api/order/getallorderlist")
+fetch("http://192.168.2.103:8095/api/order/getallorderlist")
   // fetch("/order.json")
   .then((response) => response.json())
   .then((data) => {
@@ -471,7 +499,7 @@ function showOrders() {
 const orderStatusArray = [];
 function fetchOrderStatus() {
   orderStatusArray.length = 0;
-  fetch("http://192.168.2.103:50/api/order/getorderstatus")
+  fetch("http://192.168.2.102:8095/api/order/getorderstatus")
     // fetch("/order.json")
     .then((response) => response.json())
     .then((data) => {
@@ -756,7 +784,7 @@ const SidebarMenuArray = [];
 //   .then((response) => response.json())
 //   .then((data) => {
 // Fetchhing Sidebar items from API
-fetch("http://192.168.2.102:85/GetAllSidebarItems")
+fetch("http://192.168.2.102:8095/GetAllSidebarItems")
   .then((response) => response.json())
   .then((data) => {
     // console.log("All Data");
@@ -1088,7 +1116,7 @@ function displayDishItems() {
       orderNowbtn.innerHTML = "Order Now";
       DishBtnDiv.appendChild(orderNowbtn);
       orderNowbtn.setAttribute("id", "orderNow" + `${DishItemsArray[i].id}`);
-      orderNowbtn.setAttribute("onclick", "orderNow()");
+      orderNowbtn.setAttribute("onclick", `orderNow()`);
       // console.log(orderNowbtn);
       // output
 
@@ -1135,7 +1163,7 @@ function customeAddons(dishID, stringifiedAddons) {
       // console.log(stringifiedAddons[i].name);
       // console.log(stringifiedAddons[i].price);
     }
-    addons.innerHTML += `<button class=" dish-btn mt-2" id="addon_add-btn" onclick="addAddons()">ADD</button>`;
+    addons.innerHTML += `<button class=" dish-btn mt-2" id="addon_add-btn" onclick=addAddons(${dishID})>ADD</button>`;
     addonList.appendChild(addons);
   } else {
     addonList.innerHTML = ` <img class="empty_addon_img" src="/images/empty_addon2.png" alt="">`;
@@ -1147,23 +1175,16 @@ const closeOrderModal = (event) => {
   if (event.target.classList.contains("customize-order")) {
     orderModal.style.display = "none";
   }
-  console.log(
-    "CheckedAddons: " +
-      checkedAddonString +
-      "\nchecked Addon price: $" +
-      checkedAddonCost
-  );
 };
 
 orderModal.addEventListener("click", closeOrderModal);
-var checkedAddonCost;
-var checkedAddonString;
+var addedAddonsArray = [];
 addonAddBTN = document.querySelector("#addon_add-btn");
-function addAddons() {
+function addAddons(dish_id) {
   orderModal.style.display = "none";
   console.log(DishItemsArray[DishItemsArray.length - 1].addonListArray);
-  checkedAddonCost = 0;
-  checkedAddonString = "";
+  var checkedAddonCost = 0;
+  var checkedAddonString = "";
   const checkboxes = document.querySelectorAll(
     'input[type="checkbox"]:checked'
   );
@@ -1181,6 +1202,13 @@ function addAddons() {
       "\nchecked Addon price: $" +
       checkedAddonCost
   );
+  var adddonOBJ = {
+    addonDishID: dish_id,
+    addonItems: checkedAddonString,
+    addonItemsCost: checkedAddonCost,
+  };
+  addedAddonsArray.push(adddonOBJ);
+  console.log(addedAddonsArray, "added adddons");
 }
 
 // // customized order

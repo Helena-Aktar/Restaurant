@@ -11,7 +11,7 @@ const orderData = [];
 const itemData = [];
 const orderDatahis = [];
 const itemDatahis = [];
-fetch("http://192.168.2.102:85/GetAllDishItems")
+fetch("http://192.168.2.102:8095/GetAllDishItems")
   .then((response) => response.json())
   .then((itemdata) => {
     // console.log(itemdata);
@@ -75,7 +75,7 @@ function active(num) {
     ) {
       orderDatahis.length = 0;
       itemDatahis.length = 0;
-      fetch("http://192.168.2.103:50/api/order/getallorderlist")
+      fetch("http://192.168.2.102:8095/api/order/getallorderlist")
         .then((response) => response.json())
         .then((orderdata) => {
           console.log(orderdata, orderdata.length);
@@ -91,7 +91,7 @@ function active(num) {
           // load();
         });
       // console.log(orderdata);
-      fetch("http://192.168.2.102:85/GetAllDishItems")
+      fetch("http://192.168.2.102:8095/GetAllDishItems")
         .then((response) => response.json())
         .then((itemdata) => {
           // console.log(itemdata);
@@ -651,7 +651,7 @@ function helloAddon() {
 // })
 const DishItemsArrayT = [];
 function sellectoption() {
-  fetch("http://192.168.2.102:85/GetAllDishItems")
+  fetch("http://192.168.2.102:8095/GetAllDishItems")
     .then((response) => response.json())
     .then((data) => {
       // console.log(data);
@@ -688,7 +688,7 @@ function onload() {
   // const itemData=[];
 
   // console.log(orderdata);
-  fetch("http://192.168.2.103:50/api/order/getallorderlist")
+  fetch("http://192.168.2.102:8095/api/order/getallorderlist")
     .then((response) => response.json())
     .then((orderdata) => {
       orderDatalength = orderData.length;

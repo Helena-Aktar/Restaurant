@@ -43,7 +43,6 @@ function active(num) {
     buttonMessages.classList.remove("active");
     buttonFoodReady.classList.remove("active");
     foodHistory();
-    
   } else if (num == 3) {
     home.style.display = "none";
     orderHistory.style.display = "none";
@@ -67,40 +66,39 @@ function active(num) {
 }
 function foodReady() {
   var ORP = document.getElementById("order_Ready_parent");
-  if(ORP!=null || ORP!="")
-  {
-    ORP.innerHTML="";
+  if (ORP != null || ORP != "") {
+    ORP.innerHTML = "";
   }
-  fetch("http://192.168.2.103:50/api/order/getallorderlist")
-      .then((response) => response.json())
-      .then((orderdata) => {
-        console.log("food ready started");
+  fetch("http://192.168.2.102:8095/api/order/getallorderlist")
+    .then((response) => response.json())
+    .then((orderdata) => {
+      console.log("food ready started");
 
-        console.log(orderdata);
-        // load();
-        // const a = orderData.length;
-        // console.log(orderdata);
-        console.log(itemData);
-        //     console.log(a);
-         // const a = orderData.length;
-        console.log(orderData);
-        var z = 0;
-        for (var i = orderdata.length - 1; i > 0; i--) {
-          // console.log("hi");
-          for (var j = 0; j < itemData.length; j++) {
-            if (orderdata[i].order_status == "cooking") {
-              // if (orderdata[i].item_id == itemData[j].id) {
-                var imgpath = itemData[j].imagePath;
-                let pathArray = imgpath.split("\\");
-                let newPath = pathArray.slice(2).join("\\");
-                // console.log(imgpath);
-                var p = orderdata[i].order_total_cost / orderdata[i].quantity;
-                var tb = document.getElementById("order_Ready_parent");
-                // tb.innerHTML="";
-                var x = document.createElement("div");
-                x.style.width = "45%";
-                x.style.paddingRight = "25px";
-                x.innerHTML = `
+      console.log(orderdata);
+      // load();
+      // const a = orderData.length;
+      // console.log(orderdata);
+      console.log(itemData);
+      //     console.log(a);
+      // const a = orderData.length;
+      console.log(orderData);
+      var z = 0;
+      for (var i = orderdata.length - 1; i > 0; i--) {
+        // console.log("hi");
+        for (var j = 0; j < itemData.length; j++) {
+          if (orderdata[i].order_status == "cooking") {
+            // if (orderdata[i].item_id == itemData[j].id) {
+            var imgpath = itemData[j].imagePath;
+            let pathArray = imgpath.split("\\");
+            let newPath = pathArray.slice(2).join("\\");
+            // console.log(imgpath);
+            var p = orderdata[i].order_total_cost / orderdata[i].quantity;
+            var tb = document.getElementById("order_Ready_parent");
+            // tb.innerHTML="";
+            var x = document.createElement("div");
+            x.style.width = "45%";
+            x.style.paddingRight = "25px";
+            x.innerHTML = `
                     <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
                     <!-- <div id="order_list" class=""> -->
                       <div class="d-flex justify-content-between">
@@ -138,24 +136,24 @@ function foodReady() {
                     <!-- </div> -->
                   </div>
                   `;
-                console.log(z);
-                z++;
-                // tb.innerText=orderData[i].tablenumber;
-                var img = document.querySelector(".foodItem_photo");
-                // console.log(img);
-                // img.setAttribute("src", newPath);
-                tb.appendChild(x);
-                // var itemOverflow=document.getElementById("overflow");
-                j = j + 100;
-                // console.log("readyoverflow",document.getElementById(`readyoverflow-${z}`));
+            console.log(z);
+            z++;
+            // tb.innerText=orderData[i].tablenumber;
+            var img = document.querySelector(".foodItem_photo");
+            // console.log(img);
+            // img.setAttribute("src", newPath);
+            tb.appendChild(x);
+            // var itemOverflow=document.getElementById("overflow");
+            j = j + 100;
+            // console.log("readyoverflow",document.getElementById(`readyoverflow-${z}`));
 
-              // }
-            }
-            // console.log("hello")
+            // }
           }
+          // console.log("hello")
         }
-        foodreadyOverflow(orderdata, itemData);
-      });
+      }
+      foodreadyOverflow(orderdata, itemData);
+    });
 }
 function foodreadyOverflow(orderData, itemData) {
   console.log("foodreadyOverflow start");
@@ -170,7 +168,6 @@ function foodreadyOverflow(orderData, itemData) {
       // console.log(itemOverflow);
       for (var x = 0; x < orderData[i].item_id.length; x++) {
         for (var j = 0; j < itemData.length; j++) {
-
           if (orderData[i].item_id[x] == itemData[j].id) {
             var itemOverflow = document.getElementById("readyoverflow" + m);
             var imgpath = itemData[j].imagePath;
@@ -204,8 +201,8 @@ function foodreadyOverflow(orderData, itemData) {
           // }
         }
       }
-      console.log("append",itemOverflow);
-      console.log("m",m);
+      console.log("append", itemOverflow);
+      console.log("m", m);
       m++;
       // console.log(itemOverflow);
     }
@@ -213,40 +210,39 @@ function foodreadyOverflow(orderData, itemData) {
 }
 function foodHistory() {
   var OCH = document.getElementById("order_Cards_In_History");
-  if(OCH!=null || OCH!="")
-  {
-    OCH.innerHTML="";
+  if (OCH != null || OCH != "") {
+    OCH.innerHTML = "";
   }
-  fetch("http://192.168.2.103:50/api/order/getallorderlist")
-      .then((response) => response.json())
-      .then((orderdata) => {
-        // console.log("food ready started");
+  fetch("http://192.168.2.102:8095/api/order/getallorderlist")
+    .then((response) => response.json())
+    .then((orderdata) => {
+      // console.log("food ready started");
 
-        console.log(orderdata);
-        // load();
-        // const a = orderData.length;
-        // console.log(orderdata);
-        console.log(itemData);
-        //     console.log(a);
-         // const a = orderData.length;
-        console.log(orderData);
-        var z = 0;
-        for (var i = orderdata.length - 1; i > 0; i--) {
-          // console.log("hi");
-          for (var j = 0; j < itemData.length; j++) {
-            if (orderdata[i].order_status == "ready") {
-              // if (orderdata[i].item_id == itemData[j].id) {
-                var imgpath = itemData[j].imagePath;
-                let pathArray = imgpath.split("\\");
-                let newPath = pathArray.slice(2).join("\\");
-                // console.log(imgpath);
-                var p = orderdata[i].order_total_cost / orderdata[i].quantity;
-                var tb = document.getElementById("order_Cards_In_History");
-                // tb.innerHTML="";
-                var x = document.createElement("div");
-                x.style.width = "45%";
-                x.style.paddingRight = "25px";
-                x.innerHTML = `
+      console.log(orderdata);
+      // load();
+      // const a = orderData.length;
+      // console.log(orderdata);
+      console.log(itemData);
+      //     console.log(a);
+      // const a = orderData.length;
+      console.log(orderData);
+      var z = 0;
+      for (var i = orderdata.length - 1; i > 0; i--) {
+        // console.log("hi");
+        for (var j = 0; j < itemData.length; j++) {
+          if (orderdata[i].order_status == "ready") {
+            // if (orderdata[i].item_id == itemData[j].id) {
+            var imgpath = itemData[j].imagePath;
+            let pathArray = imgpath.split("\\");
+            let newPath = pathArray.slice(2).join("\\");
+            // console.log(imgpath);
+            var p = orderdata[i].order_total_cost / orderdata[i].quantity;
+            var tb = document.getElementById("order_Cards_In_History");
+            // tb.innerHTML="";
+            var x = document.createElement("div");
+            x.style.width = "45%";
+            x.style.paddingRight = "25px";
+            x.innerHTML = `
                     <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
                     <!-- <div id="order_list" class=""> -->
                       <div class="d-flex justify-content-between">
@@ -283,24 +279,24 @@ function foodHistory() {
                     <!-- </div> -->
                   </div>
                   `;
-                console.log(z);
-                z++;
-                // tb.innerText=orderData[i].tablenumber;
-                var img = document.querySelector(".foodItem_photo");
-                // console.log(img);
-                // img.setAttribute("src", newPath);
-                tb.appendChild(x);
-                // var itemOverflow=document.getElementById("overflow");
-                j = j + 100;
-                // console.log("readyoverflow",document.getElementById(`readyoverflow-${z}`));
+            console.log(z);
+            z++;
+            // tb.innerText=orderData[i].tablenumber;
+            var img = document.querySelector(".foodItem_photo");
+            // console.log(img);
+            // img.setAttribute("src", newPath);
+            tb.appendChild(x);
+            // var itemOverflow=document.getElementById("overflow");
+            j = j + 100;
+            // console.log("readyoverflow",document.getElementById(`readyoverflow-${z}`));
 
-              // }
-            }
-            // console.log("hello")
+            // }
           }
+          // console.log("hello")
         }
-        foodhistoryOverflow(orderdata, itemData);
-      });
+      }
+      foodhistoryOverflow(orderdata, itemData);
+    });
 }
 function foodhistoryOverflow(orderData, itemData) {
   console.log("foodreadyOverflow start");
@@ -349,8 +345,8 @@ function foodhistoryOverflow(orderData, itemData) {
           // }
         }
       }
-      console.log("append",itemOverflow);
-      console.log("m",m);
+      console.log("append", itemOverflow);
+      console.log("m", m);
       m++;
       // console.log(itemOverflow);
     }
@@ -374,15 +370,15 @@ function orderselectionone(id, status) {
     },
     body: JSON.stringify(obj),
   })
-  .then((response) => response.json())
-  .then((data) => {
-    console.log("success",data);
-    //window.location.href="http://127.0.0.1:5001/Admin/viewOrders.html";
-  })
-  .catch((err) => {
-    console.log("error:",err);
-    //window.location.href="http://127.0.0.1:5001/Admin/viewOrders.html";
-  });
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("success", data);
+      //window.location.href="http://127.0.0.1:5001/Admin/viewOrders.html";
+    })
+    .catch((err) => {
+      console.log("error:", err);
+      //window.location.href="http://127.0.0.1:5001/Admin/viewOrders.html";
+    });
 }
 function orderselectiontwo(num) {
   const parentOrderList = document.getElementById("order_list_two");
@@ -411,70 +407,67 @@ function orderselectiontwo(num) {
 
 //get order informations url => http://192.168.2.103:50/api/order/getallorderlist
 
-function onload()
-{
-    // const alllist=[];
-    // const orderData=[];
-    // const itemData=[];
-    fetch("http://192.168.2.103:50/api/order/getallorderlist")
-      .then((response) => response.json())
-      .then((orderdata) => {
-          orderDatalength=orderData.length;
-          orderdata.forEach((item) => {
-            const obj = { ...item }; // spread operator (...)
-            // pushing objects to array
-            orderData.push(obj);
-            // alllist.push(obj);
-            // console.log(orderData.length);
-          });
-        // console.log(alllist);
-        // load();
+function onload() {
+  // const alllist=[];
+  // const orderData=[];
+  // const itemData=[];
+  fetch("http://192.168.2.102:8095/api/order/getallorderlist")
+    .then((response) => response.json())
+    .then((orderdata) => {
+      orderDatalength = orderData.length;
+      orderdata.forEach((item) => {
+        const obj = { ...item }; // spread operator (...)
+        // pushing objects to array
+        orderData.push(obj);
+        // alllist.push(obj);
+        // console.log(orderData.length);
       });
-    // console.log(orderdata);
-    fetch("http://192.168.2.102:85/GetAllDishItems")
-      .then((response) => response.json())
-      .then((itemdata) => {
-        // console.log(itemdata);
-          itemdata.forEach((item) => {
-            const obj = { ...item }; // spread operator (...)
-            // pushing objects to array
-            itemData.push(obj);
-            // alllist.push(obj);
-          });
-          load();
-          // history();
-        // console.log(alllist);
+      // console.log(alllist);
+      // load();
+    });
+  // console.log(orderdata);
+  fetch("http://192.168.2.102:8095/GetAllDishItems")
+    .then((response) => response.json())
+    .then((itemdata) => {
+      // console.log(itemdata);
+      itemdata.forEach((item) => {
+        const obj = { ...item }; // spread operator (...)
+        // pushing objects to array
+        itemData.push(obj);
+        // alllist.push(obj);
       });
+      load();
+      // history();
+      // console.log(alllist);
+    });
 }
 onload();
 
-
 function load() {
   var PO = document.getElementById("parentOrder");
-  if(PO!=null || PO!="")
-  {
-    PO.innerHTML="";
+  if (PO != null || PO != "") {
+    PO.innerHTML = "";
   }
-   // const a = orderData.length;
-   console.log(orderData);
-   console.log(itemData);
-   var z = 0;
-   for (var i = orderData.length - 1; i > 0; i--) {
-     // console.log("hi");
-     for (var j = 0; j < itemData.length; j++) {
-       if (orderData[i].order_status == "conformed") {
-         if (orderData[i].item_id == itemData[j].id) {
-           var imgpath = itemData[j].imagePath;
-           let pathArray = imgpath.split("\\");
-           let newPath = pathArray.slice(2).join("\\");
-           // console.log(imgpath);
-           var p = orderData[i].order_total_cost / orderData[i].quantity;
-           var tb = document.getElementById("parentOrder");
-           // tb.innerHTML="";
-           var x = document.createElement("div");
-           x.style.width = "45%";
-           x.style.paddingRight = "25px";
-           x.innerHTML = `
+  // const a = orderData.length;
+  console.log(orderData);
+  console.log(itemData);
+  var z = 0;
+  for (var i = orderData.length - 1; i > 0; i--) {
+    // console.log("hi");
+    for (var j = 0; j < itemData.length; j++) {
+      if (orderData[i].order_status == "conformed") {
+        if (orderData[i].item_id == itemData[j].id) {
+          var imgpath = itemData[j].imagePath;
+          let pathArray = imgpath.split("\\");
+          let newPath = pathArray.slice(2).join("\\");
+          // console.log(imgpath);
+          var p = orderData[i].order_total_cost / orderData[i].quantity;
+          var tb = document.getElementById("parentOrder");
+          // tb.innerHTML="";
+          var x = document.createElement("div");
+          x.style.width = "45%";
+          x.style.paddingRight = "25px";
+          x.innerHTML = `
                <div id="order_list_one" class="p-3 m-3 bg-white w-100 rounded-3">
                <!-- <div id="order_list" class=""> -->
                  <div class="d-flex justify-content-between">
@@ -512,50 +505,50 @@ function load() {
                <!-- </div> -->
              </div>
              `;
-           console.log(z);
-           z++;
-           // tb.innerText=orderData[i].tablenumber;
-           var img = document.querySelector(".foodItem_photo");
-           // console.log(img);
-           // img.setAttribute("src", newPath);
-           tb.appendChild(x);
-           // var itemOverflow=document.getElementById("overflow");
-           j = j + 8;
-         }
-       }
-       // console.log("hello")
-     }
-   }
-   forOverflow(orderData, itemData);
- }
- function forOverflow(orderData, itemData) {
-   console.log(orderData);
-   console.log(itemData);
-   var m = 0;
-   for (var i = orderData.length - 1; i > 0; i--) {
-     // debugger
-     if (orderData[i].order_status == "conformed") {
-       var p = orderData[i].order_total_cost / orderData[i].quantity;
-       // console.log(itemOverflow);
-       for (var x = 0; x < orderData[i].item_id.length; x++) {
-         for (var j = 0; j < itemData.length; j++) {
-           var itemOverflow = document.getElementById("overflow" + m);
-           // if (orderData[i].item_id == itemData[j].id)
-           // {
-           //   // var itemOverflow=document.getElementById("overflow"+m);
-           //   // console.log("tu",m);
-           //   m++;
-           // }
-           if (orderData[i].item_id[x] == itemData[j].id) {
-             // var itemOverflow=document.getElementById("overflow"+m);
-             // console.log("tu",m);
-             // m++;
-             // console.log(itemOverflow);
-             var imgpath = itemData[j].imagePath;
-             let pathArray = imgpath.split("\\");
-             let newPath = pathArray.slice(2).join("\\");
-             var newdiv = document.createElement("div");
-             newdiv.innerHTML = `
+          console.log(z);
+          z++;
+          // tb.innerText=orderData[i].tablenumber;
+          var img = document.querySelector(".foodItem_photo");
+          // console.log(img);
+          // img.setAttribute("src", newPath);
+          tb.appendChild(x);
+          // var itemOverflow=document.getElementById("overflow");
+          j = j + 8;
+        }
+      }
+      // console.log("hello")
+    }
+  }
+  forOverflow(orderData, itemData);
+}
+function forOverflow(orderData, itemData) {
+  console.log(orderData);
+  console.log(itemData);
+  var m = 0;
+  for (var i = orderData.length - 1; i > 0; i--) {
+    // debugger
+    if (orderData[i].order_status == "conformed") {
+      var p = orderData[i].order_total_cost / orderData[i].quantity;
+      // console.log(itemOverflow);
+      for (var x = 0; x < orderData[i].item_id.length; x++) {
+        for (var j = 0; j < itemData.length; j++) {
+          var itemOverflow = document.getElementById("overflow" + m);
+          // if (orderData[i].item_id == itemData[j].id)
+          // {
+          //   // var itemOverflow=document.getElementById("overflow"+m);
+          //   // console.log("tu",m);
+          //   m++;
+          // }
+          if (orderData[i].item_id[x] == itemData[j].id) {
+            // var itemOverflow=document.getElementById("overflow"+m);
+            // console.log("tu",m);
+            // m++;
+            // console.log(itemOverflow);
+            var imgpath = itemData[j].imagePath;
+            let pathArray = imgpath.split("\\");
+            let newPath = pathArray.slice(2).join("\\");
+            var newdiv = document.createElement("div");
+            newdiv.innerHTML = `
                        <div class="d-flex justify-content-around mb-4">
                        <img id=img5
                          class="foodItem_photo me-5"
@@ -572,22 +565,21 @@ function load() {
                        </div>
                      </div>
                    `;
-             // var ll= orderData[i].item_id[x];
+            // var ll= orderData[i].item_id[x];
             // if(itemOverflow!=null){
-              itemOverflow.appendChild(newdiv);
+            itemOverflow.appendChild(newdiv);
             // }
             j = j + 100;
-            }
- 
-           // }
-         }
-       }
-       console.log("m",m);
-       if(m<18)
-       {
-        m++;
-       }
-       // console.log(itemOverflow);
+          }
+
+          // }
+        }
       }
-   }
- }
+      console.log("m", m);
+      if (m < 18) {
+        m++;
+      }
+      // console.log(itemOverflow);
+    }
+  }
+}
