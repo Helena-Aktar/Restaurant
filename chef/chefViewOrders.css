@@ -43,7 +43,7 @@ body {
   grid-column: 3 / -1;
   display: none;
 }
-#core_container_Add-food-item {
+#core_container_food_ready {
   background: #bebec2;
   grid-column: 3 / -1;
   display: none;
@@ -52,7 +52,7 @@ body {
   align-items: center;
   text-align: center;
   border: 2px solid var(--color-primary);
-  width: 90%;
+  width: 60%;
   height: 85%;
   padding: 10px 25px 30px 25px;
   border-radius: 10px;
@@ -92,8 +92,8 @@ body {
 #overflow {
   overflow: scroll;
   height: 335px;
-  scrollbar-width: none; /* hides scrollbar on Firefox */
-  -ms-overflow-style: none; /*hides scrollbar on IE10+  */
+  scrollbar-width: none;   /* hides scrollbar on Firefox */
+  -ms-overflow-style: none;   /* hides scrollbar on IE10+  */
 }
 /* hides scrollbar on Chrome, Safari, and Opera */
 #overflow::-webkit-scrollbar {
@@ -140,12 +140,5 @@ body {
 #dis{
   width: 100%;
   overflow: hidden;
-}
-#addinputfield{
-  font-size: 30px;
-  padding: 0px 10px;
-  position: absolute;
-  right: 7%;
-  top: 5%;
 }
 

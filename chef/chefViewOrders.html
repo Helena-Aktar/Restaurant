@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>View Order Page</title>
+    <title>Chef Order Page</title>
     <!-- ===== Fontawesome CDN ======= -->
     <link
       rel="stylesheet"
@@ -14,7 +14,7 @@
     <!-- ===== Stylesheet ====== -->
     <link rel="stylesheet" href="/css/bootstrap-copy.css" />
     <!-- <link rel="stylesheet" href="/css/base.css" /> -->
-    <link rel="stylesheet" href="/Admin/viewOrders.css" />
+    <link rel="stylesheet" href="/chef/chefViewOrders.css" />
     <!-- chart.js cdn -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
@@ -73,20 +73,14 @@
             <p id="home" onclick="active(1)" class="Button p-4 active">
               <i class="fa-solid fa-house me-4"></i>Home
             </p>
-            <p id="Order_History" onclick="active(2)" class="Button p-4">
-              <i class="fa-solid fa-clock-rotate-left me-4"></i>Order History
+            <p id="food_ready" onclick="active(3)" class="Button p-4">
+              <i class="fa-sharp fa-solid fa-cart-plus me-4"></i>Food Ready 
             </p>
-            <p id="Add_food_item" onclick="active(3)" class="Button p-4">
-              <i class="fa-sharp fa-solid fa-cart-plus me-4"></i>Add Food Item
+            <p id="Order_History" onclick="active(2)" class="Button p-4">
+              <i class="fa-solid fa-clock-rotate-left me-4"></i>Order Completed
             </p>
             <p id="Messages" onclick="active(4)" class="Button p-4">
               <i class="fa-regular fa-envelope me-4"></i>Messages
-            </p>
-            <p id="Statistics" onclick="active(5)" class="Button p-4">
-              <i class="fa-solid fa-chart-column me-4"></i>Statistics
-            </p>
-            <p id="Setting" onclick="active(6)" class="Button p-4">
-              <i class="fa-solid fa-gear me-4"></i>Setting
             </p>
           </div>
         </section>
@@ -94,15 +88,12 @@
       <div id="core_container_home" class="">
         <section id="order_lists">
           <div>
-            <h1 class="ms-5 mt-4 rounded-3 ps-4 mb-2">Order List</h1>
+            <h1 class="ms-5 mt-4 rounded-3 ps-4 mb-2">Conformed Order List</h1>
             <!-- <div
               id="first_row_Cards_In_home"
               class="d-flex justify-content-around text-center mb-4"
             > -->
-            <div
-              id="parentOrder"
-              class="d-flex flex-wrap justify-content-start"
-            >
+            <div id="parentOrder" class="d-flex flex-wrap justify-content-start">
               <!-- <div id="order_list_one" class="p-3 m-3 bg-white rounded-3">
                   <div class="d-flex justify-content-between">
                     <div class="text-start m-2">
@@ -525,17 +516,15 @@
           </div>
         </section>
       </div>
+      <div id="core_container_food_ready" class=" ">
+        <h1 class="ms-5 mt-4 rounded-3 ps-4 mb-2">Cooking Order List</h1>
+        <div id="order_Ready_parent" class="d-flex flex-wrap justify-content-start">
+        </div>
+      </div>
       <div id="core_container_Order-History" class="">
+        <h1 class="ms-5 mt-4 rounded-3 ps-4 mb-2">ready Order List</h1>
         <section id="order_lists">
           <div>
-            <div id="allbutton" class="bg-primary p-4">
-              <button id="all" class="btn">All</button>
-              <button id="complete" class="btn">Conformed</button>
-              <button id="cooking" class="btn">Cooking Started</button>
-              <button id="ready" class="btn">Food Ready</button>
-              <button id="delivered" class="btn">Delivered</button>
-              <button id="rejected" class="btn">rejected</button>
-            </div>
             <div
               id="order_Cards_In_History"
               class="d-flex flex-wrap justify-content-start"
@@ -587,107 +576,6 @@
         </section>
       </div>
       <!-- working -->
-      <div id="core_container_Add-food-item" class=" ">
-        <div class="align-items-center">
-          <div id="form_card" class="">
-            <div id="itemAddons" class="d-flex justify-content-between">
-              <div class="me-2 p-2 border border-success rounded-2">
-                <h1>Add New Item</h1>
-                <div class="d-flex">
-                  <label class="mt-2 ms-3 me-3"> Menu option:</label>
-                  <select
-                    class="form-control w-75"
-                    id="parentMenuID"
-                    name="ParentMenuID"
-                  >
-                    <!-- <option value="1">tushar</option>
-                    <option value="2">reya</option> --></select
-                  ><br />
-                </div>
-                <div class="d-flex justify-content-center mt-4 mb-4">
-                  <input
-                    id="Name"
-                    name="Name"
-                    class="form-control me-4"
-                    type="text"
-                    placeholder="Item Name"
-                  />
-                  <input
-                    id="Price"
-                    class="form-control"
-                    name="Price"
-                    type="number"
-                    placeholder="Item price"
-                  /><br />
-                </div>
-                <div>
-                  <input
-                    class="form-control w-100"
-                    name="Image"
-                    id="ImageFile"
-                    type="file"
-                    placeholder="Item Image"
-                    accept="image/png, image/jpeg"
-                  /><br />
-                  <textarea
-                    id="Description"
-                    class="form-control mb-4 w-100"
-                    type="text"
-                    name="Description"
-                    placeholder="Item description"
-                  ></textarea>
-                </div>
-              </div>
-              <div
-                id="addonItems"
-                class="ms-2 p-2 border border-success rounded-2"
-              >
-                <h1>Item Addons</h1>
-                <div id="addinputfield" class="btn btn-primary">
-                  <i class="fa-thin fa-plus"></i>
-                </div>
-                <div id="inputField">
-                  <div
-                    id=""
-                    class="d-flex justify-content-center mt-3 mb-3 border-top pt-2"
-                  >
-                    <input
-                      id="addonName0"
-                      name="Name"
-                      class="form-control me-3"
-                      type="text"
-                      placeholder="Name"
-                    />
-                    <input
-                      id="addonPrice0"
-                      class="form-control"
-                      name="Price"
-                      type="number"
-                      placeholder="price"
-                    />
-                    <div
-                      id="deleteInputFieldsForAddons"
-                      class="btn btn-danger ms-3"
-                    >
-                      <i class="fa-solid fa-trash-can"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button class="mt-3" id="btn-submit" onclick="additemWithAddons()">
-              Submit
-            </button>
-          </div>
-          <button id="btn-submit" onclick="addItem()">show Dish Items</button>
-          <button id="btn-submit" onclick="helloAddon()">
-            show Addon Items
-          </button>
-          <!-- <button id="btn-submit" onclick="addDishItems()">
-            ADD Dish Items
-          </button> -->
-        </div>
-      </div>
       <!--  -->
       <div id="core_container_Messages" class="">
         <div class="row ms-3 mt-3">
@@ -1054,28 +942,12 @@
           </div>
         </div>
       </div>
-      <div id="core_container_Statistics" class="">
-        <div>
-          <canvas
-            id="myChart"
-            style="
-              width: 100%;
-              max-width: 900px;
-              max-height: 550px;
-              position: absolute;
-              top: 5%;
-              left: 25%;
-            "
-          ></canvas>
-        </div>
-      </div>
-      <div id="core_container_Setting" class="">Setting</div>
       <div id="footer_container" class="text-center">footer</div>
     </div>
     <!-- ========= Scripts =========== -->
     <script src="/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.js"></script>
     <script src="/bootstrap-5.3.0-alpha1-dist/js/bootstrap.js"></script>
-    <script src="/Admin/viewOrders.js"></script>
+    <script src="/chef/chefViewOrders.js"></script>
     <!-- <script src="/Admin/RViewOrder.Js"></script> -->
   </body>
 </html>
